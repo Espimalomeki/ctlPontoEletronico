@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -36,9 +36,9 @@
 	<form class="form-signin" action="index.html">
 		<img class="mb-4" src="resources/espimalomeki.png" alt="" width="72" height="72">
 		<h1 class="h3 mb-3 font-weight-normal">Portal Espimalomeki</h1>
-		<label for="inputMatricula" class="sr-only">Número de
-			Matrícula</label> <input type="text" id="inputMatricula" class="form-control"
-			placeholder="Número de Matrícula" required autofocus> <label
+		<label for="inputMatricula" class="sr-only">NÃºmero de
+			MatrÃ­cula</label> <input type="text" id="inputMatricula" class="form-control"
+			placeholder="NÃºmero de MatrÃ­cula" required autofocus> <label
 			for="inputSenha" class="sr-only">Senha</label> <input type="password"
 			id="inputSenha" class="form-control" placeholder="Senha" required>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Fazer
