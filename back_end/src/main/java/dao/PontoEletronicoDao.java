@@ -1,5 +1,6 @@
 package dao;
 
+import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,8 +9,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
+import model.LoginModel;
 import model.PontoEletronicoModel;
+import sun.awt.KeyboardFocusManagerPeerImpl;
 
 public class PontoEletronicoDao {
     
@@ -18,11 +22,6 @@ public class PontoEletronicoDao {
     
     public static String sei() {
         String sql = "SELECT * FROM usuario";
-<<<<<<< HEAD
-=======
-        
-        
->>>>>>> b974c85a35554452c056be61c94ea1ab8fc77e28
         ArrayList lista = new ArrayList();
         try {            
             Connection conn = Conexao.getConexao();
@@ -43,7 +42,10 @@ public class PontoEletronicoDao {
     }
     
     public ArrayList pontoDeHoje(){
-        int numM = 20860269;
+        LoginModel login = new LoginModel();
+        
+        int numM = login.getNumMatricula();
+        
         Date dNow = new Date( );
         Connection con = Conexao.getConexao();
         //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
@@ -90,7 +92,9 @@ public class PontoEletronicoDao {
     }
     
     public ArrayList listaPontos() {
-        int numM = 20860269;
+ 
+        LoginModel login = new LoginModel();
+        int numM = login.getNumMatricula();
         Date dNow = new Date( );
         Connection con = Conexao.getConexao();
         //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
@@ -140,7 +144,8 @@ public class PontoEletronicoDao {
         String resp = "";
         
         try {
-            int numM = 20860269;
+            LoginModel login = new LoginModel();
+            int numM = login.getNumMatricula();
             Date dNow = new Date( );
             //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
             SimpleDateFormat dataAtual = new SimpleDateFormat ("yyyy/MM/dd");

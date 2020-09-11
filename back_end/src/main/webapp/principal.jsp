@@ -72,7 +72,7 @@
         <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
           <div class="d-flex justify-content-between align-items-center w-100">
             <strong class="text-gray-dark">Ponto Eletrônico</strong>
-            <a href="#">Consultar</a>
+            <a href="pontoEletronico.jsp">Consultar</a>
           </div>
           <span class="d-block">Consulte o Ponto Eletrônico dos funcionários de seu departamento, você também pode realizar ajustes de batidas incorretas.</span>
         </div>

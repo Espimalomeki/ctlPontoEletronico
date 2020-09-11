@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Ponto EletrÃ´nico - Portal Espimalomeki</title>
+        <title>Ponto Eletrônico - Portal Espimalomeki</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
 
@@ -44,7 +44,9 @@
         <link href="offcanvas.css" rel="stylesheet">
     </head>
     <body class="bg-light">
-        <header id="navbar"></header>
+        <header id="navbar">
+            <jsp:include page="navbar.jsp"/>
+        </header>
 
         <main role="main" class="container">
 
@@ -55,7 +57,7 @@
                         <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm8-7A8 8 0 110 8a8 8 0 0116 0z" clip-rule="evenodd"/>
                         <path fill-rule="evenodd" d="M7.5 3a.5.5 0 01.5.5v5.21l3.248 1.856a.5.5 0 01-.496.868l-3.5-2A.5.5 0 017 9V3.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
                         </svg>
-                        Ponto EletrÃ´nico
+                        Ponto Eletrônico
                     </h4>
                 </div>
             </div>
@@ -66,10 +68,10 @@
                         <div class="card-body">
                             <form action="PontoEletronicoServlet" method="POST" name="fomulario"> 
                                 <h5 class="card-title">Registrar Ponto</h5>
-                                <p class="card-text">Registre suas batidas de ponto diÃ¡rias aqui.</p>
+                                <p class="card-text">Registre suas batidas de ponto diárias aqui.</p>
                                 <div class="form-group form-check">
                                     <input type="checkbox" name="homeOffice" value="true" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Estï¿½ em Homeoffice?</label>
+                                    <label class="form-check-label" for="exampleCheck1">Está em Homeoffice?</label>
                                 </div>
 
                                 <input type="submit" class="btn btn-primary" value="registraPonto"> 
@@ -87,13 +89,14 @@
                             
                             <% 
                                 PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
-                                ArrayList<PontoEletronicoModel> ponto = ptEletronico.pontoDeHoje();        
-                                for(int i=0; i < ptEletronico.pontoDeHoje().size(); i++){
+                                ArrayList<PontoEletronicoModel> ponto = ptEletronico.pontoDeHoje();   
+                                int ptHoje = ptEletronico.pontoDeHoje().size();
+                                for(int i=0; i < ptHoje; i++){
                                     %>
                                     <p class="card-text">Entrada: <%= ponto.get(i).getHoraEntrada()%> </p>
-                                    <p class="card-text">Saï¿½ï¿½da para Almoï¿½o: <%= ponto.get(i).getHoraInicioIntervalo()%></p>
-                                    <p class="card-text">Volta do Almoï¿½o: <%= ponto.get(i).getHoraFimIntervalo()%></p>
-                                    <p class="card-text">Saï¿½ï¿½da: <%= ponto.get(i).getHoraSaida()%></p>
+                                    <p class="card-text">Saí­da para Almoço: <%= ponto.get(i).getHoraInicioIntervalo()%></p>
+                                    <p class="card-text">Volta do Almoço: <%= ponto.get(i).getHoraFimIntervalo()%></p>
+                                    <p class="card-text">Saí­da: <%= ponto.get(i).getHoraSaida()%></p>
                             <%         
                                 }
                             %>
@@ -113,7 +116,7 @@
 
             <div class="d-flex align-items-center p-3 my-3 bg-light rounded">
                 <div class="lh-100">
-                    <h4 class="mb-0 lh-100">Espelho Ponto Eletrï¿½nico</h4>
+                    <h4 class="mb-0 lh-100">Espelho Ponto Eletrônico</h4>
                 </div>
             </div>
 
@@ -123,9 +126,9 @@
                         <tr>
                             <th>Data</th>
                             <th>Entrada</th>
-                            <th>Saida Almoï¿½o</th>
-                            <th>Entrada Almoï¿½o</th>
-                            <th>Saï¿½ï¿½da</th>
+                            <th>Saida Almoço</th>
+                            <th>Entrada Almoço</th>
+                            <th>Saí­da</th>
                             <th>Homeoffice</th>
                             <th>Motivo de Ajuste</th>
                         </tr>
@@ -134,7 +137,8 @@
                         <% 
                             //PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
                             ArrayList<PontoEletronicoModel> listaArray = ptEletronico.listaPontos();        
-                            for(int i=0; i < ptEletronico.listaPontos().size(); i++){
+                            int tmListaPt = ptEletronico.listaPontos().size();
+                            for(int i=0; i < tmListaPt; i++){
                                 %>
                                 <tr>
                                     <td><%= listaArray.get(i).getNumMatricula() %></td>

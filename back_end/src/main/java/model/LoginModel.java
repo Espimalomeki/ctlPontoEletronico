@@ -2,33 +2,52 @@ package model;
 
 public class LoginModel {
     
-    private int numMatricula;
-    private String senha;
-    private String permissao;
+    private static int numMatricula;
+    private static String senha;
+    private static String permissao;
 
-    public int getNumMatricula() {
+    /**
+     * @return the numMatricula
+     */
+    public static int getNumMatricula() {
         return numMatricula;
     }
 
-    public void setNumMatricula(int numMatricula) {
-        this.numMatricula = numMatricula;
+    /**
+     * @param aNumMatricula the numMatricula to set
+     */
+    public static void setNumMatricula(int aNumMatricula) {
+        numMatricula = aNumMatricula;
     }
 
-    public String getSenha() {
+    /**
+     * @return the senha
+     */
+    public static String getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    /**
+     * @param aSenha the senha to set
+     */
+    public static void setSenha(String aSenha) {
+        senha = aSenha;
     }
 
-    public String getPermissao() {
+    /**
+     * @return the permissao
+     */
+    public static String getPermissao() {
         return permissao;
     }
 
-    public void setPermissao(String permissao) {
-        this.permissao = permissao;
+    /**
+     * @param aPermissao the permissao to set
+     */
+    public static void setPermissao(String aPermissao) {
+        permissao = aPermissao;
     }
+
     
     
     

@@ -31,10 +31,10 @@
 	        </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="alocacaoDeHoras.html">Alocação de Horas </a>
+            <a class="nav-link" href="#">Alocação de Horas </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="projetos.html">Projetos</a>
+            <a class="nav-link" href="#">Projetos</a>
           </li> 
           <c:if test = "${sessionScope.perfil != 'RH'}">
             <li class="nav-item">
@@ -47,15 +47,15 @@
             </li>
           </c:if>
           <li class="nav-item dropdown">
-          	<a class="nav-link" href="eventosCalendario.html">Calendário</a>
+          	<a class="nav-link" href="#">Calendário</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="perfilProfissional.html">Perfil Profissional </a>
+            <a class="nav-link" href="#">Perfil Profissional </a>
           </li>
           
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <a class="nav-link" href="login.html" aria-haspopup="true" aria-expanded="false">Sair</a>
+            <a class="nav-link" href="index.jsp" aria-haspopup="true" aria-expanded="false">Sair</a>
         </form>
       </div>
     </nav>

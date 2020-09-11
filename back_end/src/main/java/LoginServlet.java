@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
                 if (loginDao.validate(login)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("perfil", login.getPermissao());
+                    session.setAttribute("matricula", login.getNumMatricula());
                     response.sendRedirect("principal.jsp");
                     
                 } else {
