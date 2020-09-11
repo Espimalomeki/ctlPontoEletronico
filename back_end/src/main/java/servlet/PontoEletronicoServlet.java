@@ -33,10 +33,15 @@ public class PontoEletronicoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+<<<<<<< HEAD
+=======
+        boolean homeOffice = Boolean.parseBoolean(request.getParameter("homeOffice"));
+>>>>>>> b974c85a35554452c056be61c94ea1ab8fc77e28
         try {
             PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
             
             /* TODO output your page here. You may use following sample code. */
+<<<<<<< HEAD
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -47,6 +52,11 @@ public class PontoEletronicoServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             
+=======
+           
+            
+            ptEletronico.inserePonto(homeOffice);
+>>>>>>> b974c85a35554452c056be61c94ea1ab8fc77e28
             
             response.sendRedirect(request.getContextPath() + "/pontoEletronico.jsp");
             

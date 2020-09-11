@@ -18,6 +18,11 @@ public class PontoEletronicoDao {
     
     public static String sei() {
         String sql = "SELECT * FROM usuario";
+<<<<<<< HEAD
+=======
+        
+        
+>>>>>>> b974c85a35554452c056be61c94ea1ab8fc77e28
         ArrayList lista = new ArrayList();
         try {            
             Connection conn = Conexao.getConexao();
@@ -37,7 +42,101 @@ public class PontoEletronicoDao {
         
     }
     
-    public String inserePonto(){
+    public ArrayList pontoDeHoje(){
+        int numM = 20860269;
+        Date dNow = new Date( );
+        Connection con = Conexao.getConexao();
+        //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
+        SimpleDateFormat dataAtual = new SimpleDateFormat ("yyyy/MM/dd");
+        SimpleDateFormat hrInicial = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss");
+        
+        
+        //ResultSet resul = selectPs.executeQuery();
+        
+        ArrayList lista = new ArrayList();
+        try {            
+            Connection conn = Conexao.getConexao();
+            
+            String sql = "SELECT * FROM pontoEletronico where numMatricula = ? and dataDia = ?";
+            PreparedStatement selectPs = con.prepareStatement(sql);
+            selectPs.setString(2, dataAtual.format(dNow));
+            selectPs.setInt(1, numM);           
+            ResultSet rs = selectPs.executeQuery();
+            
+            //PreparedStatement ps = conn.prepareStatement(sql);
+            
+            while(rs.next()){
+                PontoEletronicoModel listaPontos = new PontoEletronicoModel();
+                listaPontos.setNumMatricula(rs.getInt("numMatricula"));
+                listaPontos.setDataDia(rs.getString("dataDia"));
+                listaPontos.setHoraEntrada(rs.getString("horaEntrada"));
+                listaPontos.setHoraSaida(rs.getString("horaSaida"));
+                listaPontos.setHoraInicioIntervalo(rs.getString("horaInicioIntervalo"));
+                listaPontos.setHoraFimIntervalo(rs.getString("horaFimIntervalo"));
+                listaPontos.setMotivoAjuste(rs.getString("motivoAjuste"));
+                listaPontos.setHomeOffice(rs.getString("homeOffice"));
+                lista.add(listaPontos);
+            }
+            
+            rs.close();
+            conn.close();
+            
+            return lista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+        
+    }
+    
+    public ArrayList listaPontos() {
+        int numM = 20860269;
+        Date dNow = new Date( );
+        Connection con = Conexao.getConexao();
+        //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
+        SimpleDateFormat dataAtual = new SimpleDateFormat ("yyyy/MM/dd");
+        SimpleDateFormat hrInicial = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss");
+        
+        
+        //ResultSet resul = selectPs.executeQuery();
+        
+        ArrayList lista = new ArrayList();
+        try {            
+            Connection conn = Conexao.getConexao();
+            
+            String sql = "SELECT * FROM pontoEletronico where numMatricula = ?";
+            PreparedStatement selectPs = con.prepareStatement(sql);
+            //selectPs.setString(1, dataAtua0l.format(dNow));
+            selectPs.setInt(1, numM);           
+            ResultSet rs = selectPs.executeQuery();
+            
+            //PreparedStatement ps = conn.prepareStatement(sql);
+            
+            while(rs.next()){
+                PontoEletronicoModel listaPontos = new PontoEletronicoModel();
+                listaPontos.setNumMatricula(rs.getInt("numMatricula"));
+                listaPontos.setDataDia(rs.getString("dataDia"));
+                listaPontos.setHoraEntrada(rs.getString("horaEntrada"));
+                listaPontos.setHoraSaida(rs.getString("horaSaida"));
+                listaPontos.setHoraInicioIntervalo(rs.getString("horaInicioIntervalo"));
+                listaPontos.setHoraFimIntervalo(rs.getString("horaFimIntervalo"));
+                listaPontos.setMotivoAjuste(rs.getString("motivoAjuste"));
+                listaPontos.setHomeOffice(rs.getString("homeOffice"));
+                lista.add(listaPontos);
+            }
+            
+            rs.close();
+            conn.close();
+            
+            return lista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+        
+    }
+    
+    public String inserePonto(boolean homeOffice){
         String resp = "";
         
         try {
@@ -75,6 +174,9 @@ public class PontoEletronicoDao {
                 }else if(hrSaida == null){
                     updateSql = "UPDATE pontoEletronico SET  horaSaida = '" + hrInicial.format(dNow) + "' WHERE dataDia = '"+dataAtual.format(dNow)+"' and numMatricula = "+numM;  
                     System.out.println(updateSql);
+                }else{
+                    conecta.close();
+                    return null;
                 }
                 
                   PreparedStatement ts = conecta.prepareStatement(updateSql);
@@ -93,6 +195,10 @@ public class PontoEletronicoDao {
 //                }
                 
             }else{
+                if(!homeOffice){
+                    homeOffice = false;
+                }
+                
                 String sql = "INSERT INTO pontoEletronico(dataDia, numMatricula, horaEntrada, horaSaida, horaInicioIntervalo, horaFimIntervalo, motivoAjuste, homeOffice)";
                 sql += "VALUES (?, ?, ?, ?, ?, ? , ?, ?)";
 
@@ -104,7 +210,7 @@ public class PontoEletronicoDao {
                 ps.setString(5, null);
                 ps.setString(6, null);
                 ps.setString(7, null);
-                ps.setBoolean(8, false);
+                ps.setBoolean(8, homeOffice);
                 ps.execute();
                 ps.close();
                 con.close();
@@ -115,6 +221,10 @@ public class PontoEletronicoDao {
         }
         return null;
         
+    }
+
+    void getNumMatricula() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
