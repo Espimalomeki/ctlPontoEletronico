@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -61,7 +62,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Inclusão de Projetos</h5>
+            <h5 class="card-title">InclusÃ£o de Projetos</h5>
             <p class="card-text">Incluir um projeto para seu departamento.</p>
             <a href="#" class="btn btn-primary">Novo Projeto</a>
           </div>
@@ -70,8 +71,8 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Finanças I - Projetos</h5>
-            <p class="card-text">Gerencie os projetos de seu departamento e controle a liberação para alocação de horas dos funcionários.</p>
+            <h5 class="card-title">FinanÃ§as I - Projetos</h5>
+            <p class="card-text">Gerencie os projetos de seu departamento e controle a liberaÃ§Ã£o para alocaÃ§Ã£o de horas dos funcionÃ¡rios.</p>
           </div>
         </div>
       </div>
@@ -86,18 +87,18 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Código do Projeto</th>
-              <th>Descrição</th>
+              <th>CÃ³digo do Projeto</th>
+              <th>DescriÃ§Ã£o</th>
               <th>Carga Horaria</th>
               <th>Status</th>
-              <th>Edição</th>
-              <th>Liberação</th>
+              <th>EdiÃ§Ã£o</th>
+              <th>LiberaÃ§Ã£o</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>2020_ESPIMALOMEKI_EVOLUCAO</td>
-              <td>Evolução dos Sistemas Web</td>
+              <td>EvoluÃ§Ã£o dos Sistemas Web</td>
               <td>2000h</td>
               <td>Em Andamento</td>
               <td><a href="#" class="card-link">Editar</a></td>
@@ -105,7 +106,7 @@
             </tr>
             <tr>
               <td>2020_ESPIMALOMEKI_INTEGRACAODIGITAL</td>
-              <td>Integração Digital dos Sistemas Web</td>
+              <td>IntegraÃ§Ã£o Digital dos Sistemas Web</td>
               <td>2000h</td>
               <td>Em Andamento</td>
               <td><a href="#" class="card-link">Editar</a></td>
@@ -113,7 +114,7 @@
             </tr>
             <tr>
               <td>2020_SUSTENTACAO</td>
-              <td>Sustentação</td>
+              <td>SustentaÃ§Ã£o</td>
               <td>10000h</td>
               <td>Em Andamento</td>
               <td><a href="#" class="card-link">Editar</a></td>

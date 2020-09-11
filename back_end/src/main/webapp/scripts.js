@@ -19,10 +19,10 @@ function navbar(){
       <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="index.html">Pagina Inicial<span class="sr-only">(current)</span> | </a>
+            <a class="nav-link" href="index.jsp">Pagina Inicial<span class="sr-only">(current)</span> | </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pontoEletronico.html">Ponto Eletrônico |</a>
+            <a class="nav-link" href="pontoEletronico.jsp">Ponto Eletrônico |</a>
           </li>
           <li class="nav-item">
             
