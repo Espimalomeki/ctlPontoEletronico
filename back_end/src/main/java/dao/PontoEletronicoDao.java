@@ -15,30 +15,6 @@ public class PontoEletronicoDao {
     
     Conexao conn = new Conexao();
     
-    
-    public static String sei() {
-        String sql = "SELECT * FROM usuario";
-        
-        
-        ArrayList lista = new ArrayList();
-        try {            
-            Connection conn = Conexao.getConexao();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                String numMatricula = rs.getString("numMatricula");
-                
-                System.err.println("Matricula: "+numMatricula);
-            }
-            ps.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-        
-    }
-    
     public ArrayList pontoDeHoje(){
         int numM = 20860269;
         Date dNow = new Date( );

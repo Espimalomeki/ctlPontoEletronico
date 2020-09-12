@@ -87,8 +87,9 @@
                             
                             <% 
                                 PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
-                                ArrayList<PontoEletronicoModel> ponto = ptEletronico.pontoDeHoje();        
-                                for(int i=0; i < ptEletronico.pontoDeHoje().size(); i++){
+                                ArrayList<PontoEletronicoModel> ponto = ptEletronico.pontoDeHoje();   
+                                int ptHoje = ptEletronico.pontoDeHoje().size();
+                                for(int i=0; i < ptHoje; i++){
                                     %>
                                     <p class="card-text">Entrada: <%= ponto.get(i).getHoraEntrada()%> </p>
                                     <p class="card-text">Saí­da para Almoço: <%= ponto.get(i).getHoraInicioIntervalo()%></p>
@@ -134,7 +135,8 @@
                         <% 
                             //PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
                             ArrayList<PontoEletronicoModel> listaArray = ptEletronico.listaPontos();        
-                            for(int i=0; i < ptEletronico.listaPontos().size(); i++){
+                            int tmListaPt = ptEletronico.listaPontos().size();
+                            for(int i=0; i < tmListaPt; i++){
                                 %>
                                 <tr>
                                     <td><%= listaArray.get(i).getNumMatricula() %></td>

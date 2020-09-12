@@ -47,7 +47,7 @@ function navbar(){
           	<a class="nav-link" href="eventosCalendario.html">Calendário |</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="perfilProfissional.html">Perfil Profissional |</a>
+            <a class="nav-link" href="perfilProfissional.jsp">Perfil Profissional |</a>
           </li>
           
         </ul>
