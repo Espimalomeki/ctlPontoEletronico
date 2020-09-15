@@ -1,0 +1,42 @@
+.img-logo{
+	position: relative;
+	width: 45px;
+	height: 80%;
+	float: left;
+}
+
+.txt-logo{
+	font-size:1.5rem;
+	position: relative;
+	float: left;
+	margin-top: .3rem;
+	margin-bottom: 0px;
+}
+
+.navbar{
+	background: linear-gradient(135deg, #194e51 0%, #0d2a88 100%);
+}
+
+main{
+
+}
+
+.icones{
+	font-size: 40px;
+}
+
+body{
+	margin-top: 2rem;
+}
+
+.modal-dialog {
+    max-width: 1200px;
+}
+
+footer{
+	position: absolute;
+	bottom: 0px;
+	display: block;
+	text-align: center;
+	width: 100%;
+}

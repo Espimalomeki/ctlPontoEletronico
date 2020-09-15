@@ -5,6 +5,7 @@ public class LoginModel {
     private static int numMatricula;
     private static String senha;
     private static String permissao;
+    private static String nome;
 
     /**
      * @return the numMatricula
@@ -46,6 +47,20 @@ public class LoginModel {
      */
     public static void setPermissao(String aPermissao) {
         permissao = aPermissao;
+    }
+
+    /**
+     * @return the nome
+     */
+    public static String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param aNome the nome to set
+     */
+    public static void setNome(String aNome) {
+        nome = aNome;
     }
 
     

@@ -16,7 +16,11 @@ public class LoginDao {
     
      public boolean validate(LoginModel login) {
             boolean status = false;
-            String sql = "select * from usuario where numMatricula = ? and senha = ?";
+            String sql = "SELECT U.numMatricula, U.senha, U.permissao, F.nome " +
+                         "FROM usuario as U " +
+                         "INNER JOIN funcionario as F " +
+                         "ON U.numMatricula = F.numMatricula " +
+                         "WHERE U.numMatricula = ? and U.senha = ?";
         
         try {            
             Connection conn = Conexao.getConexao();
@@ -30,7 +34,8 @@ public class LoginDao {
             System.out.println("passou por aqui");
           
            if (rs.next()) {
-                    login.setPermissao(rs.getString("permissao")) ;
+                    login.setPermissao(rs.getString("permissao"));
+                    login.setNome(rs.getString("nome"));
                     System.out.println(login.getPermissao());
                     status = true;
            }
