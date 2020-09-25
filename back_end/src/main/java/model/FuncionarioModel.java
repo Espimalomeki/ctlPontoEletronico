@@ -17,6 +17,15 @@ public class FuncionarioModel {
     private String salario;
     private String genero;
     private String permissao;
+    private int numMatricula; 
+
+    public int getNumMatricula() {
+        return numMatricula;
+    }
+
+    public void setNumMatricula(int numMatricula) {
+        this.numMatricula = numMatricula;
+    }
 
     public String getNome() {
         return nome;
