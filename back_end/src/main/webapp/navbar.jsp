@@ -26,8 +26,8 @@
           	Banco de Horas
         	</a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="bancoDeHoras.html">Banco de Horas</a>
-	          <a class="dropdown-item" href="bancoDeHorasGestor.html">Banco De Horas - Gestor</a>
+	          <a class="dropdown-item" href="bancoDeHoras.jsp">Banco de Horas</a>
+	          <a class="dropdown-item" href="bancoDeHorasGestor.jsp">Banco De Horas - Gestor</a>
 	        </div>
           </li>
           <li class="nav-item">

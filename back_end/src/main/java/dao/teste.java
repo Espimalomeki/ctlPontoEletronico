@@ -5,7 +5,14 @@
  */
 package dao;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import model.PontoEletronicoModel;
 
 /**
@@ -17,20 +24,20 @@ public class teste {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        //PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+    public static void main(String[] args) throws ParseException {
+        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+        ArrayList<PontoEletronicoModel> pontoAtual = ptEletronico.pontoDeHoje();
+        System.out.println(pontoAtual);
         
-        //ptEletronico.inserePonto();
-        //System.out.println(ptEletronico.selecionarPontos());
         
+        //TimeUnit.MILLISECONDS.toMinutes(diff);
         
-//        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();;
-//        ArrayList<PontoEletronicoModel> listaArray = ptEletronico.selecionarPontos();        
-//        for(int i=0; i < ptEletronico.selecionarPontos().size(); i++){
-//                System.out.println("dao.teste.main()"
-//                        + listaArray.get(i).getNumMatricula()
-//                        + listaArray.get(i).getDataDia());           
-//        }
+//        
+//        long seconds = diff / 1000 % 60;  
+//        long minutes = diff / (60 * 1000) % 60; 
+//        long hours = diff / (60 * 60 * 1000); 
+//        
+//        System.out.println(hours+":"+minutes+":"+seconds);
         
     }
     
