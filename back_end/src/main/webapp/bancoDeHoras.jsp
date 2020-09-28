@@ -70,11 +70,33 @@
                 border: 16px solid #f3f3f3; /* Light grey */
                 border-top: 16px solid #3498db; /* Blue */
                 border-radius: 50%;
+                margin-top: 30px;
                 width: 100px;
                 height: 100px;
                 animation: spin 2s linear infinite;
               }
-
+              
+              .tabela-eventos{
+                min-height: 250px;
+              }
+              
+              .footer{
+                  position: fixed;
+                  bottom: 0px;
+                  width: 100%;
+                  height: 30px;
+                  background: #343a40;
+                  margin: 0;
+              }
+              
+              p{
+                  margin-bottom: 0px;
+              }
+              
+              main{                 
+                      margin-bottom: 45px;
+              }
+              
             @keyframes spin {
               0% { transform: rotate(0deg); }
               100% { transform: rotate(360deg); }
@@ -136,14 +158,7 @@
             </article>
             <br>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Gerar Relatórios</h5>
-                            <a href="#" class="btn btn-primary">Gerar Relatório</a>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
@@ -153,9 +168,17 @@
                                     <p id="qtdTotalHorasTrabalhadas"> </p>
                                 </div>
                                 <div class="card col-4 offset-1" style="color:green">
-                                    <p id="">Voce tem 1:30:00 hora(s) Extra(s)</p>
+                                    <p id="horasExtras"></p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Gerar Relatórios</h5>
+                            <button id="btnGeraRelatorio" class="btn btn-primary">Gerar Relatório</button>
                         </div>
                     </div>
                 </div>
@@ -164,19 +187,20 @@
 
 
         </main>
-        <footer class="mb-2 text-muted text-small ">
-            <p class="mb-1 col-4 offset-4">&copy; 2020 Espimalomeki</p>
+        <footer class="text-muted text-small footer">
+            <p class="mt-1 col-4 offset-4 text-light">&copy; 2020 Espimalomeki</p>
         </footer>
     </body>
     <script type="text/javascript" src="scripts.js"></script>
     <script>
         let listaPontosEletronicos = document.getElementById("listaPontosEletronicos");
+        let horasExtras = document.getElementById("horasExtras");
+        
         let pontoHoje = document.getElementById("pontoHoje");
         let spinner = document.getElementById("spinner");
             
         window.addEventListener("load",()=>{
-                var xhrLista = new XMLHttpRequest();
-                var xhrPontoHoje = new XMLHttpRequest();
+                var xhrLista = new XMLHttpRequest();                
                 xhrLista.open("GET", "CarregaListaPontosBancoServlet", true);
                 xhrLista.onload = function (e) {
                     if (xhrLista.readyState === 4) {
@@ -189,12 +213,48 @@
                         }
                     }
                 };
-                xhrLista.onerror = function (e) {
-                    console.error(xhrLista.statusText);
-                };
                 xhrLista.send(null);
+                
+                var xhrStatusDeHoras = new XMLHttpRequest();
+                xhrStatusDeHoras.open("GET", "HorasExtrasServlet", true);
+                xhrStatusDeHoras.onload = function (e) {
+                    if (xhrStatusDeHoras.readyState === 4) {
+                        if (xhrStatusDeHoras.status === 200) {      
+                            horasExtras.innerHTML = xhrStatusDeHoras.responseText;
+                        } else {
+                            horasExtras.innerHTML = xhrStatusDeHoras.responseText;
+                        }
+                    }
+                };                
+                
+                xhrStatusDeHoras.onerror = function (e) {
+                    console.error(xhrStatusDeHoras.statusText);
+                };
+                xhrStatusDeHoras.send(null);
+                
             });
-        
+            
+            let btnGeraRelatorio = document.getElementById("btnGeraRelatorio");
+            btnGeraRelatorio.addEventListener('click',()=>{
+                
+                var xhrGeraRelatorio = new XMLHttpRequest();
+                xhrGeraRelatorio.open("GET", "CriaRelatorioTxtServlet", true);
+                xhrGeraRelatorio.onload = function (e) {
+                    if (xhrGeraRelatorio.readyState === 4) {
+                        if (xhrGeraRelatorio.status === 200) {      
+                            alert(xhrGeraRelatorio.responseText);
+                        } else {
+                            alert(xhrGeraRelatorio.responseText);
+                        }
+                    }
+                };                
+                
+                xhrGeraRelatorio.onerror = function (e) {
+                    console.error(xhrGeraRelatorio.statusText);
+                };
+                xhrGeraRelatorio.send(null);
+                
+            });
     </script>
     
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

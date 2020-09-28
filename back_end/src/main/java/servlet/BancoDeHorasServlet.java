@@ -45,7 +45,7 @@ public class BancoDeHorasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     PontoEletronicoDao ptEletronico = new PontoEletronicoDao();  
-    int TotalHorasTrabalhadas = 0;
+    String TotalHorasTrabalhadas = "";
     try {
         TotalHorasTrabalhadas = ptEletronico.getTotalHorasTrabalhadas();
         } catch (ParseException ex) {

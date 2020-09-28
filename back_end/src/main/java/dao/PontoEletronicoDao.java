@@ -309,11 +309,11 @@ public class PontoEletronicoDao {
 
     }
 
-    public int getTotalHorasTrabalhadas() throws ParseException {
+    public String getTotalHorasTrabalhadas() throws ParseException {
         LoginModel login = new LoginModel();
         int numM = login.getNumMatricula();
         Connection con = Conexao.getConexao();
-        
+        String dataFinal = "";
         try {
             Connection conn = Conexao.getConexao();
 
@@ -326,7 +326,7 @@ public class PontoEletronicoDao {
             String vHoraEntrada;
             String vHoraSaida;
             boolean existeHoras;
-            int hrTrabalhadas = 0;
+            long hrTrabalhadas = 0;
             
             while (rs.next()) {
                 existeHoras = true;
@@ -351,19 +351,123 @@ public class PontoEletronicoDao {
                     Date hr2 = formato.parse(vHoraSaida);
                     
                     long diff = hr2.getTime() - hr1.getTime();          
-                    long hours = (diff / (60 * 60 * 1000));
-                    hrTrabalhadas += hours;
+                    //long hours = (diff / (60 * 60 * 1000));
+                    hrTrabalhadas += diff;
                 } 
             }
 
             rs.close();
             conn.close();
+            
+            String minutes = (hrTrabalhadas / (60 * 1000) % 60) + "";
+            String hours = (hrTrabalhadas / (60 * 60 * 1000)) + "";
 
-            return hrTrabalhadas;
+            minutes = completeToLeft(minutes, '0', 2);
+            hours = completeToLeft(hours, '0', 2);
+
+            
+            dataFinal = hours+":"+minutes;
+            
+            return dataFinal;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return dataFinal;
+    }
+    
+    public String getStatusDeHoras() throws ParseException {
+        LoginModel login = new LoginModel();
+        int numM = login.getNumMatricula();
+        Connection con = Conexao.getConexao();
+        
+        try {
+            Connection conn = Conexao.getConexao();
+
+            String sql = "SELECT * FROM pontoEletronico where numMatricula = ?";
+            PreparedStatement selectPs = con.prepareStatement(sql);
+            //selectPs.setInt(1, numM);
+            selectPs.setInt(1, 20860269);
+            ResultSet rs = selectPs.executeQuery();
+
+            String vHoraEntrada;
+            String vHoraSaida;
+            boolean existeHoras;
+            long hrMlTrabalhadas = 0;
+            int diasTrabalhados = 0;
+            SimpleDateFormat formatoHr = new SimpleDateFormat("HH:mm:ss");
+            while (rs.next()) {
+                existeHoras = true;
+                vHoraEntrada = rs.getString("horaEntrada");
+                vHoraSaida = rs.getString("horaSaida");
+
+                PontoEletronicoModel listaPontos = new PontoEletronicoModel();
+                listaPontos.setNumMatricula(rs.getInt("numMatricula"));
+                if (vHoraEntrada == null){
+                    existeHoras = false;
+                }
+
+                if (vHoraSaida == null) {
+                    existeHoras = false;
+                }
+
+                //////////////
+                if (existeHoras) {
+                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");                    
+                    Date hr1 = formato.parse(vHoraEntrada);
+                    Date hr2 = formato.parse(vHoraSaida);
+                    
+                    long diff = hr2.getTime() - hr1.getTime();          
+                    diasTrabalhados++;
+                    //horas em milisegundos
+                    hrMlTrabalhadas += diff;
+                } 
+            }
+
+            rs.close();
+            conn.close();
+            
+            //String totalHoras = hours + ":" + minutes + ":" + seconds;
+            
+            float hrTrabalhadas = TimeUnit.MILLISECONDS.toHours(hrMlTrabalhadas);
+            int horasNecessarias = 8 * diasTrabalhados; 
+            long miliHorasNecessarias = TimeUnit.HOURS.toMillis(horasNecessarias);
+            String res;
+            if(hrTrabalhadas > horasNecessarias){
+                long milisegundosTotais =  hrMlTrabalhadas - miliHorasNecessarias;
+
+                String seconds = (milisegundosTotais / 1000 % 60) + "";
+                String minutes = (milisegundosTotais / (60 * 1000) % 60) + "";
+                String hours = (milisegundosTotais / (60 * 60 * 1000)) + "";
+
+                seconds = completeToLeft(seconds, '0', 2);
+                minutes = completeToLeft(minutes, '0', 2);
+                hours = completeToLeft(hours, '0', 2);
+
+                String totalDeHoras = hours + ":" + minutes + ":" + seconds;  
+            
+            
+                res = "<div style='color:green;'> Você está com " + totalDeHoras + " Hora(s) Extra(s)!</div>";
+            }else{
+                long milisegundosTotais = miliHorasNecessarias - hrMlTrabalhadas;
+
+                String seconds = (milisegundosTotais / 1000 % 60) + "";
+                String minutes = (milisegundosTotais / (60 * 1000) % 60) + "";
+                String hours = (milisegundosTotais / (60 * 60 * 1000)) + "";
+
+                seconds = completeToLeft(seconds, '0', 2);
+                minutes = completeToLeft(minutes, '0', 2);
+                hours = completeToLeft(hours, '0', 2);
+
+                String totalDeHoras = hours + ":" + minutes + ":" + seconds;  
+                
+                res = "<div style='color:red;'> Você está devendo " + totalDeHoras + " Hora(s)!</div>";
+            }
+
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public String calculaTotalDeHoras(String h1, String h2, boolean existeHora) throws ParseException {
@@ -386,17 +490,18 @@ public class PontoEletronicoDao {
 
             String totalHoras = hours + ":" + minutes + ":" + seconds;
 
-            Date horasTrabalhadas = formatoHr.parse(totalHoras);
-            long hrRes = horasTrabalhadas.getTime();
+            Date horasTrabalhadas = formatoHr.parse(totalHoras);            
+            
+            long hrRes = horasTrabalhadas.getHours();
+            
             String res = "";
-
-            //String res = "<div style='color:green;'>"+hours+":"+minutes+":"+seconds+"</div>";
-            //resHrTimeUnit
-            if (TimeUnit.MILLISECONDS.toHours(hrRes) > 8) {
+            
+            if (hrRes >= 8) {                
                 res = "<div style='color:green;'>" + totalHoras + "</div>";
             } else {
                 res = "<div style='color:red;'>" + totalHoras + "</div>";
             }
+            
             return res;
         } else {
             return " ";
