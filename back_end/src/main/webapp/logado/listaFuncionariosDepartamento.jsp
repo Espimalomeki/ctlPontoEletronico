@@ -2,7 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.FuncionarioModel"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dao.ListaFuncRH"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
