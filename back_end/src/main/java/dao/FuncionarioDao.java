@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ public class FuncionarioDao {
         boolean status = false;
         String sql = "insert into funcionario(nome,cpf,rne,email,dataNascimento,"
                 + "telefone,contaBancaria,endereco,complemento,dataAdmissao,cargo,"
-                + "cargaHoraria,salario,genero,permissao)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                + "cargaHoraria,salario,genero,permissao,idDepto)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try {
             Connection conn = Conexao.getConexao();
@@ -42,14 +43,15 @@ public class FuncionarioDao {
             ps.setString(13, func.getSalario());
             ps.setString(14, func.getGenero());
             ps.setString(15, func.getPermissao());
-
+            ps.setInt(16, func.getCodDepto());
+            
             System.out.println(ps);
             if (ps.executeUpdate() > 0) {
                 ps.close();
                 System.out.println("Deu certo o cadastro do funcionario");
-                if(incluirUsuario(func)){
-                status = true;    
-                }                
+                if (incluirUsuario(func)) {
+                    status = true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -78,11 +80,11 @@ public class FuncionarioDao {
                 ps2.setString(1, matricula);
                 ps2.setString(2, GeraSenha.gerarSenhaAleatoria());
                 ps2.setString(3, permissao);
-                
+
                 if (ps2.executeUpdate() > 0) {
-                System.out.println("Deu certo o cadastro de usuario");
-                status = true;
-                }  
+                    System.out.println("Deu certo o cadastro de usuario");
+                    status = true;
+                }
             }
 
             ps.close();
@@ -92,6 +94,74 @@ public class FuncionarioDao {
         }
 
         return status;
+    }
+
+    public FuncionarioModel retornaFuncionario() {
+        FuncionarioModel func = new FuncionarioModel();
+        String sql = "select * from funcionario where numMatricula = ?";
+
+        try {
+            Connection conn = Conexao.getConexao();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            LoginModel login = new LoginModel();
+            int numM = login.getNumMatricula();
+            ps.setInt(1, numM);
+
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+            System.out.println("passou por aqui");
+
+            if (rs.next()) {
+                func.setPermissao(rs.getString("permissao"));
+                func.setNome(rs.getString("nome"));
+                func.setCpf(rs.getString("cpf"));
+                func.setRne(rs.getString("rne"));
+                func.setCargo(rs.getString("cargo"));
+                func.setEmail(rs.getString("email"));
+                func.setDataNasc(rs.getString("dataNascimento"));
+                func.setTelefone(rs.getString("telefone"));
+                func.setContaBancaria(rs.getString("contaBancaria"));
+                func.setEndereco(rs.getString("endereco"));
+                func.setComplemento(rs.getString("complemento"));
+                func.setDataAdmissao(rs.getString("dataAdmissao"));
+                func.setCargaHoraria(rs.getString("cargaHoraria"));
+                func.setSalario(rs.getString("salario"));
+                func.setGenero(rs.getString("genero"));
+                func.setNumMatricula(Integer.parseInt(rs.getString("numMatricula")));
+                System.out.println(login.getPermissao());
+            }
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return func;
+    }
+
+    public ArrayList<FuncionarioModel> ListaFunc() {
+
+        Connection con = Conexao.getConexao();
+        ArrayList<FuncionarioModel> lista = new ArrayList();
+
+        try {
+            Connection conn = Conexao.getConexao();
+            String sql = "select * from funcionario";
+            PreparedStatement selectPs = con.prepareStatement(sql);
+            ResultSet rs = selectPs.executeQuery();
+
+            while (rs.next()) {
+                FuncionarioModel listaFunc = new FuncionarioModel();
+                listaFunc.setNumMatricula(rs.getInt("numMatricula"));
+                listaFunc.setNome(rs.getString("nome"));
+                listaFunc.setCargo(rs.getString("cargo"));
+                listaFunc.setEmail(rs.getString("email"));
+                lista.add(listaFunc);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 
 }

@@ -1,4 +1,8 @@
+<%@page import="dao.FuncionarioDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.FuncionarioModel"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.ListaFuncRH"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -58,7 +62,12 @@
                 <div class="col-md-8 order-md-1">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span>Lista de Funcionários do Departamento</span>
-                        <span class="badge badge-secondary badge-pill">6</span>
+                        <%
+                                FuncionarioDao listaFunc = new FuncionarioDao();
+                                ArrayList<FuncionarioModel> listaArray = listaFunc.ListaFunc();
+                                int totalfunc = listaFunc.ListaFunc().size();
+                            %>
+                        <span class="badge badge-secondary badge-pill"><%= totalfunc %></span>
                     </h4>
                 </div>
             </div>
@@ -75,54 +84,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>00010</td>
-                            <td>André Ferreira</td>
-                            <td>GERENTE DE PROJETOS JR</td>
-                            <td>andreferreira@espimalomeki.com</td>
-                            <td><a href="perfilProfissional.html" class="card-link">Detalhar</a></td>
-                            <td><a href="#" class="card-link">Visualizar</a></td>
-                        </tr>
-                        <tr>
-                            <td>00920</td>
-                            <td>João Freire Costa e Silva</td>
-                            <td>ANALISTA DE PROJETO SR</td>
-                            <td>joaofreirecosta@espimalomeki.com</td>
-                            <td><a href="#" class="card-link">Detalhar</a></td>
-                            <td><a href="#" class="card-link">Visualizar</a></td>
-                        </tr>
-                        <tr>
-                            <td>01302</td>
-                            <td>Carlos Rugai Antonier</td>
-                            <td>ENGENHEIRO DE SOFTWARE PL</td>
-                            <td>carlosrugaiantonier@espimalomeki.com</td>
-                            <td><a href="#" class="card-link">Detalhar</a></td>
-                            <td><a href="#" class="card-link">Visualizar</a></td>
-                        </tr>
-                        <tr>
-                            <td>01304</td>
-                            <td>Carol Mattos do Vale</td>
-                            <td>ENGENHEIRO DE SOFTWARE JR</td>
-                            <td>carolmattosvale@espimalomeki.com</td>
-                            <td><a href="#" class="card-link">Detalhar</a></td>
-                            <td><a href="#" class="card-link">Visualizar</a></td>
-                        </tr>
-                        <tr>
-                            <td>02160</td>
-                            <td>Rafael dos Santos</td>
-                            <td>ANALISTA DE PROCESSOS SR</td>
-                            <td>rafaelsantos@espimalomeki.com</td>
-                            <td><a href="#" class="card-link">Detalhar</a></td>
-                            <td><a href="#" class="card-link">Visualizar</a></td>
-                        </tr>
-                        <tr>
-                            <td>00101</td>
-                            <td>Rute Ovalle Guimarães</td>
-                            <td>ANALISTA DE BANCO DE DADOS SR</td>
-                            <td>ruteovalleguimaraes@espimalomeki.com</td>
-                            <td><a href="#" class="card-link">Detalhar</a></td>
-                            <td><a href="#" class="card-link">Visualizar</a></td>
-                        </tr>
+                        <tbody>
+                       <%
+
+                                
+                                for (int i = 0; i < totalfunc; i++) {
+                            %>
+                            <tr>
+                                <td><%= listaArray.get(i).getNumMatricula()%>    </td>
+                                <td><%= listaArray.get(i).getNome()%>  </td>
+                                <td><%= listaArray.get(i).getCargo()%></td>
+                                <td><%= listaArray.get(i).getEmail()%> </td>
+                                <td><a href="#" class="card-link">Detalhar</a></td>
+                                <td><a href="#" class="card-link">Visualizar</a></td>
+                            </tr>
+                            <%
+                                }
+                            %>                     
                     </tbody>
                 </table>
             </div>

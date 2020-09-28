@@ -1,3 +1,7 @@
+<%@page import="javax.swing.text.html.HTML.Attribute"%>
+<%@page import="model.RegistraProjetoModel"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.RegistraProjetoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -65,16 +69,58 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Inclusão de Projetos</h5>
-                            <p class="card-text">Incluir um projeto para seu departamento.</p>
-                            <a href="#" class="btn btn-primary">Novo Projeto</a>
+                            <form class="validation" name="registraProj" action="<%=request.getContextPath()%>/projetos" method="post" novalidate>
+                                <h1>Gerenciamento de projetos</h1>
+
+                                <p>
+
+                                    <br>                                         
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Descrição do projeto</span>
+                                    </div>
+                                    <input type="text" name="descProjeto" placeholder="PHP" required="">
+                                </div>
+
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Carga horaria</span>
+                                    </div>
+                                    <select name="cargaTotalHr" id="cargaHoraria" required="" class="custom-select custom-select-lg">
+                                        <option value="100h">100 Horas</option>
+                                        <option value="500h">500 Horas</option>
+                                        <option value="750h">750 Horas</option>
+                                        <option value="1000h">1000 Horasr</option>
+                                        <option value="5000h">5000 Horas</option>
+                                    </select>
+                                </div>
+                       
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Status do Projeto</span>
+                                    </div>
+                                    <select name="statusProjeto" id="statusProjeto" required="" class="custom-select custom-select-lg">
+                                        <option value="andamento">Em andamento</option>
+                                        <option value="parado">Parado</option>
+                                        <option value="finalizado">Finalizado</option>
+
+                                    </select>
+                                </div>
+                               <input class="btn btn-primary" type="submit" name="enviar" value="Novo Projeto"/>
+
+
+                            </form>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Finanças I - Projetos</h5>
-                            <p class="card-text">Gerencie os projetos de seu departamento e controle a liberação para alocação de horas dos funcionários.</p>
+                            <!--<h5 class="card-title">Finanças I - Projetos</h5>-->
+                            <p class="card-text">Gerencie os projetos de seu departamento</p>
                         </div>
                     </div>
                 </div>
@@ -91,38 +137,31 @@
                             <tr>
                                 <th>Código do Projeto</th>
                                 <th>Descrição</th>
-                                <th>Carga Horaria</th>
                                 <th>Status</th>
-                                <th>Edição</th>
-                                <th>Liberação</th>
+                                <th>Carga Horaria</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        
+                        
+                            <%
+                                RegistraProjetoDao rgProjeto = new RegistraProjetoDao();
+                                ArrayList<RegistraProjetoModel> listaArray = rgProjeto.ListaProjeto();
+                                int tmListaPt = rgProjeto.ListaProjeto().size();
+                                for (int i = 0; i < tmListaPt; i++) {
+                            %>
                             <tr>
-                                <td>2020_ESPIMALOMEKI_EVOLUCAO</td>
-                                <td>Evolução dos Sistemas Web</td>
-                                <td>2000h</td>
-                                <td>Em Andamento</td>
-                                <td><a href="#" class="card-link">Editar</a></td>
-                                <td><a href="#" class="card-link">Liberar</a></td>
+                                <td><%= listaArray.get(i).getIdProjeto()%>    </td>
+                                <td><%= listaArray.get(i).getDescProjeto()%>  </td>
+                                <td><%= listaArray.get(i).getStatusProjeto()%></td>
+                                <td><%= listaArray.get(i).getCargaTotalHr()%> </td> 
+                                
                             </tr>
-                            <tr>
-                                <td>2020_ESPIMALOMEKI_INTEGRACAODIGITAL</td>
-                                <td>Integração Digital dos Sistemas Web</td>
-                                <td>2000h</td>
-                                <td>Em Andamento</td>
-                                <td><a href="#" class="card-link">Editar</a></td>
-                                <td><a href="#" class="card-link">Liberar</a></td>
-                            </tr>
-                            <tr>
-                                <td>2020_SUSTENTACAO</td>
-                                <td>Sustentação</td>
-                                <td>10000h</td>
-                                <td>Em Andamento</td>
-                                <td><a href="#" class="card-link">Editar</a></td>
-                                <td><a href="#" class="card-link">Liberar</a></td>
-                            </tr>
-                        </tbody>
+                            <%
+                                }
+                            %>
+
+                                 
+                        
                     </table>
                 </div>
         </main>
@@ -135,7 +174,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script src="offcanvas.js"></script>
 
 </html>

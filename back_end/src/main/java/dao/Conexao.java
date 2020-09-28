@@ -9,7 +9,7 @@ public class Conexao {
         Connection con = null;
 
         try {
-            String serverName = "db-espimalomeki.cxcrimytnhb6.us-east-2.rds.amazonaws.com";
+            String serverName = "db-espimalomeki2.cxcrimytnhb6.us-east-2.rds.amazonaws.com";
             String mydatabase = "espimalomeki";
 
              String username = "admin";

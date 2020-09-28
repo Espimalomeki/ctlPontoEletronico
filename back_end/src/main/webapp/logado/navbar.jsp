@@ -44,8 +44,13 @@
                 </li>
                 <c:if test="${sessionScope.perfil == 'gestor'}">
                     <li class="nav-item">
-                    <a class="nav-link" href="projetos.jsp">Projetos</a>
-                </li>
+                        <a class="nav-link" href="projetos.jsp">Projetos</a>
+                    </li>
+                </c:if>
+                <c:if test="${sessionScope.perfil == 'RH'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="departamentos.jsp">Departamentos</a>
+                    </li>
                 </c:if>
                 <c:choose>
                     <c:when test="${sessionScope.perfil == 'RH'}">
@@ -70,7 +75,7 @@
                     <a class="nav-link" href="#">Calendário</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Perfil Profissional </a>
+                    <a class="nav-link" href="perfilProfissional.jsp">Perfil Profissional </a>
                 </li>
 
             </ul>
@@ -79,4 +84,5 @@
             </form>
         </div>
     </nav>
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 </html>

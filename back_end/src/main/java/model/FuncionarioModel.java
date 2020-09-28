@@ -4,6 +4,7 @@ public class FuncionarioModel {
 
     private String nome;
     private String cpf;
+    private String docId;
     private String rne;
     private String cargo;
     private String email;
@@ -17,6 +18,16 @@ public class FuncionarioModel {
     private String salario;
     private String genero;
     private String permissao;
+    private int numMatricula;
+    private int codDepto;
+
+    public int getNumMatricula() {
+        return numMatricula;
+    }
+
+    public void setNumMatricula(int numMatricula) {
+        this.numMatricula = numMatricula;
+    }
 
     public String getNome() {
         return nome;
@@ -130,17 +141,27 @@ public class FuncionarioModel {
         this.permissao = permissao;
     }
 
-    /**
-     * @return the dataAdmissao
-     */
     public String getDataAdmissao() {
         return dataAdmissao;
     }
 
-    /**
-     * @param dataAdmissao the dataAdmissao to set
-     */
     public void setDataAdmissao(String dataAdmissao) {
         this.dataAdmissao = dataAdmissao;
+    }
+
+    public String getDocId() {
+        return docId;
+    }
+
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+
+    public int getCodDepto() {
+        return codDepto;
+    }
+
+    public void setCodDepto(int codDepto) {
+        this.codDepto = codDepto;
     }
 }

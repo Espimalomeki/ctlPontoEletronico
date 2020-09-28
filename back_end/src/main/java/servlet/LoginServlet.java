@@ -1,6 +1,5 @@
 package servlet;
 
-
 import dao.LoginDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.LoginModel;
 
-@WebServlet("/index")
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -30,20 +29,18 @@ public class LoginServlet extends HttpServlet {
         login.setNumMatricula(numMatricula);
         login.setSenha(senha);
 
-        if (loginDao.validate(login)) {
+        boolean validationFlag = loginDao.validate(login);
+
+        if (validationFlag) {
             HttpSession session = request.getSession();
             session.setAttribute("perfil", login.getPermissao());
             session.setAttribute("matricula", login.getNumMatricula());
             session.setAttribute("nomeFunc", login.getNome());
             request.getSession().setAttribute("usuarioLogado", login);
             response.sendRedirect("logado/principal.jsp");
-            return;
-
-        } else {
-            HttpSession session = request.getSession();
-            //session.setAttribute("user", username);
-            response.sendRedirect("index.jsp");
         }
+
+
     }
 
     protected void doGet(HttpServletRequest request,
