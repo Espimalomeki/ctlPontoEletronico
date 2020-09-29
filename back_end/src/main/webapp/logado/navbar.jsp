@@ -28,14 +28,14 @@
                                 Banco de Horas
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="bancoDeHoras.html">Banco de Horas</a>
+                                <a class="dropdown-item" href="bancoDeHoras.jsp">Banco de Horas</a>
                                 <a class="dropdown-item" href="bancoDeHorasGestor.html">Banco De Horas - Gestor</a>
                             </div>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
-                            <a class="nav-link" href="bancoDeHoras.html">Banco de Horas</a>
+                            <a class="nav-link" href="bancoDeHoras.jsp">Banco de Horas</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
