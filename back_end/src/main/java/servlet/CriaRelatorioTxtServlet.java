@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,63 +60,58 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         FileWriter arquivo = new FileWriter(new File("C:\\Users\\filip\\OneDrive\\Desktop\\tabuada.html"));
-        
+
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
-        ArrayList <PontoEletronicoModel> listaArray = ptEletronico.listaPontos();
+        ArrayList<PontoEletronicoModel> listaArray = ptEletronico.listaPontos();
         int tmListaPt = listaArray.size();
         String resultadoTxt = "<html> <head> </head> <body>";
-        
+
         LoginModel login = new LoginModel();
         int numM = login.getNumMatricula();
-        
-        
-     
+
         Connection con = Conexao.getConexao();
         ArrayList lista = new ArrayList();
-            
-        try {    
+
+        try {
             Connection conn = Conexao.getConexao();
             String sql = "select * from funcionario where numMatricula = ?";
-            PreparedStatement selectPs = con.prepareStatement(sql);    
-            selectPs.setInt(1, numM);   
+            PreparedStatement selectPs = con.prepareStatement(sql);
+            selectPs.setInt(1, numM);
             ResultSet rs = selectPs.executeQuery();
-            
-            while(rs.next()){
-            
-            lista.add(0,rs.getInt("numMatricula"));
-            lista.add(1,rs.getString("nome"));
-            lista.add(2,rs.getString("cargo"));          
-            lista.add(3,rs.getString("email"));
-            //lista.add(listaFunc); 
+
+            while (rs.next()) {
+
+                lista.add(0, rs.getInt("numMatricula"));
+                lista.add(1, rs.getString("nome"));
+                lista.add(2, rs.getString("cargo"));
+                lista.add(3, rs.getString("email"));
+                //lista.add(listaFunc); 
             }
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        
+
         //for(int i=0; i < lista.size(); i++){  
         //}
-        resultadoTxt += "<h1> numero da Matricula: "+ lista.get(0);
-        resultadoTxt += "<br> Nome Completo: "+ lista.get(1);
-        resultadoTxt += "<br> Cargo: "+ lista.get(2);
-        resultadoTxt += "<br> Email numero da Matricula: "+ lista.get(3);
-        
-        
+        resultadoTxt += "<h1> numero da Matricula: " + lista.get(0);
+        resultadoTxt += "<br> Nome Completo: " + lista.get(1);
+        resultadoTxt += "<br> Cargo: " + lista.get(2);
+        resultadoTxt += "<br> Email numero da Matricula: " + lista.get(3);
+
         for (int i = 0; i < tmListaPt; i++) {
             resultadoTxt += "</h1><br><tr>"
-                    + "<td>"+listaArray.get(i).getNumMatricula()+" </td>"
-                    + "<td>"+listaArray.get(i).getHoraEntrada()+"</td>"
-                    + "<td>"+listaArray.get(i).getHoraInicioIntervalo()+"</td>"
-                    + "<td>"+listaArray.get(i).getHoraFimIntervalo()+"</td> "
-                    + "<td>"+listaArray.get(i).getHoraSaida()+"</td>"
-                    + "<td>"+listaArray.get(i).getHomeOffice()+"</td>"
-                    + "<td>"+listaArray.get(i).getMotivoAjuste()+"</td>"
+                    + "<td>" + listaArray.get(i).getNumMatricula() + " </td>"
+                    + "<td>" + listaArray.get(i).getHoraEntrada() + "</td>"
+                    + "<td>" + listaArray.get(i).getHoraInicioIntervalo() + "</td>"
+                    + "<td>" + listaArray.get(i).getHoraFimIntervalo() + "</td> "
+                    + "<td>" + listaArray.get(i).getHoraSaida() + "</td>"
+                    + "<td>" + listaArray.get(i).getHomeOffice() + "</td>"
+                    + "<td>" + listaArray.get(i).getMotivoAjuste() + "</td>"
                     + "</tr>"
                     + "</body> </html>";
-            
+
         }
-        
-        
+
         arquivo.write(resultadoTxt);
         arquivo.close();
 //        gravarArq.printf("+--Resultado--+%n");
@@ -125,25 +121,93 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
 //        gravarArq.printf("+-------------+%n");
 
         //arq.close();
-
 //        System.out.printf("\nTabuada foi gravada com sucesso ", n);;
-        
-        
-        
-            response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-            response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-            response.getWriter().write("Tabuada foi gravada com sucesso ");
+        response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+        response.getWriter().write("Tabuada foi gravada com sucesso ");
 
-}
-
-@Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
     }
 
-    
     @Override
-        public String getServletInfo() {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String str = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+//        System.out.println(str);     
+//        PrintWriter out = response.getWriter();
+//        out.println(str);
+//        out.close();
+        
+        
+        FileWriter arquivo = new FileWriter(new File("C:\\Users\\filip\\OneDrive\\Desktop\\tabuada.html"));
+
+        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+        ArrayList<PontoEletronicoModel> listaArray = ptEletronico.listaPontos();
+        int tmListaPt = listaArray.size();
+        String resultadoTxt = "<html> <head> </head> <body>";
+
+        LoginModel login = new LoginModel();
+        int numM = login.getNumMatricula();
+
+        Connection con = Conexao.getConexao();
+        ArrayList lista = new ArrayList();
+
+        try {
+            Connection conn = Conexao.getConexao();
+            String sql = "select * from funcionario where numMatricula = ?";
+            PreparedStatement selectPs = con.prepareStatement(sql);
+            selectPs.setInt(1, Integer.parseInt(str));
+            ResultSet rs = selectPs.executeQuery();
+
+            while (rs.next()) {
+
+                lista.add(0, rs.getInt("numMatricula"));
+                lista.add(1, rs.getString("nome"));
+                lista.add(2, rs.getString("cargo"));
+                lista.add(3, rs.getString("email"));
+                //lista.add(listaFunc); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //for(int i=0; i < lista.size(); i++){  
+        //}
+        resultadoTxt += "<h1> numero da Matricula: " + lista.get(0);
+        resultadoTxt += "<br> Nome Completo: " + lista.get(1);
+        resultadoTxt += "<br> Cargo: " + lista.get(2);
+        resultadoTxt += "<br> Email numero da Matricula: " + lista.get(3);
+
+        for (int i = 0; i < tmListaPt; i++) {
+            resultadoTxt += "</h1><br><tr>"
+                    + "<td>" + listaArray.get(i).getNumMatricula() + " </td>"
+                    + "<td>" + listaArray.get(i).getHoraEntrada() + "</td>"
+                    + "<td>" + listaArray.get(i).getHoraInicioIntervalo() + "</td>"
+                    + "<td>" + listaArray.get(i).getHoraFimIntervalo() + "</td> "
+                    + "<td>" + listaArray.get(i).getHoraSaida() + "</td>"
+                    + "<td>" + listaArray.get(i).getHomeOffice() + "</td>"
+                    + "<td>" + listaArray.get(i).getMotivoAjuste() + "</td>"
+                    + "</tr>"
+                    + "</body> </html>";
+
+        }
+
+        arquivo.write(resultadoTxt);
+        arquivo.close();
+//        gravarArq.printf("+--Resultado--+%n");
+//        for (i = 1; i <= 10; i++) {
+//            gravarArq.printf("| %2d X %d = %2d |%n", i, n, (i * n));
+//        }
+//        gravarArq.printf("+-------------+%n");
+
+        //arq.close();
+//        System.out.printf("\nTabuada foi gravada com sucesso ", n);;
+        response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+        response.getWriter().write("Tabuada foi gravada com sucesso ");
+        
+    }
+
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

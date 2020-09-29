@@ -10,35 +10,41 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.LoginModel;
 
-
-@WebServlet("/index")
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private LoginDao loginDao;
 
-	public void init() {
-		loginDao = new LoginDao();
-	}
+    private static final long serialVersionUID = 1L;
+    private LoginDao loginDao;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    public void init() {
+        loginDao = new LoginDao();
+    }
 
-		int numMatricula = Integer.parseInt(request.getParameter("matricula"));
-		String senha = request.getParameter("password");
-		LoginModel login = new LoginModel();
-		login.setNumMatricula(numMatricula);
-		login.setSenha(senha);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-                if (loginDao.validate(login)) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("perfil", login.getPermissao());
-                    session.setAttribute("matricula", login.getNumMatricula());
-                    response.sendRedirect("principal.jsp");
-                    
-                } else {
-                    HttpSession session = request.getSession();
-                    //session.setAttribute("user", username);
-                    response.sendRedirect("index.jsp");
-                }
-	}
+        int numMatricula = Integer.parseInt(request.getParameter("matricula"));
+        String senha = request.getParameter("password");
+        LoginModel login = new LoginModel();
+        login.setNumMatricula(numMatricula);
+        login.setSenha(senha);
+
+        boolean validationFlag = loginDao.validate(login);
+
+        if (validationFlag) {
+            HttpSession session = request.getSession();
+            session.setAttribute("perfil", login.getPermissao());
+            session.setAttribute("matricula", login.getNumMatricula());
+            session.setAttribute("nomeFunc", login.getNome());
+            request.getSession().setAttribute("usuarioLogado", login);
+            response.sendRedirect("logado/principal.jsp");
+        }
+
+
+    }
+
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
 }
