@@ -22,7 +22,7 @@ public class EditaDepartamentoServlet extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         doPost(request, response);
     }
 

@@ -45,6 +45,7 @@
                 <c:if test="${sessionScope.perfil == 'gestor'}">
                     <li class="nav-item">
                         <a class="nav-link" href="projetos.jsp">Projetos</a>
+                        <a class="nav-link" href="projetoDemaisFunc.jsp">Visualizar Projetos</a>
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.perfil == 'RH'}">

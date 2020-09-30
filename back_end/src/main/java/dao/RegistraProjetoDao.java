@@ -37,43 +37,9 @@ public class RegistraProjetoDao {
         }
         return status;
       
-    }
-   public void deletarProjeto(int idProjeto){
-       
-       boolean status = false;
-       String sql = "delete from projetos where idProjeto = ?;";
-       
-       try{
-            Connection conn = Conexao.getConexao();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            
-            ps.setInt(1, idProjeto);
-              
-       }catch (SQLException e) {
-       e.printStackTrace(System.err);
-   }
-}
-   
-       public void atualizarProjeto(RegistraProjetoModel proj){
-       
-       boolean status = false;
-       String sql = "update produtos set descProjeto = ?, cargaTotalHr=? , statusProjeto=? where idProjeto = ?";
-       
-       try{
-            Connection conn = Conexao.getConexao();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            
-            ps.setString(1, proj.getDescProjeto());
-            ps.setString(2, proj.getCargaTotalHr());
-            ps.setString(3, proj.getStatusProjeto());
-            ps.setInt(4, proj.getIdProjeto());
-            
-              
-       }catch (SQLException e) {
-       e.printStackTrace(System.err);
-}
-}
-            
+    }  
+        
+      
        public ArrayList <RegistraProjetoModel> ListaProjeto() {
             RegistraProjetoModel model = new RegistraProjetoModel();
             int idProj = model.getIdProjeto();
@@ -102,9 +68,33 @@ public class RegistraProjetoDao {
         }
     
         return lista;
-        
-       
+      
        }
+       
+       public boolean editaProjeto(RegistraProjetoModel proj) {
+        boolean status = false;
+        String sql = "update projetos set descProjeto = ?, statusProjeto = ?, cargaTotalHr = ? where idProjeto = ?;";
+
+        try {
+            Connection conn = Conexao.getConexao();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, proj.getDescProjeto());
+            ps.setString(2, proj.getStatusProjeto());
+            ps.setString(3, proj.getCargaTotalHr());
+            ps.setInt(4, proj.getIdProjeto());
+
+            System.out.println(ps);
+            if (ps.executeUpdate() > 0) {
+                ps.close();
+                System.out.println("Deu certo o editar do projeto");
+                status = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return status;
+    }
  }     
 
 
