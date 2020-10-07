@@ -11,7 +11,7 @@ public class LoginDao {
     
      public boolean validate(LoginModel login) {
             boolean status = false;
-            String sql = "SELECT U.numMatricula, U.senha, U.permissao, F.nome " +
+            String sql = "SELECT U.numMatricula, U.senha, U.permissao, F.nome, F.idDepto " +
                          "FROM usuario as U " +
                          "INNER JOIN funcionario as F " +
                          "ON U.numMatricula = F.numMatricula " +
@@ -31,6 +31,7 @@ public class LoginDao {
            if (rs.next()) {
                     LoginModel.setPermissao(rs.getString("permissao"));
                     LoginModel.setNome(rs.getString("nome"));
+                    LoginModel.setIdDepto(rs.getInt("idDepto"));
                     status = true;
            }
            ps.close();

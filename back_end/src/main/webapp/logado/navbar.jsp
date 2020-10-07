@@ -43,8 +43,12 @@
                     <a class="nav-link" href="#">Alocação de Horas </a>
                 </li>
                 <c:if test="${sessionScope.perfil == 'gestor'}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="projetos.jsp">Projetos</a>
+                     <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projetos</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="projetos.jsp">Gerenciamento de Projetos</a>
+                            <a class="dropdown-item" href="projetoDemaisFunc.jsp">Visualizar Projetos</a>
+                        </div>
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.perfil == 'RH'}">
@@ -72,7 +76,7 @@
                     </c:when>
                 </c:choose>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">Calendário</a>
+                    <a class="nav-link" href="calendario.jsp">Calendário</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="perfilProfissional.jsp">Perfil Profissional </a>
