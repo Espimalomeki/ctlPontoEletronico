@@ -62,19 +62,11 @@
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span>Lista de Funcionários do Departamento</span>
                         <%
-<<<<<<< HEAD
-                                ListaFuncRH lsFunc1 = new ListaFuncRH();
-                                ArrayList<FuncionarioModel> listaArray1 = lsFunc1.ListaFunc();
-                                int totalfunc = lsFunc1.ListaFunc().size();
-                            %>
-                        <span class="badge badge-secondary badge-pill"><%= totalfunc %></span>
-=======
                             FuncionarioDao listaFunc = new FuncionarioDao();
                             ArrayList<FuncionarioModel> listaArray = listaFunc.ListaFunc();
                             int totalfunc = listaFunc.ListaFunc().size();
                         %>
                         <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
->>>>>>> 2636b9f6d40773ae6d83fe552337da263ccc6105
                     </h4>
                 </div>
             </div>
@@ -88,29 +80,10 @@
                             <th>Email</th>
                             <th>Perfil Profissional</th>
                             <th>Banco De Horas</th>
+                            <th>Editar</th>
                         </tr>
                     </thead>
                     <tbody>
-<<<<<<< HEAD
-                        <tbody>
-                       <%
-                                ListaFuncRH lsFunc = new ListaFuncRH();
-                                ArrayList<FuncionarioModel> listaArray = lsFunc.ListaFunc();
-                                int tmListaPt = lsFunc.ListaFunc().size();
-                                for (int i = 0; i < tmListaPt; i++) {
-                            %>
-                            <tr>
-                                <td><%= listaArray.get(i).getNumMatricula()%>    </td>
-                                <td><%= listaArray.get(i).getNome()%>  </td>
-                                <td><%= listaArray.get(i).getCargo()%></td>
-                                <td><%= listaArray.get(i).getEmail()%> </td>
-                                <td><a href="#" class="card-link">Detalhar</a></td>
-                                <td><a href="#" class="card-link">Visualizar</a></td>
-                            </tr>
-                            <%
-                                }
-                            %>                     
-=======
                     <tbody>
                         <%
                             int numM;
@@ -125,6 +98,7 @@
                             <td><%= listaArray.get(i).getEmail()%> </td>
                             <td><a href="#" class="card-link">Detalhar</a></td>
                             <td><button class="btn btn-primary btn-banco" id="bc<%=numM%>" value="<%=numM%>">Visualizar</button></td>
+                            <td><a href="editarFuncionario.jsp?id=<%=listaArray.get(i).getNumMatricula()%>&nome=<%=listaArray.get(i).getNome()%>&cpf=<%=listaArray.get(i).getCpf()%>&rne=<%=listaArray.get(i).getRne()%>&email=<%=listaArray.get(i).getEmail()%>&datanasc=<%=listaArray.get(i).getDataNasc()%>&telefone=<%=listaArray.get(i).getTelefone()%>&contabanc=<%=listaArray.get(i).getContaBancaria()%>&endereco=<%=listaArray.get(i).getEndereco()%>&complemento=<%=listaArray.get(i).getComplemento()%>&dtadmissao=<%=listaArray.get(i).getDataAdmissao()%>&cargo=<%=listaArray.get(i).getCargo()%>&cargaH=<%=listaArray.get(i).getCargaHoraria()%>&salario=<%=listaArray.get(i).getSalario()%>&genero=<%=listaArray.get(i).getGenero()%>&permissao=<%=listaArray.get(i).getPermissao()%>" class="btn btn-danger btn-xs">Editar</a></td>
                     <script>
                         let bc<%=numM%> = document.getElementById('bc<%=numM%>');
                         //let = document.getElementsByClassName("btn-banco")[1];
@@ -154,7 +128,6 @@
                     <%
                         }
                     %>                     
->>>>>>> 2636b9f6d40773ae6d83fe552337da263ccc6105
                     </tbody>
                 </table>
             </div>

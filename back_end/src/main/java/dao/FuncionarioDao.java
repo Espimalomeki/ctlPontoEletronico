@@ -95,6 +95,44 @@ public class FuncionarioDao {
 
         return status;
     }
+    
+     public boolean atualizarUsuario(FuncionarioModel func) {
+        boolean status = false;
+        String sql = "select numMatricula, permissao from funcionario where cpf = ?";
+        String sql2 = "update usuario set permissao = ? where numMatricula = ?";
+
+        try {
+            Connection conn = Conexao.getConexao();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, func.getCpf());
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String matricula = rs.getString("numMatricula");
+                String permissao = rs.getString("permissao");
+
+                PreparedStatement ps2 = conn.prepareStatement(sql2);
+                ps2.setString(1, permissao);
+                ps2.setString(2, matricula);
+
+                if (ps2.executeUpdate() > 0) {
+                    System.out.println("Deu certo a Atualizacao de usuario");
+                    status = true;
+                }
+            }
+
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+
+        return status;
+    }
+    
+    
 
     public FuncionarioModel retornaFuncionario() {
         FuncionarioModel func = new FuncionarioModel();
@@ -151,10 +189,22 @@ public class FuncionarioDao {
 
             while (rs.next()) {
                 FuncionarioModel listaFunc = new FuncionarioModel();
-                listaFunc.setNumMatricula(rs.getInt("numMatricula"));
+                listaFunc.setPermissao(rs.getString("permissao"));
                 listaFunc.setNome(rs.getString("nome"));
+                listaFunc.setCpf(rs.getString("cpf"));
+                listaFunc.setRne(rs.getString("rne"));
                 listaFunc.setCargo(rs.getString("cargo"));
                 listaFunc.setEmail(rs.getString("email"));
+                listaFunc.setDataNasc(rs.getString("dataNascimento"));
+                listaFunc.setTelefone(rs.getString("telefone"));
+                listaFunc.setContaBancaria(rs.getString("contaBancaria"));
+                listaFunc.setEndereco(rs.getString("endereco"));
+                listaFunc.setComplemento(rs.getString("complemento"));
+                listaFunc.setDataAdmissao(rs.getString("dataAdmissao"));
+                listaFunc.setCargaHoraria(rs.getString("cargaHoraria"));
+                listaFunc.setSalario(rs.getString("salario"));
+                listaFunc.setGenero(rs.getString("genero"));
+                listaFunc.setNumMatricula(Integer.parseInt(rs.getString("numMatricula")));
                 lista.add(listaFunc);
             }
 
@@ -163,11 +213,26 @@ public class FuncionarioDao {
         }
         return lista;
     }
-     public boolean AtualizarFuncionario(FuncionarioModel func){
+     public boolean editaFuncionario(FuncionarioModel func){
         boolean status = false;
-        String sql = "update funcionario set(nome,cpf,rne,email,dataNascimento,"
-                + "telefone,contaBancaria,endereco,complemento,dataAdmissao,cargo,"
-                + "cargaHoraria,salario,genero,permissao,idDepto)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+        String sql;
+        sql = "update funcionario set "
+                + "nome = ?,"
+                + "cpf = ?,"
+                + "rne = ?,"
+                + "email = ?,"
+                + "dataNascimento = ?,"
+                + "telefone = ?,"
+                + "contaBancaria = ?,"
+                + "endereco = ?,"
+                + "complemento = ?,"
+                + "dataAdmissao = ?,"
+                + "cargo = ?,"
+                + "cargaHoraria = ?,"
+                + "salario = ?,"
+                + "genero = ?,"
+                + "permissao = ?,"
+                + "idDepto = ? "
                 + "where numMatricula = ?";
 
         try {
@@ -190,12 +255,13 @@ public class FuncionarioDao {
             ps.setString(14, func.getGenero());
             ps.setString(15, func.getPermissao());
             ps.setInt(16, func.getCodDepto());
+            ps.setInt(17,func.getNumMatricula());
             
             System.out.println(ps);
             if (ps.executeUpdate() > 0) {
                 ps.close();
                 System.out.println("Funcionário Atualizado com sucesso");
-                if (incluirUsuario(func)) {
+                if (atualizarUsuario(func)) {
                     status = true;
                 }
             }
