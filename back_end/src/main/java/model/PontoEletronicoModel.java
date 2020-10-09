@@ -9,7 +9,15 @@ public class PontoEletronicoModel {
     private String horaFimIntervalo;
     private String motivoAjuste;
     private String homeOffice;
+    private String qtdHorasTrabalhadas;
 
+    public void setQtdHorasTrabalhadas(String qtdHorasTrabalhadas) {
+        this.qtdHorasTrabalhadas = qtdHorasTrabalhadas;
+    }
+
+    public String getQtdHorasTrabalhadas() {
+        return qtdHorasTrabalhadas;
+    }
     
 
     public int getNumMatricula() {
@@ -79,5 +87,6 @@ public class PontoEletronicoModel {
     public void numMatricula() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     
 }

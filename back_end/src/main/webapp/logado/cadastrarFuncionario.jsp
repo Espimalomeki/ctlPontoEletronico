@@ -1,3 +1,6 @@
+<%@page import="model.DepartamentoModel"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.DepartamentoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -10,8 +13,8 @@
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
 
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -176,15 +179,36 @@
                     <div class="mb-3">
                         <label>Cargo:</label>
                         <select name="cargo" class="form-control" id="cargo">
-                            <option value="softJr">Engenheiro de software .Jr</option>
-                            <option value="softPl">Engenheiro de software .PL</option>
-                            <option value="softSr">Engenheiro de software .Sr</option>
-                            <option value="gerentJr">Gerente de projetos .Jr</option>
-                            <option value="gerentPL">Gerente de projetos .PL</option>
-                            <option value="gerentSr">Gerente de projetos .Sr</option>
+                            <option value="Engenheiro de Software Jr.">Engenheiro de Software Jr.</option>
+                            <option value="Engenheiro de Software Pl.">Engenheiro de Software Pl.</option>
+                            <option value="Engenheiro de Software Sr.">Engenheiro de Software Sr.</option>
+                            <option value="Analista de Software Jr.">Analista de Software Jr.</option>
+                            <option value="Analista de Software Pl.">Analista de Software Pl.</option>
+                            <option value="Analista de Software Sr.">Analista de Software Sr.</option>
+                            <option value="Analista de Recursos Humanos Jr.">Analista de Recursos Humanos Jr.</option>
+                            <option value="Analista de Recursos Humanos Pl.">Analista de Recursos Humanos Pl.</option>
+                            <option value="Analista de Recursos Humanos Sr.">Analista de Recursos Humanos Sr.</option>
+                            <option value="Gerente de Projetos Jr.">Gerente de projetos Jr.</option>
+                            <option value="Gerente de Projetos Pl.">Gerente de projetos Pl.</option>
+                            <option value="Gerente de Projetos Sr.">Gerente de projetos Sr.</option>
                         </select>                    
                     </div>
 
+                    <div class="mb-3">
+                        <label>Departamento:</label>
+                        <select name="departamento" class="form-control" id="departamento">
+                            <option value="">-- Selecionar Departamento --</option>
+                            <%
+                                DepartamentoDao deptos = new DepartamentoDao();
+                                ArrayList<DepartamentoModel> listaArray = deptos.listaDeptos();
+                                int sizeLista = deptos.listaDeptos().size();
+                                for (int i = 0; i < sizeLista; i++) {
+                            %>                           
+                            <option value="<%=listaArray.get(i).getCodDepto()%>"><%=listaArray.get(i).getCodDepto()%> - <%=listaArray.get(i).getNomeDepto()%></option>
+                            <% } %>
+                        </select>                    
+                    </div>
+                    
                     <div class="mb-3">
                         <label>Carga Horária:</label>
                         <select name="cargaHoraria" class="form-control" id="cargaHoraria">

@@ -9,6 +9,14 @@
         <url-pattern>/logado/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+    <servlet>
+        <servlet-name>EditarDepartamento</servlet-name>
+        <servlet-class>servlet.EditaDepartamentoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditarDepartamento</servlet-name>
+        <url-pattern>/EditarDepartamento</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

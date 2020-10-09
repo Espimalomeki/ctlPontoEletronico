@@ -1,3 +1,12 @@
+<%-- 
+    Document   : perfilProfissional
+    Created on : 21/09/2020, 20:05:40
+    Author     : claud
+--%>
+
+<%@page import="model.FuncionarioModel"%>
+<%@page import="dao.FuncionarioDao"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,17 +17,10 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
 
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
-  <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
-  <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
-  <meta name="theme-color" content="#563d7c">
+ 
 
 
   <style>
@@ -44,7 +46,9 @@
   <link href="offcanvas.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-  <header id="navbar"></header>
+    <header id="navbar">
+        <jsp:include page="navbar.jsp"/>
+    </header>
 
   <main role="main" class="container">
     
@@ -59,21 +63,24 @@
         Perfil do Profissional</h4>
       </div>
     </div>
-
+<%  
+    FuncionarioDao funcDao = new FuncionarioDao();
+    FuncionarioModel func = funcDao.retornaFuncionario();
+    %>
     <div class="row">
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Dados Pessoais</h5>
-            <p class="card-text">Nome Completo: André Ferreira</p>
-            <p class="card-text">CPF: 040.880.550-60</p>
-            <p class="card-text">Documento de Identidade: 20.270.280-0</p>
-            <p class="card-text">Data de Nascimento: 28/04/1981</p>
-            <p class="card-text">E-mail: andreferreira@espimalomeki.com</p>
+            <p class="card-text">Nome Completo: <%=func.getNome()%></p>
+            <p class="card-text">CPF: <%=func.getCpf()%></p>
+            <p class="card-text">Documento de Identidade: <%=func.getRne()%></p>
+            <p class="card-text">Data de Nascimento: <%=func.getDataNasc()%></p>
+            <p class="card-text">E-mail: <%=func.getEmail()%></p>
             <br>
             <h6 class="card-title">Endereço</h6>
-            <p class="card-text">Avenida das Nações Unidas 1000</p>
-            <p class="card-text">Complemento: Bloco H Apartamento: 102</p>
+            <p class="card-text"><%=func.getEndereco()%></p>
+            <p class="card-text">Complemento: <%=func.getComplemento()%></p>
           </div>
         </div>
       </div>
@@ -81,18 +88,18 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Dados Profissionais</h5>
-            <p class="card-text">Número de Matrícula: 0100</p>
-            <p class="card-text">Data de Admissão: 18/01/2009</p>
-            <p class="card-text">Cargo: GERENTE DE PROJETOS JR</p>
-            <p class="card-text">Carga Horaria: 200 horas mensais</p>
-            <p class="card-text">Salário: R$12.004,00</p>
-            <p class="card-text">Conta Bancária: 3108801254</p>
+            <p class="card-text">Número de Matrícula: <%=func.getNumMatricula()%></p>
+            <p class="card-text">Data de Admissão: <%=func.getDataAdmissao()%></p>
+            <p class="card-text">Cargo: <%=func.getCargo()%></p>
+            <p class="card-text">Carga Horaria: <%=func.getCargaHoraria()%></p>
+            <p class="card-text">Salário: <%=func.getSalario()%></p>
+            <p class="card-text">Conta Bancária: <%=func.getContaBancaria()%></p>
           </div>
         </div>
       </div>
       <div class="d-flex align-items-center p-3 my-3 bg-light rounded">
         <div class="lh-100">
-          <button type="button" class="btn btn-secondary btn-md">Voltar</button>
+            <a href="principal.jsp" role="button"  class="btn btn-secondary btn-md">Voltar</a>
           <button type="button" class="btn btn-primary btn-md">Alterar Senha</button>
         </div>
       </div>

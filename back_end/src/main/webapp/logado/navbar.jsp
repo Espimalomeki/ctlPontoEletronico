@@ -28,14 +28,14 @@
                                 Banco de Horas
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="bancoDeHoras.html">Banco de Horas</a>
+                                <a class="dropdown-item" href="bancoDeHoras.jsp">Banco de Horas</a>
                                 <a class="dropdown-item" href="bancoDeHorasGestor.html">Banco De Horas - Gestor</a>
                             </div>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
-                            <a class="nav-link" href="bancoDeHoras.html">Banco de Horas</a>
+                            <a class="nav-link" href="bancoDeHoras.jsp">Banco de Horas</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -43,9 +43,18 @@
                     <a class="nav-link" href="#">Alocação de Horas </a>
                 </li>
                 <c:if test="${sessionScope.perfil == 'gestor'}">
+                     <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projetos</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="projetos.jsp">Gerenciamento de Projetos</a>
+                            <a class="dropdown-item" href="projetoDemaisFunc.jsp">Visualizar Projetos</a>
+                        </div>
+                    </li>
+                </c:if>
+                <c:if test="${sessionScope.perfil == 'RH'}">
                     <li class="nav-item">
-                    <a class="nav-link" href="projetos.jsp">Projetos</a>
-                </li>
+                        <a class="nav-link" href="departamentos.jsp">Departamentos</a>
+                    </li>
                 </c:if>
                 <c:choose>
                     <c:when test="${sessionScope.perfil == 'RH'}">
@@ -67,10 +76,10 @@
                     </c:when>
                 </c:choose>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">Calendário</a>
+                    <a class="nav-link" href="calendario.jsp">Calendário</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Perfil Profissional </a>
+                    <a class="nav-link" href="perfilProfissional.jsp">Perfil Profissional </a>
                 </li>
 
             </ul>
@@ -79,4 +88,5 @@
             </form>
         </div>
     </nav>
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 </html>

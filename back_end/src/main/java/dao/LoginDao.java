@@ -4,11 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JOptionPane;
 import model.LoginModel;
 
 public class LoginDao {
@@ -16,7 +11,7 @@ public class LoginDao {
     
      public boolean validate(LoginModel login) {
             boolean status = false;
-            String sql = "SELECT U.numMatricula, U.senha, U.permissao, F.nome " +
+            String sql = "SELECT U.numMatricula, U.senha, U.permissao, F.nome, F.idDepto " +
                          "FROM usuario as U " +
                          "INNER JOIN funcionario as F " +
                          "ON U.numMatricula = F.numMatricula " +
@@ -26,17 +21,17 @@ public class LoginDao {
             Connection conn = Conexao.getConexao();
             PreparedStatement ps = conn.prepareStatement(sql);
             
-            ps.setInt(1, login.getNumMatricula());
-            ps.setString(2, login.getSenha());
+            ps.setInt(1, LoginModel.getNumMatricula());
+            ps.setString(2, LoginModel.getSenha());
 
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
             System.out.println("passou por aqui");
           
            if (rs.next()) {
-                    login.setPermissao(rs.getString("permissao"));
-                    login.setNome(rs.getString("nome"));
-                    System.out.println(login.getPermissao());
+                    LoginModel.setPermissao(rs.getString("permissao"));
+                    LoginModel.setNome(rs.getString("nome"));
+                    LoginModel.setIdDepto(rs.getInt("idDepto"));
                     status = true;
            }
            ps.close();

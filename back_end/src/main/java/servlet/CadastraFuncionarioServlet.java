@@ -1,15 +1,12 @@
 package servlet;
 
 import dao.FuncionarioDao;
-import dao.LoginDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.FuncionarioModel;
 
 @WebServlet(name = "CadastraFuncionario", urlPatterns = {"/CadastraFuncionario"})
@@ -41,12 +38,12 @@ public class CadastraFuncionarioServlet extends HttpServlet {
         func.setSalario(request.getParameter("salario"));
         func.setGenero(request.getParameter("genero"));
         func.setPermissao(request.getParameter("permissao"));
+        func.setCodDepto(Integer.parseInt(request.getParameter("departamento")));
 
         if (funcDao.incluirFuncionario(func)) {
-            System.out.println("Deu certo 1");
-            response.sendRedirect("principal.jsp");
+            response.sendRedirect("logado/listaFuncionariosDepartamento.jsp");
         } else {
-            response.sendRedirect("cadastrarFuncionario.jsp");
+            response.sendRedirect("logado/cadastrarFuncionario.jsp");
         }
     }
 }

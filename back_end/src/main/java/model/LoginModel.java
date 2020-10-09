@@ -6,6 +6,7 @@ public class LoginModel {
     private static String senha;
     private static String permissao;
     private static String nome;
+    private static int idDepto;
 
     /**
      * @return the numMatricula
@@ -62,6 +63,25 @@ public class LoginModel {
     public static void setNome(String aNome) {
         nome = aNome;
     }
+
+    /**
+     * @return the idDepto
+     */
+    public static int getIdDepto() {
+        return idDepto;
+    }
+
+    /**
+     * @param aIdDepto the idDepto to set
+     */
+    public static void setIdDepto(int aIdDepto) {
+        idDepto = aIdDepto;
+    }
+
+    /**
+     * @return the idDepto
+     */
+    
 
     
     
