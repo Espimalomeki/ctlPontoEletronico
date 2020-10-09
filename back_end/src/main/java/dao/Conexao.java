@@ -12,7 +12,7 @@ public class Conexao {
             String serverName = "db-espimalomeki2.cxcrimytnhb6.us-east-2.rds.amazonaws.com";
             String mydatabase = "espimalomeki";
 
-             String username = "admin";
+            String username = "admin";
             String password = "espimalomeki";
 
             String driverName = "com.mysql.cj.jdbc.Driver";

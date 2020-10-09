@@ -20,7 +20,8 @@ public class FuncionarioModel {
     private String permissao;
     private int numMatricula;
     private int codDepto;
-
+    
+            
     public int getNumMatricula() {
         return numMatricula;
     }
