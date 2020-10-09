@@ -163,5 +163,45 @@ public class FuncionarioDao {
         }
         return lista;
     }
+     public boolean AtualizarFuncionario(FuncionarioModel func){
+        boolean status = false;
+        String sql = "update funcionario set(nome,cpf,rne,email,dataNascimento,"
+                + "telefone,contaBancaria,endereco,complemento,dataAdmissao,cargo,"
+                + "cargaHoraria,salario,genero,permissao,idDepto)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+                + "where numMatricula = ?";
 
+        try {
+            Connection conn = Conexao.getConexao();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, func.getNome());
+            ps.setString(2, func.getCpf());
+            ps.setString(3, func.getRne());
+            ps.setString(4, func.getEmail());
+            ps.setString(5, func.getDataNasc());
+            ps.setString(6, func.getTelefone());
+            ps.setString(7, func.getContaBancaria());
+            ps.setString(8, func.getEndereco());
+            ps.setString(9, func.getComplemento());
+            ps.setString(10, func.getDataAdmissao());
+            ps.setString(11, func.getCargo());
+            ps.setString(12, func.getCargaHoraria());
+            ps.setString(13, func.getSalario());
+            ps.setString(14, func.getGenero());
+            ps.setString(15, func.getPermissao());
+            ps.setInt(16, func.getCodDepto());
+            
+            System.out.println(ps);
+            if (ps.executeUpdate() > 0) {
+                ps.close();
+                System.out.println("Funcionário Atualizado com sucesso");
+                if (incluirUsuario(func)) {
+                    status = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return status;
+    } 
 }
