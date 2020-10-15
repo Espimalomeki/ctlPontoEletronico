@@ -35,7 +35,6 @@
                 -ms-user-select: none;
                 user-select: none;
             }
-
             @media (min-width: 768px) {
                 .bd-placeholder-img-lg {
                     font-size: 3.5rem;
@@ -92,7 +91,7 @@
                                         <option value="100h">100 Horas</option>
                                         <option value="500h">500 Horas</option>
                                         <option value="750h">750 Horas</option>
-                                        <option value="1000h">1000 Horasr</option>
+                                        <option value="1000h">1000 Horas</option>
                                         <option value="5000h">5000 Horas</option>
                                     </select>
                                 </div>
@@ -154,7 +153,7 @@
                                 <td><%= listaArray.get(i).getDescProjeto()%>  </td>
                                 <td><%= listaArray.get(i).getStatusProjeto()%></td>
                                 <td><%= listaArray.get(i).getCargaTotalHr()%> </td> 
-                                
+                                <td><a href="editarProjeto.jsp?idProjeto=<%=listaArray.get(i).getIdProjeto()%>&descProjeto=<%=listaArray.get(i).getDescProjeto()%>&statusProjeto=<%=listaArray.get(i).getStatusProjeto()%>&cargaTotalHr=<%=listaArray.get(i).getCargaTotalHr()%>" class="btn btn-danger btn-xs">Editar</a></td>
                             </tr>
                             <%
                                 }

@@ -481,7 +481,7 @@ public class PontoEletronicoDao {
             int horasNecessarias = 8 * diasTrabalhados;
             long miliHorasNecessarias = TimeUnit.HOURS.toMillis(horasNecessarias);
             String res;
-            if (hrTrabalhadas > horasNecessarias) {
+            if (hrTrabalhadas >= horasNecessarias) {
                 long milisegundosTotais = hrMlTrabalhadas - miliHorasNecessarias;
 
                 String seconds = (milisegundosTotais / 1000 % 60) + "";
@@ -498,9 +498,13 @@ public class PontoEletronicoDao {
             } else {
                 long milisegundosTotais = miliHorasNecessarias - hrMlTrabalhadas;
 
-                String seconds = (milisegundosTotais / 1000 % 60) + "";
-                String minutes = (milisegundosTotais / (60 * 1000) % 60) + "";
-                String hours = (milisegundosTotais / (60 * 60 * 1000)) + "";
+                String sec = (milisegundosTotais / 1000 % 60) + "";
+                String min = (milisegundosTotais / (60 * 1000) % 60) + "";
+                String hou = (milisegundosTotais / (60 * 60 * 1000)) + "";
+                
+                String seconds = sec.replace("-", "");
+                String minutes = min.replace("-", "");
+                String hours   = hou.replace("-", "");
 
                 seconds = completeToLeft(seconds, '0', 2);
                 minutes = completeToLeft(minutes, '0', 2);

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import model.AlocacaoDeHorasModel;
 import model.LoginModel;
+import java.util.ArrayList;
 import model.RegistraProjetoModel;
 
 public class RegistraProjetoDao {
@@ -113,8 +114,31 @@ public class RegistraProjetoDao {
             e.printStackTrace();
         }
         return lista;
+      
+       }
+       
+       public boolean editaProjeto(RegistraProjetoModel proj) {
+        boolean status = false;
+        String sql = "update projetos set descProjeto = ?, statusProjeto = ?, cargaTotalHr = ? where idProjeto = ?;";
+
+        try {
+            Connection conn = Conexao.getConexao();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, proj.getDescProjeto());
+            ps.setString(2, proj.getStatusProjeto());
+            ps.setString(3, proj.getCargaTotalHr());
+            ps.setInt(4, proj.getIdProjeto());
+
+            System.out.println(ps);
+            if (ps.executeUpdate() > 0) {
+                ps.close();
+                System.out.println("Deu certo o editar do projeto");
+                status = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return status;
     }
-    
-    
-    
-}
+ }     
