@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,12 +39,8 @@ public class CarregaListaPontosBancoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BancoDeHorasDao bancoDeHr = new BancoDeHorasDao();
-        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
-        
-        
-        ArrayList<BancoDeHorasModel> listaBH = bancoDeHr.listaItens();
-        ArrayList<PontoEletronicoModel> listaHr = ptEletronico.listaHorario();
+        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();        
+        ArrayList<PontoEletronicoModel> listaHr = ptEletronico.listaHorario(0);
             int tamListaHr = listaHr.size();
         
             String listaResul = "";
@@ -52,6 +49,8 @@ public class CarregaListaPontosBancoServlet extends HttpServlet {
 
                 listaResul += "<tr>"
                     + "<td>"+ listaHr.get(i).getHoraEntrada()+"</td>"
+                    + "<td>"+ listaHr.get(i).getHoraInicioIntervalo()+"</td>"
+                    + "<td>"+ listaHr.get(i).getHoraFimIntervalo()+"</td>"
                     + "<td>"+ listaHr.get(i).getHoraSaida() +"</td>"
                     + "<td>"+ listaHr.get(i).getQtdHorasTrabalhadas() +"</td>"
                 + "</tr>"; 
@@ -69,9 +68,30 @@ public class CarregaListaPontosBancoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int str = Integer.parseInt(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+        
+        ArrayList<PontoEletronicoModel> listaHr = ptEletronico.listaHorario(str);
+            int tamListaHr = listaHr.size();
+        
+            String listaResul = "";
+
+            for (int i = 0; i < tamListaHr; i++) {
+
+                listaResul += "<tr>"
+                    + "<td>"+ listaHr.get(i).getHoraEntrada()+"</td>"
+                    + "<td>"+ listaHr.get(i).getHoraInicioIntervalo()+"</td>"
+                    + "<td>"+ listaHr.get(i).getHoraFimIntervalo()+"</td>"
+                    + "<td>"+ listaHr.get(i).getHoraSaida() +"</td>"
+                    + "<td>"+ listaHr.get(i).getQtdHorasTrabalhadas() +"</td>"
+                + "</tr>"; 
+
+            }
+            
+            response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+            response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+            response.getWriter().write(listaResul);
     }
 
     @Override

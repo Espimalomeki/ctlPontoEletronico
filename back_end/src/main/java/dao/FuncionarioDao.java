@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.FuncionarioModel;
 import model.LoginModel;
+import model.RelatorioFuncionarioSelecionadoModel;
 import util.GeraSenha;
 
 public class FuncionarioDao {
@@ -132,18 +133,33 @@ public class FuncionarioDao {
         }
         return func;
     }
+<<<<<<< HEAD
     public FuncionarioModel retornaFuncionario(int numMatricula) {
         FuncionarioModel func = new FuncionarioModel();
+=======
+    
+    public RelatorioFuncionarioSelecionadoModel retornaFuncionarioSelecionado(String numMFunc) {
+        RelatorioFuncionarioSelecionadoModel func = new RelatorioFuncionarioSelecionadoModel();
+>>>>>>> cfdfe584206fdd09b315bde4f45ec10b4d085685
         String sql = "select * from funcionario where numMatricula = ?";
 
         try {
             Connection conn = Conexao.getConexao();
             PreparedStatement ps = conn.prepareStatement(sql);
+<<<<<<< HEAD
             ps.setInt(1, numMatricula);
 
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
             System.out.println("passou por aqui");
+=======
+            //LoginModel login = new LoginModel();
+            int numM = Integer.parseInt(numMFunc);
+            ps.setInt(1, numM);
+
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+>>>>>>> cfdfe584206fdd09b315bde4f45ec10b4d085685
 
             if (rs.next()) {
                 func.setPermissao(rs.getString("permissao"));
@@ -162,7 +178,10 @@ public class FuncionarioDao {
                 func.setSalario(rs.getString("salario"));
                 func.setGenero(rs.getString("genero"));
                 func.setNumMatricula(Integer.parseInt(rs.getString("numMatricula")));
+<<<<<<< HEAD
                 func.setCodDepto(Integer.parseInt(rs.getString("idDepto")));
+=======
+>>>>>>> cfdfe584206fdd09b315bde4f45ec10b4d085685
             }
             ps.close();
 
@@ -171,6 +190,7 @@ public class FuncionarioDao {
         }
         return func;
     }
+<<<<<<< HEAD
 
     public ArrayList<FuncionarioModel> listaFuncDepto() {
 
@@ -188,6 +208,8 @@ public class FuncionarioDao {
             ps.setInt(1, idDepartamento);
             
             ResultSet rs = ps.executeQuery();
+=======
+>>>>>>> cfdfe584206fdd09b315bde4f45ec10b4d085685
 
             while (rs.next()) {
                 FuncionarioModel listaFunc = new FuncionarioModel();

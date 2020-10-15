@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,22 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "BancoDeHorasServlet", urlPatterns = {"/BancoDeHorasServlet"})
 public class BancoDeHorasServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet BancoDeHorasServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet BancoDeHorasServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-
-        
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
 
     }
     @Override
@@ -47,7 +33,7 @@ public class BancoDeHorasServlet extends HttpServlet {
     PontoEletronicoDao ptEletronico = new PontoEletronicoDao();  
     String TotalHorasTrabalhadas = "";
     try {
-        TotalHorasTrabalhadas = ptEletronico.getTotalHorasTrabalhadas();
+        TotalHorasTrabalhadas = ptEletronico.getTotalHorasTrabalhadas(0);
         } catch (ParseException ex) {
             Logger.getLogger(BancoDeHorasServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -56,6 +42,22 @@ public class BancoDeHorasServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         response.getWriter().write(" "+TotalHorasTrabalhadas+" Horas Trabalhadas!");       // Write response body.
     } 
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int str = Integer.parseInt(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();  
+        String TotalHorasTrabalhadas = "";
+        try {
+            TotalHorasTrabalhadas = ptEletronico.getTotalHorasTrabalhadas(str);
+        } catch (ParseException ex) {
+            Logger.getLogger(BancoDeHorasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+        response.getWriter().write(" "+TotalHorasTrabalhadas+" Horas Trabalhadas!");       // Write response body.
+    }
     
     @Override
     public String getServletInfo() {

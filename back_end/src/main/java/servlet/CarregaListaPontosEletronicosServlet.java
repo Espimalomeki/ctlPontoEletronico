@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import dao.FuncionarioDao;
 import dao.PontoEletronicoDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,11 +13,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.SessionScoped;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
+import model.FuncionarioModel;
 import model.PontoEletronicoModel;
 
 /**
@@ -54,27 +58,39 @@ public class CarregaListaPontosEletronicosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
-        int TotalHorasTrabalhadas = 0;
-        //PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
-        ArrayList <PontoEletronicoModel> listaArray = ptEletronico.listaPontos();
-        int tmListaPt = listaArray.size();
-        String listaTr = "";
-        for (int i = 0; i < tmListaPt; i++) {
-            listaTr += "<tr>"
-                    + "<td>"+listaArray.get(i).getNumMatricula()+" </td>"
-                    + "<td>"+listaArray.get(i).getHoraEntrada()+"</td>"
-                    + "<td>"+listaArray.get(i).getHoraInicioIntervalo()+"</td>"
-                    + "<td>"+listaArray.get(i).getHoraFimIntervalo()+"</td> "
-                    + "<td>"+listaArray.get(i).getHoraSaida()+"</td>"
-                    + "<td>"+listaArray.get(i).getHomeOffice()+"</td>"
-                    + "<td>"+listaArray.get(i).getMotivoAjuste()+"</td>"
-                    + "</tr>";
+        try {
+            PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+            ArrayList <PontoEletronicoModel> listaArray = ptEletronico.listaPontos(false);
+            int tmListaPt = listaArray.size();
+            String listaTr = "";
+            FuncionarioDao funcDao = new FuncionarioDao();
+            FuncionarioModel func = funcDao.retornaFuncionario();
+            String funcao = func.getPermissao();
             
+            int idPonto;
+            for (int i = 0; i < tmListaPt; i++) {
+                idPonto = listaArray.get(i).getIdPonto();
+                listaTr += "<tr id='"+idPonto+"'>";
+                                                        
+//                if(funcao.equals("RH")){
+//                    listaTr += "<td> <button class='btn btn-success' onclick='modificarPonto("+idPonto+")'> Editar </button> </td>";
+//                };
+                
+                listaTr += ""
+//                    + "<td>"+listaArray.get(i).getNumMatricula()+" </td>"
+                        + "<td><center>"+listaArray.get(i).getHoraEntrada()+"</center></td>"
+                        + "<td class='pl-5'>"+listaArray.get(i).getTotalHrIntervalo()+"</td>"
+                        + "<td><center>"+listaArray.get(i).getHoraSaida()+"</center></td>"
+                        + "<td class='pl-4'>"+listaArray.get(i).getHomeOffice()+"</td>"
+                        + "<td><small>"+listaArray.get(i).getMotivoAjuste()+"</small></td>"
+                        + "</tr>";
+            }
+            response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+            response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+            response.getWriter().write(listaTr);
+        } catch (ParseException ex) {
+            Logger.getLogger(CarregaListaPontosEletronicosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-        response.getWriter().write(listaTr);
     }
 
     @Override
