@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,37 +59,30 @@ public class PontoEletronicoServlet extends HttpServlet {
 
             ptEletronico.inserePonto(homeOffice);
             response.setContentType("text/html;charset=UTF-8");
-            //response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-            //response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
             response.getWriter().write(" Ponto Registrado!");
 
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String home = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        
+        PrintWriter out = response.getWriter();
+        boolean homeOffice = Boolean.parseBoolean(home);
+        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+
+        ptEletronico.inserePonto(homeOffice);
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().write(" Ponto Registrado!");
+        //response.sendRedirect("pontoEletronico.jsp");
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

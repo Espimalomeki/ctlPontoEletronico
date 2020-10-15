@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.FuncionarioModel;
 import model.LoginModel;
+import model.RelatorioFuncionarioSelecionadoModel;
 import util.GeraSenha;
 
 public class FuncionarioDao {
@@ -129,6 +130,46 @@ public class FuncionarioDao {
                 func.setGenero(rs.getString("genero"));
                 func.setNumMatricula(Integer.parseInt(rs.getString("numMatricula")));
                 System.out.println(login.getPermissao());
+            }
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return func;
+    }
+    
+    public RelatorioFuncionarioSelecionadoModel retornaFuncionarioSelecionado(String numMFunc) {
+        RelatorioFuncionarioSelecionadoModel func = new RelatorioFuncionarioSelecionadoModel();
+        String sql = "select * from funcionario where numMatricula = ?";
+
+        try {
+            Connection conn = Conexao.getConexao();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            //LoginModel login = new LoginModel();
+            int numM = Integer.parseInt(numMFunc);
+            ps.setInt(1, numM);
+
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                func.setPermissao(rs.getString("permissao"));
+                func.setNome(rs.getString("nome"));
+                func.setCpf(rs.getString("cpf"));
+                func.setRne(rs.getString("rne"));
+                func.setCargo(rs.getString("cargo"));
+                func.setEmail(rs.getString("email"));
+                func.setDataNasc(rs.getString("dataNascimento"));
+                func.setTelefone(rs.getString("telefone"));
+                func.setContaBancaria(rs.getString("contaBancaria"));
+                func.setEndereco(rs.getString("endereco"));
+                func.setComplemento(rs.getString("complemento"));
+                func.setDataAdmissao(rs.getString("dataAdmissao"));
+                func.setCargaHoraria(rs.getString("cargaHoraria"));
+                func.setSalario(rs.getString("salario"));
+                func.setGenero(rs.getString("genero"));
+                func.setNumMatricula(Integer.parseInt(rs.getString("numMatricula")));
             }
             ps.close();
 

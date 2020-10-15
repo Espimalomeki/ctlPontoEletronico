@@ -40,7 +40,7 @@
                     </c:otherwise>
                 </c:choose>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Alocação de Horas </a>
+                    <a class="nav-link" href="alocacaoDeHoras.jsp">Alocação de Horas </a>
                 </li>
                 <c:if test="${sessionScope.perfil == 'gestor'}">
                     <li class="nav-item">
@@ -58,7 +58,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="cadastrarFuncionario.jsp">Cadastrar Funcionário</a>
-                                <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários por Departamento</a>
+                                <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários</a>
                             </div>
                         </li>
                     </c:when>
@@ -67,6 +67,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários por Departamento</a>
+                                <a class="dropdown-item"  href="incluirFuncionarioProjeto.jsp">Incluir Funcionários Em Projeto</a>
                             </div>
                         </li>
                     </c:when>

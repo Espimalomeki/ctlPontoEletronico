@@ -1,3 +1,6 @@
+<%@page import="model.PontoEletronicoModel"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.PontoEletronicoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
@@ -10,7 +13,7 @@
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        
+
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -31,7 +34,11 @@
         <link href="offcanvas.css" rel="stylesheet">
     </head>
     <body class="bg-light">
-
+      <%--   <%
+            PontoEletronicoDao listaFunc = new PontoEletronicoDao();
+            ArrayList<PontoEletronicoModel> listaArray = listaFunc.listaDeveHoras();
+            int totalfunc = listaFunc.listaDeveHoras().size();
+        %> --%>
 
         <header id="navbar">
             <jsp:include page="navbar.jsp"/>
@@ -91,6 +98,55 @@
                     <a href="#">Ver mais</a>
                 </small>
             </div>
+<%-- 
+            <div class="row">
+                <div class="col-6">
+                    <div class="card border-warning mb-3" style="">
+                        <h3 class="card-header text-white bg-warning text-center">Funcionários Devendo Horas</h3>
+                        <div class="card-body text-warning">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr id="trTable">
+                                        <th><center>RGM</center></th>
+                                        <th><center>Nome</center></th>    
+                                        <th><center>Horas</center></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaPontosEletronicos">
+                                     <%
+                                        int numM;
+                                        String resulString = "";
+                                        for (int i = 0; i < totalfunc; i++) {
+                                            numM = listaArray.get(i).getNumMatricula();
+
+
+                                            resulString += 
+                                                    "<tr>"+
+                                            "<td>"+numM+"</td>"+
+                                            "<td>"+listaArray.get(i).getNomeUsuario()+"</td>"+
+                                            "<td>"+listaArray.get(i).getQtdHorasTrabalhadas()+"</td>"+                                            
+                                            "</tr>";
+                                        }
+                                        out.print(resulString);
+                                    %>        
+                                    
+                                    
+                                    <tr>
+                                        <td><center>20860269</center></td>
+                                        <td><center>Henrique de Ferraz</center></td>
+                                        <td><center>02:30:20</center></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!--<p class="card-text"><b>20860269</b> - Henrique de Ferraz </p>-->
+                            <!--<h5 class="card-title">Henrique de Ferraz </h5>-->
+                            <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+              --%>                      
         </main>
     </body>
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

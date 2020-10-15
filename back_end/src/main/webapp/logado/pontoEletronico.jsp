@@ -45,6 +45,23 @@
                 height: 100px;
                 animation: spin 2s linear infinite;
               }
+              
+              .table{                  
+                margin-bottom: 5rem;
+              }
+              
+              .footer{
+                position: fixed;
+                bottom: 0px;
+                width: 100%;
+                height: 30px;
+                background: #343a40;
+                margin: 0;
+            }
+
+            p{
+                margin-bottom: 0px;
+            }
 
             @keyframes spin {
               0% { transform: rotate(0deg); }
@@ -85,19 +102,19 @@
                     <div class="card">
                         <div class="card-body">
 <!--                            <form action="PontoEletronicoServlet" method="POST" name="fomulario"> -->
-                            <form> 
+                            
 
                                 <h5 class="card-title">Registrar Ponto</h5>
                                 <p class="card-text">Registre suas batidas de ponto diárias aqui.</p>
                                 <div class="form-group form-check">
-                                    <input type="checkbox" name="homeOffice" value="true" class="form-check-input" id="exampleCheck1">
+                                    <input type="checkbox" name="homeOffice" value="true" class="form-check-input" id="homeOff">
                                     <label class="form-check-label" for="exampleCheck1">Está em Homeoffice?</label>
                                 </div>
 
-                                <input id="registraPonto" type="submit" class="btn btn-primary" value="registraPonto"> 
+                                <button id="registraPonto" class="btn btn-primary" value=""> Registrar Ponto </button>
                                 <!--            <button class="btn btn-primary" onclick="inserePonto()"> Registrar batida de ponto</button>-->
                                 <!--            <a href="#" class="btn btn-primary">Registrar batida de ponto</a>-->
-                            </form>
+                            
 
                         </div>
                     </div>
@@ -131,12 +148,17 @@
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
-                        <tr>
-                            <th>Rgm</th>
-                            <th>Entrada</th>
-                            <th>Saída Intervalo</th>  
-                            <th>Entrada Intervalo</th>                                                      
-                            <th>Saí­da</th>
+                        <tr id="trTable">
+                            <%--                            <script>
+                                let trTable = document.getElementById("trTable");                                
+                                if("${sessionScope.perfil}" == "RH"){
+                                    trTable.innerHTML += "<th>  Editar  </th>";
+                                }                                
+                            </script> --%>
+<!--                            <th>Rgm</th>-->
+                            <th><center>Entrada</center></th>
+                            <th>Duração do intervalo</th>                                                      
+                            <th><center>Saí­da</center></th>
                             <th>Homeoffice</th>
                             <th>Motivo de Ajuste</th>
                         </tr>
@@ -151,8 +173,8 @@
                 </center>
             </div>
         </main>
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">&copy; 2020 Espimalomeki</p>
+        <footer class="text-muted text-small footer">
+            <p class="mt-1 col-4 offset-4 text-light">&copy; 2020 Espimalomeki</p>
         </footer>
 
 
@@ -162,21 +184,29 @@
     <script type="text/javascript" src="scripts.js"></script>
     <script>
             let registraPonto = document.getElementById("registraPonto");
+            
             registraPonto.addEventListener("click",()=>{
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "../PontoEletronicoServlet", true);
+                xhr.open("POST", "../PontoEletronicoServlet", true);
                 
                 xhr.onload = function (e) {
                     //e.preventDefault();
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {                            
                             alert(xhr.responseText);
+                            document.location.reload();
                         } else {                            
                             alert(xhr.responseText);
                         }
                     }
                 };
-                xhr.send(null);
+                let homeOff = document.getElementById("homeOff").checked;
+                if(homeOff){
+                    xhr.send("true");
+                }else{
+                    xhr.send("false");                     
+                }
+                
             });
             
             let listaPontosEletronicos = document.getElementById("listaPontosEletronicos");
@@ -219,6 +249,7 @@
                 xhrPontoHoje.send(null);
                 
             });
+            
             
             
     </script>

@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <% BancoDeHorasDao bancoDeHr = new BancoDeHorasDao(); %>
-<% PontoEletronicoDao ptEletronico = new PontoEletronicoDao(); %>
+<% PontoEletronicoDao ptEletronico = new PontoEletronicoDao();%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -36,24 +36,20 @@
         <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
         <meta name="theme-color" content="#563d7c">
         <script>
-            $(document).ready(function () { 
-                let qtdTotalHorasTrabalhadas = document.getElementById("qtdTotalHorasTrabalhadas");
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "../BancoDeHorasServlet", true);
-                xhr.onload = function (e) {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {                            
-                            qtdTotalHorasTrabalhadas.innerHTML = xhr.responseText;
-                        } else {
-                            qtdTotalHorasTrabalhadas.innerHTML = xhr.responseText;
-                        }
-                    }
-                };
-                xhr.onerror = function (e) {
-                    console.error(xhr.statusText);
-                };
-                xhr.send(null);
-            });
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return false;
+                //if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = getParameterByName('rgm');
+            
+            
         </script>
 
         <style>
@@ -65,7 +61,7 @@
                 -ms-user-select: none;
                 user-select: none;
             }
-            
+
             .loader {
                 border: 16px solid #f3f3f3; /* Light grey */
                 border-top: 16px solid #3498db; /* Blue */
@@ -74,34 +70,34 @@
                 width: 100px;
                 height: 100px;
                 animation: spin 2s linear infinite;
-              }
-              
-              .tabela-eventos{
-                min-height: 250px;
-              }
-              
-              .footer{
-                  position: fixed;
-                  bottom: 0px;
-                  width: 100%;
-                  height: 30px;
-                  background: #343a40;
-                  margin: 0;
-              }
-              
-              p{
-                  margin-bottom: 0px;
-              }
-              
-              main{                 
-                      margin-bottom: 45px;
-              }
-              
-            @keyframes spin {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
             }
-            
+
+            .tabela-eventos{
+                min-height: 250px;
+            }
+
+            .footer{
+                position: fixed;
+                bottom: 0px;
+                width: 100%;
+                height: 30px;
+                background: #343a40;
+                margin: 0;
+            }
+
+            p{
+                margin-bottom: 0px;
+            }
+
+            main{                 
+                margin-bottom: 45px;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
             @media (min-width: 768px) {
                 .bd-placeholder-img-lg {
                     font-size: 3.5rem;
@@ -111,7 +107,7 @@
         <!-- Custom styles for this template -->
         <link href="offcanvas.css" rel="stylesheet">
     </head>
-    <body class="bg-light">
+    <body id="body" class="bg-light">
 
 
         <header id="navbar">
@@ -126,7 +122,8 @@
                         <span class="material-icons icones position-relative float-left">
                             access_time
                         </span>
-                        <p class="mb-2 position-relative float-left mt-2 ml-2">Banco de Horas</p>
+                        <p class="mb-2 position-relative float-left mt-2 ml-2">Banco de Horas  </p> 
+                         
                     </h4>
                 </div>
                 <div class="col-3">
@@ -142,14 +139,16 @@
                         <tr>
                             <!--            <th scope="col" style="width: 20%;">Nome Func.</th>-->
                             <th scope="col" style="width: 20%;">Data inicial</th>
+                            <th scope="col" style="width: 20%;">Inicio de Intervalo</th>
+                            <th scope="col" style="width: 20%;">Fim de Intervalo</th>
                             <th scope="col" style="width: 20%;">Data Final</th>
                             <th scope="col" style="width: 15%;">Horas Realizadas</th>
                         </tr>
                     </thead>
                     <tbody id="listaPontosEletronicos">
-                        
-                        
-                        
+
+
+
                     </tbody>
                 </table>
                 <center>
@@ -158,7 +157,7 @@
             </article>
             <br>
             <div class="row">
-                
+
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
@@ -184,8 +183,6 @@
                 </div>
             </div>
 
-
-
         </main>
         <footer class="text-muted text-small footer">
             <p class="mt-1 col-4 offset-4 text-light">&copy; 2020 Espimalomeki</p>
@@ -193,70 +190,178 @@
     </body>
     <script type="text/javascript" src="scripts.js"></script>
     <script>
-        let listaPontosEletronicos = document.getElementById("listaPontosEletronicos");
-        let horasExtras = document.getElementById("horasExtras");
-        
-        let pontoHoje = document.getElementById("pontoHoje");
-        let spinner = document.getElementById("spinner");
+            let listaPontosEletronicos = document.getElementById("listaPontosEletronicos");
+            let horasExtras = document.getElementById("horasExtras");
             
-        window.addEventListener("load",()=>{
-                var xhrLista = new XMLHttpRequest();                
-                xhrLista.open("GET", "../CarregaListaPontosBancoServlet", true);
-                xhrLista.onload = function (e) {
-                    if (xhrLista.readyState === 4) {
-                        if (xhrLista.status === 200) {      
-                            spinner.style.display = "none";
-                            listaPontosEletronicos.innerHTML = xhrLista.responseText;
-                        } else {
-                            spinner.style.display = "none";
-                            listaPontosEletronicos.innerHTML = xhrLista.responseText;
+            let pontoHoje = document.getElementById("pontoHoje");
+            let spinner = document.getElementById("spinner");
+            
+//            if(myParam != false){
+//                if('${sessionScope.perfil}' != "RH" || '${sessionScope.perfil}' != "gestor"){
+//                    setTimeout(function(){ 
+//                        window.location.href = "../index.jsp"
+//                        
+//                    }, 5000);
+//                    document.body.innerHTML = "<h1> Ce é folgado hein mano</h1>";
+//                    //document.body.innerHTML = "carai"
+//                }
+//            }
+            
+            
+
+            window.addEventListener("load", () => {
+                if(myParam != false){
+                    var xhrLista = new XMLHttpRequest();
+                    xhrLista.open("POST", "../CarregaListaPontosBancoServlet", true);
+                    xhrLista.onload = function (e) {
+                        if (xhrLista.readyState === 4) {
+                            if (xhrLista.status === 200) {
+                                spinner.style.display = "none";
+                                listaPontosEletronicos.innerHTML = xhrLista.responseText;
+                            } else {
+                                spinner.style.display = "none";
+                                listaPontosEletronicos.innerHTML = xhrLista.responseText;
+                            }
                         }
-                    }
-                };
-                xhrLista.send(null);
-                
-                var xhrStatusDeHoras = new XMLHttpRequest();
-                xhrStatusDeHoras.open("GET", "../HorasExtrasServlet", true);
-                xhrStatusDeHoras.onload = function (e) {
-                    if (xhrStatusDeHoras.readyState === 4) {
-                        if (xhrStatusDeHoras.status === 200) {      
-                            horasExtras.innerHTML = xhrStatusDeHoras.responseText;
-                        } else {
-                            horasExtras.innerHTML = xhrStatusDeHoras.responseText;
+                    };
+                    xhrLista.send(myParam);
+                    
+                    let qtdTotalHorasTrabalhadas = document.getElementById("qtdTotalHorasTrabalhadas");
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "../BancoDeHorasServlet", true);
+                    xhr.onload = function (e) {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                qtdTotalHorasTrabalhadas.innerHTML = xhr.responseText;
+                            } else {
+                                qtdTotalHorasTrabalhadas.innerHTML = xhr.responseText;
+                            }
                         }
-                    }
-                };                
+                    };
+                    xhr.onerror = function (e) {
+                        console.error(xhr.statusText);
+                    };
+                    xhr.send(myParam);
+                    
+                    var xhrStatusDeHoras = new XMLHttpRequest();
+                    xhrStatusDeHoras.open("POST", "../HorasExtrasServlet", true);
+                    xhrStatusDeHoras.onload = function (e) {
+                        if (xhrStatusDeHoras.readyState === 4) {
+                            if (xhrStatusDeHoras.status === 200) {
+                                horasExtras.innerHTML = xhrStatusDeHoras.responseText;
+                            } else {
+                                horasExtras.innerHTML = xhrStatusDeHoras.responseText;
+                            }
+                        }
+                    };
+
+                    xhrStatusDeHoras.onerror = function (e) {
+                        console.error(xhrStatusDeHoras.statusText);
+                    };
+                    xhrStatusDeHoras.send(myParam);
                 
-                xhrStatusDeHoras.onerror = function (e) {
-                    console.error(xhrStatusDeHoras.statusText);
-                };
-                xhrStatusDeHoras.send(null);
-                
+                }else{                
+                    var xhrLista = new XMLHttpRequest();
+                    xhrLista.open("GET", "../CarregaListaPontosBancoServlet", true);
+                    xhrLista.onload = function (e) {
+                        if (xhrLista.readyState === 4) {
+                            if (xhrLista.status === 200) {
+                                spinner.style.display = "none";
+                                listaPontosEletronicos.innerHTML = xhrLista.responseText;
+                            } else {
+                                spinner.style.display = "none";
+                                listaPontosEletronicos.innerHTML = xhrLista.responseText;
+                            }
+                        }
+                    };
+                    xhrLista.send(null);
+                    
+                    let qtdTotalHorasTrabalhadas = document.getElementById("qtdTotalHorasTrabalhadas");
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "../BancoDeHorasServlet", true);
+                    xhr.onload = function (e) {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                qtdTotalHorasTrabalhadas.innerHTML = xhr.responseText;
+                            } else {
+                                qtdTotalHorasTrabalhadas.innerHTML = xhr.responseText;
+                            }
+                        }
+                    };
+                    xhr.onerror = function (e) {
+                        console.error(xhr.statusText);
+                    };
+                    xhr.send(null);
+
+                    var xhrStatusDeHoras = new XMLHttpRequest();
+                    xhrStatusDeHoras.open("GET", "../HorasExtrasServlet", true);
+                    xhrStatusDeHoras.onload = function (e) {
+                        if (xhrStatusDeHoras.readyState === 4) {
+                            if (xhrStatusDeHoras.status === 200) {
+                                horasExtras.innerHTML = xhrStatusDeHoras.responseText;
+                            } else {
+                                horasExtras.innerHTML = xhrStatusDeHoras.responseText;
+                            }
+                        }
+                    };
+
+                    xhrStatusDeHoras.onerror = function (e) {
+                        console.error(xhrStatusDeHoras.statusText);
+                    };
+                    xhrStatusDeHoras.send(null);
+                }
             });
             
+
             let btnGeraRelatorio = document.getElementById("btnGeraRelatorio");
-            btnGeraRelatorio.addEventListener('click',()=>{
-                
+
+            function download(filename, text) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                element.setAttribute('download', filename);
+
+                element.style.display = 'none';
+                document.body.appendChild(element);
+
+                element.click();
+
+                document.body.removeChild(element);
+            }
+            
+            // Start file download.
+            //download("hello.txt", "This is the content of my file :)");
+
+
+            btnGeraRelatorio.addEventListener('click', () => {
+
                 var xhrGeraRelatorio = new XMLHttpRequest();
-                xhrGeraRelatorio.open("GET", "../CriaRelatorioTxtServlet", true);
-                xhrGeraRelatorio.onload = function (e) {
-                    if (xhrGeraRelatorio.readyState === 4) {
-                        if (xhrGeraRelatorio.status === 200) {      
-                            alert(xhrGeraRelatorio.responseText);
-                        } else {
-                            alert(xhrGeraRelatorio.responseText);
-                        }
-                    }
-                };                
                 
+                if(myParam != false){
+                    xhrGeraRelatorio.open("POST", "../CriaRelatorioTxtServlet", true);                    
+                }else{
+                    xhrGeraRelatorio.open("GET", "../CriaRelatorioTxtServlet", true);
+                }
+                xhrGeraRelatorio.onload = function (e) {
+                    if (xhrGeraRelatorio.status === 200) {
+                        if(myParam != false){
+                            download("relatorio"+myParam+".html",xhrGeraRelatorio.responseText);
+                        }else{
+                            download("relatorio.html",xhrGeraRelatorio.responseText);
+                        }
+                    } 
+                };
+
                 xhrGeraRelatorio.onerror = function (e) {
                     console.error(xhrGeraRelatorio.statusText);
                 };
-                xhrGeraRelatorio.send(null);
-                
+                if(myParam != false){
+                    xhrGeraRelatorio.send(myParam);
+                }else{
+                    xhrGeraRelatorio.send(null);                    
+                }
             });
     </script>
-    
+
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
     <script src="offcanvas.js"></script> -->

@@ -1,6 +1,7 @@
 package model;
 
 public class PontoEletronicoModel {
+    private int idPonto;
     private int numMatricula;
     private String dataDia;
     private String horaEntrada;
@@ -10,6 +11,32 @@ public class PontoEletronicoModel {
     private String motivoAjuste;
     private String homeOffice;
     private String qtdHorasTrabalhadas;
+    private String totalHrIntervalo;
+    private String nomeUsuario;
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+    
+    public int getIdPonto() {
+        return idPonto;
+    }
+
+    public void setIdPonto(int idPonto) {
+        this.idPonto = idPonto;
+    }
+
+    public String getTotalHrIntervalo() {
+        return totalHrIntervalo;
+    }
+
+    public void setTotalHrIntervalo(String totalHrIntervalo) {
+        this.totalHrIntervalo = totalHrIntervalo;
+    }
 
     public void setQtdHorasTrabalhadas(String qtdHorasTrabalhadas) {
         this.qtdHorasTrabalhadas = qtdHorasTrabalhadas;

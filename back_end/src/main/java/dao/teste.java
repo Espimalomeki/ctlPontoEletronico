@@ -27,9 +27,14 @@ public class teste {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ParseException, IOException {
-        System.getProperty("user.dir");
-        File dir1 = new File (".");
-        System.out.println ("Current dir : " + dir1.getCanonicalPath());
+//        System.getProperty("user.dir");
+//        File dir1 = new File (".");
+//        System.out.println ("Current dir : " + dir1.getCanonicalPath());;
+
+
+    String currentDir = System.getProperty("user.dir");
+    System.out.println("Current dir using System:" +currentDir);
+
         
         //TimeUnit.MILLISECONDS.toMinutes(diff);
         
