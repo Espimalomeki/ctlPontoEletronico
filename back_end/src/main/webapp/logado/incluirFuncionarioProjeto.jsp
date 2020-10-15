@@ -93,8 +93,8 @@
                                 <span>Lista de Funcionários</span>
                                 <%
                                     FuncionarioDao listaFunc = new FuncionarioDao();
-                                    ArrayList<FuncionarioModel> listaArray = listaFunc.ListaFunc();
-                                    int totalfunc = listaFunc.ListaFunc().size();
+                                    ArrayList<FuncionarioModel> listaArray = listaFunc.listaFuncDepto();
+                                    int totalfunc = listaFunc.listaFuncDepto().size();
                                 %>
                                 <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
                             </h4>

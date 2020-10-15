@@ -35,6 +35,21 @@
         <!-- Custom styles for this template -->
         <link href="form-validation.css" rel="stylesheet">
         <link href="offcanvas.css" rel="stylesheet">
+        <script>
+            function download(filename, text) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                element.setAttribute('download', filename);
+
+                element.style.display = 'none';
+                document.body.appendChild(element);
+
+                element.click();
+
+                document.body.removeChild(element);
+            }
+
+        </script>
     </head>
     <body class="bg-light">
         <header id="navbar">
@@ -87,46 +102,22 @@
                     <tbody>
                     <tbody>
                         <%
-                            int numM;
-
                             for (int i = 0; i < totalfunc; i++) {
-                                numM = listaArray.get(i).getNumMatricula();
-                        %>
+                        %>    
                         <tr>
-                            <td><%= numM%>    </td>
+                            <td><%=listaArray.get(i).getNumMatricula()%></td>
                             <td><%= listaArray.get(i).getNome()%>  </td>
                             <td><%= listaArray.get(i).getCargo()%></td>
                             <td><%= listaArray.get(i).getEmail()%> </td>
                             <td><a href="#" class="card-link">Detalhar</a></td>
-                            <td><button class="btn btn-primary btn-banco" id="bc<%=numM%>" value="<%=numM%>">Visualizar</button></td>
-                            <td><a class="btn btn-danger btn-xs" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
-                    <script>
-                        let bc<%=numM%> = document.getElementById('bc<%=numM%>');
-                        //let = document.getElementsByClassName("btn-banco")[1];
-
-                        bc<%=numM%>.addEventListener("click", () => {
-                            var xhrRelatorio = new XMLHttpRequest();
-                            xhrRelatorio.open("POST", "../CriaRelatorioTxtServlet", true);
-                            //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                            xhrRelatorio.onload = function (e) {
-                                if (xhrRelatorio.readyState === 4) {
-                                    if (xhrRelatorio.status === 200) {
-                                        alert(xhrRelatorio.responseText);
-                                    } else {
-                                        alert(xhrRelatorio.responseText);
-                                    }
-                                }
-                            };
-                            xhrRelatorio.onerror = function (e) {
-                                console.error(xhrRelatorio.statusText);
-                            };
-                            xhrRelatorio.send(<%=numM%>);
-                        });
-                    </script>
+                            <td><a class="btn btn-primary btn-banco" id="bc<%=listaArray.get(i).getNumMatricula()%>" href="bancoDeHoras.jsp?rgm=<%=listaArray.get(i).getNumMatricula()%>">Visualizar</a></td>
+                    <c:if test="${sessionScope.perfil == 'RH'}">
+                        <td><a class="btn btn-danger btn-xs" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
+                    </c:if>
                     </tr>
                     <%
                         }
-                    %>                     
+                    %>                
                     </tbody>
                 </table>
             </div>
@@ -141,6 +132,7 @@
             <script type="text/javascript" src="scripts.js"></script>
             <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-            <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+            <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+            <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
             <script src="form-validation.js"></script>
 </html>
