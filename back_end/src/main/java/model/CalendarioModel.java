@@ -8,6 +8,7 @@ public class CalendarioModel {
     private String dataInicio;
     private String dataFim;
     private String tipoEvento;
+    private int idEvento;
 
     public String getNomeEvento() {
         return nomeEvento;
@@ -55,6 +56,20 @@ public class CalendarioModel {
 
     public void setTipoEvento(String tipoEvento) {
         this.tipoEvento = tipoEvento;
+    }
+
+    /**
+     * @return the idEvento
+     */
+    public int getIdEvento() {
+        return idEvento;
+    }
+
+    /**
+     * @param idEvento the idEvento to set
+     */
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
     }
     
     

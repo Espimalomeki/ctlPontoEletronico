@@ -1,3 +1,6 @@
+<%@page import="model.FuncionarioModel"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.FuncionarioDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -5,11 +8,21 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Calendário - Portal Espimalomeki</title>
-        <link href='../resources/fullcalendar/lib/main.css' rel='stylesheet' />
-        <script src='../resources/fullcalendar/lib/main.js'></script>
-        <script src='../resources/fullcalendar/lib/locales-all.js'></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/js/bootstrap-select.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/css/bootstrap-select.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+        <script>
+            $(document).ready(function () {
+                $('.selectpicker').selectpicker();
+            })
+        </script>
     </head>
     <body class="bg-light">
         <header id="navbar">
@@ -30,9 +43,6 @@
                 </div>
 
                 <form class="validation" name="incluirEvento" action="<%=request.getContextPath()%>/IncluiEvento" method="post" novalidate>
-
-                    
-                    
                     <div class="mb-3">
                         <label >Título do Evento:</label>
                         <div class="input-group">
@@ -73,7 +83,22 @@
                             <option value="reuniao">Reunião</option>
                             <option value="meetup">Meetup</option>
                             <option value="treinamento">Treinamento</option>
-                        </select>                    
+                        </select>  
+                    </div>
+                    <div class="mb-3">
+                        <label >Selecionar Participantes do Evento:</label>
+                        <div class="input-group">
+                            <select class="selectpicker form-control" name="participantes" multiple title="Selecionar Participantes.." data-live-search="true">
+                            <%
+                                FuncionarioDao funcios = new FuncionarioDao();
+                                ArrayList<FuncionarioModel> listaArray = funcios.listaFuncDepto();
+                                int sizeLista = funcios.listaFuncDepto().size();
+                                for (int i = 0; i < sizeLista; i++) {
+                            %>                           
+                            <option value="<%=listaArray.get(i).getNumMatricula()%>"><%=listaArray.get(i).getNome()%></option>
+                            <% } %>
+                        </select>
+                        </div>
                     </div>
                     <div class="lh-100">
                         <button class="btn btn-primary btn-md" type="submit" name="enviar" value="Enviar">Incluir</button>
@@ -93,9 +118,7 @@
 
     </body>
     <script type="text/javascript" src="scripts.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 
 </html>
 
