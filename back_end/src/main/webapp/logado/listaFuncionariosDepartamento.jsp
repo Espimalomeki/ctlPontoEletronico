@@ -1,5 +1,7 @@
-<%@page import="dao.FuncionarioDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jstl/core_rt" prefix = "c" %>
+
+<%@page import="dao.FuncionarioDao"%>
 <%@page import="model.FuncionarioModel"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -45,7 +47,7 @@
 
             <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                 <div class="lh-100">
-                    <h4 class="mb-0 text-white lh-100">Finanças I</h4>
+                    <h4 class="mb-0 text-white lh-100">${sessionScope.nomeDepto}</h4>
                 </div>
             </div>
             <div class="row">
@@ -64,8 +66,8 @@
                         <span>Lista de Funcionários do Departamento</span>
                         <%
                             FuncionarioDao listaFunc = new FuncionarioDao();
-                            ArrayList<FuncionarioModel> listaArray = listaFunc.ListaFunc();
-                            int totalfunc = listaFunc.ListaFunc().size();
+                            ArrayList<FuncionarioModel> listaArray = listaFunc.listaFuncDepto();
+                            int totalfunc = listaFunc.listaFuncDepto().size();
                         %>
                         <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
                     </h4>
@@ -81,6 +83,9 @@
                             <th>Email</th>
                             <th>Perfil Profissional</th>
                             <th>Banco De Horas</th>
+                            <c:if test="${sessionScope.perfil == 'RH'}">
+                                <th>Editar</th>
+                            </c:if>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,6 +103,10 @@
                             <td><%= listaArray.get(i).getEmail()%> </td>
                             <td><a href="#" class="card-link">Detalhar</a></td>
                             <td><button class="btn btn-primary btn-banco" id="bc<%=numM%>" value="<%=numM%>">Visualizar</button></td>
+                            <c:if test="${sessionScope.perfil == 'RH'}">
+                                <td><a class="btn btn-danger btn-xs" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
+                            </c:if>
+                    
                     <script>
                         let bc<%=numM%> = document.getElementById('bc<%=numM%>');
                         //let = document.getElementsByClassName("btn-banco")[1];

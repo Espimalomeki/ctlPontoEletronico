@@ -4,7 +4,7 @@ public class CalendarioDTO {
 
     public int id;
     public String title;
-    public String desc;
+    public String display;
     public String start;
     public String end;
     public String type;
@@ -44,11 +44,11 @@ public class CalendarioDTO {
     }
 
     public String getDesc() {
-        return desc;
+        return display;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDesc(String display) {
+        this.display = display;
     }
 
     public String getType() {

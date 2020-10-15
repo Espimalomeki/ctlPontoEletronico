@@ -62,6 +62,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="cadastrarFuncionario.jsp">Cadastrar Funcionário</a>
+                                <a class="dropdown-item"  href="listaTodosFuncionarios.jsp">Lista de todos os Funcionários</a>
                                 <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários por Departamento</a>
                             </div>
                         </li>
@@ -71,6 +72,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários por Departamento</a>
+                                <a class="dropdown-item"  href="fichaFunc.jsp">Ficha de Funcionários</a>
                             </div>
                         </li>
                     </c:when>

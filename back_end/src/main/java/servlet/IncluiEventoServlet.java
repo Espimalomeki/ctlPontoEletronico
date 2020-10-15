@@ -13,14 +13,14 @@ import model.CalendarioModel;
 public class IncluiEventoServlet extends HttpServlet {
 
     private CalendarioDao calendDao;
-    
+
     public void init() {
         calendDao = new CalendarioDao();
     }
-    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         CalendarioModel calend = new CalendarioModel();
         calend.setNomeEvento(request.getParameter("nomeEvento"));
         calend.setDescEvento(request.getParameter("descEvento"));
@@ -28,7 +28,16 @@ public class IncluiEventoServlet extends HttpServlet {
         calend.setDataFim(request.getParameter("dtFim").toString());
         calend.setTipoEvento(request.getParameter("tipoEvento"));
 
+//        String[] participantes = request.getParameterValues("select1");
+//        for(int i = 0; i < participantes.length; i++){
+//            out.println(participantes[i] + "<BR>");
+//        }
         if (calendDao.insereEvento(calend)) {
+            int idEvento = calendDao.buscaId(calend.getNomeEvento());
+            String[] participantes = request.getParameterValues("participantes");
+            for (int i = 0; i < participantes.length; i++) {
+                calendDao.associaEventoUsuario(Integer.parseInt(participantes[i]), idEvento);
+            }
             response.sendRedirect("logado/calendario.jsp");
         } else {
             response.sendRedirect("logado/incluirEvento.jsp");
@@ -41,5 +50,4 @@ public class IncluiEventoServlet extends HttpServlet {
         doPost(request, response);
     }
 
-    
 }
