@@ -62,7 +62,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="cadastrarFuncionario.jsp">Cadastrar Funcionário</a>
-                                <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários</a>
+                                <a class="dropdown-item"  href="listaTodosFuncionarios.jsp">Lista de Funcionários</a>
+                                <a class="dropdown-item"  href="fichaFunc.jsp">Ficha de Funcionários</a>
                             </div>
                         </li>
                     </c:when>
@@ -71,6 +72,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários por Departamento</a>
+                                <a class="dropdown-item"  href="listaTodosFuncionarios.jsp">Lista de Funcionários</a>
+                                <a class="dropdown-item"  href="fichaFunc.jsp">Ficha de Funcionários</a>
                                 <a class="dropdown-item"  href="incluirFuncionarioProjeto.jsp">Incluir Funcionários Em Projeto</a>
                             </div>
                         </li>
@@ -85,7 +88,7 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <a class="nav-link" href="../index.jsp" aria-haspopup="true" aria-expanded="false">Sair</a>
+                <a class="nav-link" href="../Logout" aria-haspopup="true" aria-expanded="false">Sair</a>
             </form>
         </div>
     </nav>

@@ -74,6 +74,7 @@ public class PontoEletronicoServlet extends HttpServlet {
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
 
         ptEletronico.inserePonto(homeOffice);
+        
         response.setContentType("text/html;charset=UTF-8");
         response.getWriter().write(" Ponto Registrado!");
         //response.sendRedirect("pontoEletronico.jsp");

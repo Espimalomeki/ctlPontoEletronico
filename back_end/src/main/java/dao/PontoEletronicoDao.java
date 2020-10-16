@@ -78,6 +78,37 @@ public class PontoEletronicoDao {
         return lista;
 
     }
+    
+    
+    public void deletarPonto(int idPonto, String motivoAjuste) throws SQLException{
+        Connection con = Conexao.getConexao();
+        String sqlDel = "DELETE FROM pontoEletronico WHERE (idPtEletronico = ?)";
+        PreparedStatement ps = con.prepareStatement(sqlDel);
+        ps.setInt(1, idPonto);
+        ps.execute();
+        ps.close();
+        
+        LoginModel login = new LoginModel();
+        int numM = login.getNumMatricula();
+        
+        Date dNow = new Date();
+        SimpleDateFormat hrFinal = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
+        
+        String partQuery = "Ponto eletronico de Id: "+idPonto+" , deletado pelo motivo: "+motivoAjuste+" ";
+        
+        String sqlLog = "INSERT INTO logs (descLog, numMatricula, dataHora) "
+                + "VALUES (?, ?, ?);";
+        PreparedStatement log = con.prepareStatement(sqlLog);
+        log.setString(1, partQuery);
+        log.setInt(2, numM);
+        log.setString(3, hrFinal.format(dNow));
+        log.execute();
+        log.close();
+        
+        con.close();
+        
+    }
+    
 
     public ArrayList listaPontos(boolean relatorio) throws ParseException {
 

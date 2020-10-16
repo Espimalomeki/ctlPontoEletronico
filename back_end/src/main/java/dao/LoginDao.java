@@ -11,10 +11,10 @@ public class LoginDao {
     
      public boolean validate(LoginModel login) {
             boolean status = false;
-            String sql = "SELECT U.numMatricula, U.senha, U.permissao, F.nome, F.idDepto " +
+            String sql = "SELECT U.numMatricula, U.senha, U.permissao, F.nome, F.idDepto, D.nomeDepto " +
                          "FROM usuario as U " +
-                         "INNER JOIN funcionario as F " +
-                         "ON U.numMatricula = F.numMatricula " +
+                         "INNER JOIN funcionario as F ON U.numMatricula = F.numMatricula " +
+                         "INNER JOIN departamento as D ON F.idDepto = D.idDepto " +
                          "WHERE U.numMatricula = ? and U.senha = ?";
         
         try {            
@@ -24,14 +24,13 @@ public class LoginDao {
             ps.setInt(1, LoginModel.getNumMatricula());
             ps.setString(2, LoginModel.getSenha());
 
-            System.out.println(ps);
             ResultSet rs = ps.executeQuery();
-            System.out.println("passou por aqui");
           
            if (rs.next()) {
                     LoginModel.setPermissao(rs.getString("permissao"));
                     LoginModel.setNome(rs.getString("nome"));
-                    LoginModel.setIdDepto(rs.getInt("idDepto"));
+                    LoginModel.setCodDepto(rs.getInt("idDepto"));
+                    LoginModel.setNomeDepto(rs.getString("nomeDepto"));
                     status = true;
            }
            ps.close();

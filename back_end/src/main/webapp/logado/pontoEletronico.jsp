@@ -209,6 +209,38 @@
                 
             });
             
+            function excluirPonto(idPonto){
+                let objExclusao = new Object();
+                objExclusao["id"] = idPonto; 
+                
+                let motivoCancel = prompt("Qual o motivo da Exclusao?");
+                
+                if (motivoCancel == null || motivoCancel == "") {
+                    txt = "User cancelled the prompt.";
+                } else {
+                    objExclusao["motivo"] = motivoCancel;
+                    
+                    var xhrDeletar = new XMLHttpRequest();
+                    xhrDeletar.open("POST", "../DeletarPontoEletronicoServlet", true);
+                    xhrDeletar.onload = function (e) {
+                        if (xhrDeletar.readyState === 4) {
+                            if (xhrDeletar.status != 200) {
+                                alert("erro, resposta de status inesperado "+xhrDeletar.status);
+                            }else{
+                                document.location.reload();
+                            } 
+                        }
+                    };
+                    
+                    xhrDeletar.onerror = function (e) {
+                        console.error(xhrDeletar.statusText);
+                    };
+                    
+                    xhrDeletar.send(JSON.stringify(objExclusao));
+                }
+                
+            }
+            
             let listaPontosEletronicos = document.getElementById("listaPontosEletronicos");
             let pontoHoje = document.getElementById("pontoHoje");
             let spinner = document.getElementById("spinner");
