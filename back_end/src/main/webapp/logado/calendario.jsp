@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" language="java" pageEncoding="UTF-8" import="java.sql.*" errorPage="" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -39,26 +39,49 @@
                     eventClick: function (info) {
                         var eventObj = info.event;
 
-                        document.getElementById("modalTitle").textContent = "Evento: " + eventObj.editable + " - " + eventObj.id;
-                        document.getElementById("descModal").textContent = eventObj.desc;
+                        document.getElementById("modalTitle").textContent = "Evento: " + eventObj.title;
+                        document.getElementById("descModal").textContent = eventObj.display;
                         document.getElementById("dtInicioModal").textContent = eventObj.start;
                         document.getElementById("dtFinalModal").textContent = eventObj.end;
-
-                        let e = eventObj.editable;
+                        
+                        let e = eventObj.startEditable;
                         editableButton(e);
 
                         document.getElementById("btnEditar").href = "editarEvento.jsp?id=" + eventObj.id;
-                        $('#myModal').modal('show');
+                        document.getElementById('btnExcluir').onclick = function () {
+                            $('#modalEvento').modal('hide');
+                            document.getElementById("textModalExclusao").textContent = "Deseja excluir o Evento: " + eventObj.title + "?";
+                            document.getElementById("btnConfirmaExclusao").href = "<%=request.getContextPath()%>/ExcluiEvento?id=" + eventObj.id;
+                            $('#modalConfirmaExcl').modal('show');
+                        }
+                        $('#modalEvento').modal('show');
                     }
                 });
                 calendar.render();
 
                 function editableButton(bool) {
-                    document.getElementById('btnEditar').style.display =
-                            bool ? 'block' : 'none';
+                    document.getElementById('btnEditar').style.display = bool ? 'block' : 'none';
+                    document.getElementById('btnExcluir').style.display = bool ? 'block' : 'none';
                 }
 
+                function listarTodasAsPropriedades(o) {
+                    var objectoASerInspecionado;
+                    var resultado = [];
 
+                    for (objectoASerInspecionado = o; objectoASerInspecionado !== null; objectoASerInspecionado = Object.getPrototypeOf(objectoASerInspecionado)) {
+                        resultado = resultado.concat(Object.getOwnPropertyNames(objectoASerInspecionado));
+                    }
+                    return resultado;
+                }
+                function mostrarProps(obj, nomeDoObj) {
+                    var resultado = "";
+                    for (var i in obj) {
+                        if (obj.hasOwnProperty(i)) {
+                            resultado += nomeDoObj + "." + i + " = " + obj[i] + "\n";
+                        }
+                    }
+                    return resultado;
+                }
             });
         </script>
         <style>
@@ -100,7 +123,7 @@
             <div id='calendar'></div>
 
             <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modalEvento" tabindex="-1" aria-labelledby="modalInfo" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -118,13 +141,35 @@
                             <p id="dtFinalModal"></p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <a role="button" id="btnExcluir" class="btn btn-danger">Deletar</a>
                             <a role="button" id="btnEditar" class="btn btn-primary">Editar</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <div class="modal fade" id="modalConfirmaExcl" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Exclusão de Evento?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="textModalExclusao"></p> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dispensar</button>
+                        <a role="button" id="btnConfirmaExclusao" class="btn btn-danger">Confirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <footer class="my-5 pt-5 text-muted text-center text-small position-relative">
             <p class="mb-1">&copy; 2020 Espimalomeki</p>
         </footer>

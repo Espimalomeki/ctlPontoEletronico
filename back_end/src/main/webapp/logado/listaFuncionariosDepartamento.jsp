@@ -60,7 +60,7 @@
 
             <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                 <div class="lh-100">
-                    <h4 class="mb-0 text-white lh-100">Finanças I</h4>
+                    <h4 class="mb-0 text-white lh-100">${sessionScope.nomeDepto}</h4>
                 </div>
             </div>
             <div class="row">
