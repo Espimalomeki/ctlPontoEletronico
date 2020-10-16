@@ -88,7 +88,7 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <a class="nav-link" href="../index.jsp" aria-haspopup="true" aria-expanded="false">Sair</a>
+                <a class="nav-link" href="../Logout" aria-haspopup="true" aria-expanded="false">Sair</a>
             </form>
         </div>
     </nav>

@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CalendarioModel;
 
-@WebServlet(name = "IncluiEvento", urlPatterns = {"/IncluiEvento"})
-public class IncluiEventoServlet extends HttpServlet {
 
+@WebServlet(name = "EditarEvento", urlPatterns = {"/EditarEvento"})
+public class EditarEventoServlet extends HttpServlet{
+    
     private CalendarioDao calendDao;
 
     public void init() {
@@ -27,27 +28,18 @@ public class IncluiEventoServlet extends HttpServlet {
         calend.setDataInicio(request.getParameter("dtInicio").toString());
         calend.setDataFim(request.getParameter("dtFim").toString());
         calend.setTipoEvento(request.getParameter("tipoEvento"));
+        calend.setIdEvento(Integer.parseInt(request.getParameter("idEvento")));
 
-//        String[] participantes = request.getParameterValues("select1");
-//        for(int i = 0; i < participantes.length; i++){
-//            out.println(participantes[i] + "<BR>");
-//        }
-        if (calendDao.insereEvento(calend)) {
-            int idEvento = calendDao.buscaId(calend.getNomeEvento());
-            String[] participantes = request.getParameterValues("participantes");
-            for (int i = 0; i < participantes.length; i++) {
-                calendDao.associaEventoUsuario(Integer.parseInt(participantes[i]), idEvento);
-            }
+
+        if (calendDao.editaEvento(calend)) {
             response.sendRedirect("logado/calendario.jsp");
         } else {
-            response.sendRedirect("logado/incluirEvento.jsp");
+            response.sendRedirect("logado/editarEvento.jsp");
         }
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
     }
-
 }

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : perfilProfissional
-    Created on : 21/09/2020, 20:05:40
-    Author     : claud
---%>
-
 <%@page import="model.FuncionarioModel"%>
 <%@page import="dao.FuncionarioDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

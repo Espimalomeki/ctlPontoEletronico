@@ -1,3 +1,9 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.time.ZonedDateTime"%>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.util.Date"%>
 <%@page import="model.CalendarioModel"%>
 <%@page import="model.CalendarioDTO"%>
 <%@page import="dao.CalendarioDao"%>
@@ -36,12 +42,20 @@
                     CalendarioDao dao = new CalendarioDao();
                     int id = Integer.parseInt(request.getParameter("id"));
                     CalendarioDTO evento = dao.listaUnico(id);
+
+                    String dtInicio = evento.getStart();
+                    String dtFim = evento.getEnd();
+
+                    String dtInicioFmt =dtInicio.replace(' ','T');//replaces all occurrences of 'a' to 'e'  
+                    String dtFimFmt = dtFim.replace(' ','T');//replaces all occurrences of 'a' to 'e'  
+                    System.out.println(dtInicioFmt);
                 %>
                 
-                <form class="validation" name="incluirEvento" action="<%=request.getContextPath()%>/EditaEvento" method="post" novalidate>
+                <form class="validation" name="editarEvento" action="<%=request.getContextPath()%>/EditarEvento" method="post" novalidate>
 
                     <div class="mb-3">
-                        <label name="idEvento">Id do Evento: <%=evento.getId()%></label>
+                        <label>Id do Evento:</label>
+                        <input type="text" class="form-control" name="idEvento" value="<%=evento.getId()%>" readonly>
                     </div>
                     
                     <div class="mb-3">
@@ -56,13 +70,13 @@
                     <div class="mb-3">
                         <label >Descrição do Evento:</label>
                         <div class="input-group">
-                            <textarea class="form-control" name="descEvento" value="<%=evento.getDesc()%>"></textarea>
+                            <textarea class="form-control" name="descEvento"><%=evento.getDesc()%></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label >Data/hora de Início</label>
                         <div class="input-group">
-                            <input type="datetime-local" class="form-control" name="dtInicio" value="<%=evento.getStart()%>">
+                            <input type="datetime-local" class="form-control" name="dtInicio" id="dtInicio" value="<%=dtInicioFmt%>" >
                             <div class="invalid-feedback" style="width: 100%;">
                                 A data/hora de início é requerida.
                             </div>
@@ -71,7 +85,7 @@
                     <div class="mb-3">
                         <label >Data/hora de Fim</label>
                         <div class="input-group">
-                            <input type="datetime-local" class="form-control" name="dtFim" value="<%=evento.getEnd()%>">
+                            <input type="datetime-local" class="form-control" name="dtFim" value="<%=dtFimFmt%>">
                             <div class="invalid-feedback" style="width: 100%;">
                                 A data/hora de fim é requerida.
                             </div>
@@ -79,10 +93,10 @@
                     </div>
                     <div class="mb-3">
                         <label>Tipo de Evento:</label>
-                        <input type="text" class="form-control" nome="tipoEvento" value="<%=evento.getType()%>" readonly>
+                        <input type="text" class="form-control" name="tipoEvento" value="<%=evento.getType()%>" readonly>
                     </div>
                     <div class="lh-100">
-                        <button class="btn btn-primary btn-md" type="submit" name="enviar" value="Enviar">Incluir</button>
+                        <button class="btn btn-primary btn-md" type="submit" name="enviar" value="Enviar">Editar</button>
                         <a href="calendario.jsp" role="button" class="btn btn-secondary btn-md">Voltar</a>
                     </div>
 
@@ -102,6 +116,5 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 </html>
 
