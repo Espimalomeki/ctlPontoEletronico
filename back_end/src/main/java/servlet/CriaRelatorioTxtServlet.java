@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.FuncionarioModel;
 import model.LoginModel;
 import model.PontoEletronicoModel;
@@ -64,6 +65,10 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
 
         //FileWriter arquivo = new FileWriter(new File("C:\\Users\\filip\\OneDrive\\Desktop\\tabuada.html"));
 
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
+        
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
         ArrayList<PontoEletronicoModel> listaArray = ptEletronico.listaHorario(0);
         int tmListaPt = listaArray.size();
@@ -72,7 +77,7 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
                 + "<body style='margin-left:50px'> ";
         
         FuncionarioDao funcDao = new FuncionarioDao();
-        FuncionarioModel func = funcDao.retornaFuncionario();
+        FuncionarioModel func = funcDao.retornaFuncionario(numMatricula);
         resultadoTxt += "<center><h2>Relatorio Geral</h2></center> <div style='margin-left: 6rem;margin-bottom: 3rem; width: 45%; position: relative; float: left; font-size: 1.3rem;'>"
         + "<p class='card-text'>Nome Completo:"+ func.getNome()+"</p>"+
         "<p class='card-text'>CPF: "+ func.getCpf()+"</p>"+

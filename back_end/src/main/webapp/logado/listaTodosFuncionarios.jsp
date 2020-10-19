@@ -81,7 +81,7 @@
                             <th>Email</th>
                             <th>Perfil Profissional</th>
                             <th>Banco De Horas</th>
-                            <th>Editar</th>
+                            <th>Editar/ Desl.</th>
                         </tr>
                     </thead>
                     <tbody>

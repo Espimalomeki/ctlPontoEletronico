@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.FuncionarioModel;
 import model.PontoEletronicoModel;
@@ -59,12 +60,16 @@ public class CarregaListaPontosEletronicosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
+            int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
+            
             PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
             ArrayList <PontoEletronicoModel> listaArray = ptEletronico.listaPontos(false);
             int tmListaPt = listaArray.size();
             String listaTr = "";
             FuncionarioDao funcDao = new FuncionarioDao();
-            FuncionarioModel func = funcDao.retornaFuncionario();
+            FuncionarioModel func = funcDao.retornaFuncionario(numMatricula);
             String funcao = func.getPermissao();
             
             int idPonto;

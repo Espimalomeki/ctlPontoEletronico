@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.CalendarioDTO;
 
 @WebServlet(name = "CalendarJsonServlet", urlPatterns = {"/CalendarJsonServlet"})
@@ -20,9 +21,12 @@ public class CalendarJsonServlet extends HttpServlet {
             throws ServletException, IOException {
         List l = new ArrayList();
 
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         CalendarioDao calendario = new CalendarioDao();
-        ArrayList<CalendarioDTO> listaArray = calendario.listaEventosTable();   
-        int size = calendario.listaEventosTable().size();
+        ArrayList<CalendarioDTO> listaArray = calendario.listaEventosTable(numMatricula);   
+        int size = calendario.listaEventosTable(numMatricula).size();
         
         for (int i = 0; i < size; i++) {
             listaArray.get(i).getId();

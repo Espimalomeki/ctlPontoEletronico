@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("matricula", login.getNumMatricula());
             session.setAttribute("nomeFunc", login.getNome());
             session.setAttribute("nomeDepto", login.getNomeDepto());
+            session.setAttribute("codDepto", login.getCodDepto());
             request.getSession().setAttribute("usuarioLogado", login);
             response.sendRedirect("logado/principal.jsp");
         } else{

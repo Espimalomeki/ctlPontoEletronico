@@ -31,25 +31,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-        </style>
-        <!-- Custom styles for this template -->
-        <link href="form-validation.css" rel="stylesheet">
-        <link href="offcanvas.css" rel="stylesheet">
     </head>
     <body class="bg-light">
 
@@ -69,185 +50,223 @@
                     <h3> Editar Funcionário </h3>
                 </div>
             </div>
-            <div class="col-md-8 order-md-1">
+            <div class="row">
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h5 class="text-danger">Desligamento de Funcionário</h5>  
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between">
 
-                <h4 class="mb-3">Dados Pessoais</h4>
+                        </li>
+                    </ul>
 
-                <form class="validation" name="editaFunc" action="<%=request.getContextPath()%>/EditarFuncionario" method="post" novalidate>
-                    <div class="mb-3">
-                        <label>Número de Matrícula:</label>
+                    <form class="card p-2">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="numMatricula" value="<%=func.getNumMatricula()%>" readonly>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Nome Completo:</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="nome" value="<%=func.getNome()%>" required>
-                            <div class="invalid-feedback" style="width: 100%;">
-                                O nome é requerido.
+                            <input type="text" class="form-control" placeholder="Promo code">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary">Redeem</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                </div>
+                <div class="col-md-8 order-md-1">
 
-                    <div class="mb-3">
-                        <label >CPF:</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">#</span>
-                            </div>
-                            <input type="text" class="form-control" name="cpf" value="<%=func.getCpf()%>" maxlength="11" readonly>
-                            <div class="invalid-feedback" style="width: 100%;">
-                                CPF é requerido.
-                            </div>
-                        </div>
-                    </div>
+                    <h4 class="mb-3">Dados Pessoais</h4>
 
-                    <div class="mb-3">
-                        <label>RNE: <span class="text-muted">(Opcional)</span></label>
-                        <input type="text" class="form-control" name="rne" value="<%=func.getRne()%>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" name="email" value="<%=func.getEmail()%>">
-                        <div class="invalid-feedback">
-                            Por favor insira um email válido.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Data de nascimento : </label>
-                        <input type="date" class="form-control" name="dataNascimento" value="<%=func.getDataNasc()%>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Telefone:</label><br>
-                        <input type="text" class="form-control" name="telefone" value="<%=func.getTelefone()%>" onkeypress="$(this).mask('(00) 00000-0009')">
-                        <div class="invalid-feedback">
-                            Por favor insira um telefone válido.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Conta bancária:</label><br>
-                        <input type="text" class="form-control" name="contaBancaria" value="<%=func.getContaBancaria()%>">
-                        <div class="invalid-feedback">
-                            Por favor insira uma conta bancária.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Sexo:</label>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="genero" value="M">
-                            <label class="form-check-label">Masculino</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="genero" value="F">
-                            <label class="form-check-label">Feminino</label>
-                        </div>
-                    </div>
-
-                    <hr class="mb-4">
-                    <h4 class="mb-3">Endereço do funcionário</h4>
-
-                    <div class="mb-3">
-                        <label>Endereço:</label>
-                        <div class="input-group">
-                            <input type="text" name="endereco" class="form-control" value="<%=func.getEndereco()%>" required><br>
-                            <div class="invalid-feedback" style="width: 100%;">
-                                O endereço é requirido.
+                    <form class="validation" name="editaFunc" action="<%=request.getContextPath()%>/EditarFuncionario" method="post" novalidate>
+                        <div class="mb-3">
+                            <label>Número de Matrícula:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="numMatricula" value="<%=func.getNumMatricula()%>" readonly>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label>Complemento:<span class="text-muted"> (opcional)</span> </label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="complemento" value="<%=func.getComplemento()%>">
-                        </div>
-                    </div>
-
-                    <hr>     
-
-                    <hr class="mb-4">
-                    <h4 class="mb-3">Dados Profissionais</h4>
-
-                    <div class="mb-3">
-                        <label>Data de admissão:</label>
-                        <input type=date class="form-control" name="dataAdmissao" value="<%=func.getDataAdmissao()%>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Cargo:</label>
-                        <select name="cargo" class="form-control" id="cargo" value="<%=func.getCargo()%>">
-                            <option value="Engenheiro de Software Jr.">Engenheiro de Software Jr.</option>
-                            <option value="Engenheiro de Software Pl.">Engenheiro de Software Pl.</option>
-                            <option value="Engenheiro de Software Sr.">Engenheiro de Software Sr.</option>
-                            <option value="Analista de Software Jr.">Analista de Software Jr.</option>
-                            <option value="Analista de Software Pl.">Analista de Software Pl.</option>
-                            <option value="Analista de Software Sr.">Analista de Software Sr.</option>
-                            <option value="Analista de Recursos Humanos Jr.">Analista de Recursos Humanos Jr.</option>
-                            <option value="Analista de Recursos Humanos Pl.">Analista de Recursos Humanos Pl.</option>
-                            <option value="Analista de Recursos Humanos Sr.">Analista de Recursos Humanos Sr.</option>
-                            <option value="Gerente de Projetos Jr.">Gerente de projetos Jr.</option>
-                            <option value="Gerente de Projetos Pl.">Gerente de projetos Pl.</option>
-                            <option value="Gerente de Projetos Sr.">Gerente de projetos Sr.</option>
-                        </select>                    
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Departamento:</label>
-                        <select name="departamento" class="form-control" id="departamento">
-                            <option value="<%=func.getCodDepto()%>"><%=func.getCodDepto()%></option>
-                            <%
-                                DepartamentoDao deptos = new DepartamentoDao();
-                                ArrayList<DepartamentoModel> listaArray = deptos.listaDeptos();
-                                int sizeLista = deptos.listaDeptos().size();
-                                for (int i = 0; i < sizeLista; i++) {
-                            %>                           
-                            <option value="<%=listaArray.get(i).getCodDepto()%>"><%=listaArray.get(i).getCodDepto()%> - <%=listaArray.get(i).getNomeDepto()%></option>
-                            <% }%>
-                        </select>                    
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Carga Horária:</label>
-                        <select name="cargaHoraria" class="form-control" id="cargaHoraria">
-                            <option value="<%=func.getCargaHoraria()%>"><%=func.getCargaHoraria()%> horas mensais</option>
-                            <option value="180">180 horas mensais</option>
-                            <option value="220">220 horas mensais</option>
-                        </select>                    
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Salario:</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">R$</span>
+                        <div class="mb-3">
+                            <label>Nome Completo:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="nome" value="<%=func.getNome()%>" required>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    O nome é requerido.
+                                </div>
                             </div>
-                            <input type="text" class="form-control salario" name="salario" value="<%=func.getSalario()%>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label >CPF:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">#</span>
+                                </div>
+                                <input type="text" class="form-control" name="cpf" value="<%=func.getCpf()%>" maxlength="11" readonly>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    CPF é requerido.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>RNE: <span class="text-muted">(Opcional)</span></label>
+                            <input type="text" class="form-control" name="rne" value="<%=func.getRne()%>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" name="email" value="<%=func.getEmail()%>">
+                            <div class="invalid-feedback">
+                                Por favor insira um email válido.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Data de nascimento : </label>
+                            <input type="date" class="form-control" name="dataNascimento" value="<%=func.getDataNasc()%>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Telefone:</label><br>
+                            <input type="text" class="form-control" name="telefone" value="<%=func.getTelefone()%>" onkeypress="$(this).mask('(00) 00000-0009')">
+                            <div class="invalid-feedback">
+                                Por favor insira um telefone válido.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Conta bancária:</label><br>
+                            <input type="text" class="form-control" name="contaBancaria" value="<%=func.getContaBancaria()%>">
+                            <div class="invalid-feedback">
+                                Por favor insira uma conta bancária.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Sexo:</label>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="genero" value="M">
+                                <label class="form-check-label">Masculino</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="genero" value="F">
+                                <label class="form-check-label">Feminino</label>
+                            </div>
+                        </div>
+
+                        <hr class="mb-4">
+                        <h4 class="mb-3">Endereço do funcionário</h4>
+
+                        <div class="mb-3">
+                            <label>Endereço:</label>
+                            <div class="input-group">
+                                <input type="text" name="endereco" class="form-control" value="<%=func.getEndereco()%>" required><br>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    O endereço é requirido.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Complemento:<span class="text-muted"> (opcional)</span> </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="complemento" value="<%=func.getComplemento()%>">
+                            </div>
+                        </div>
+
+                        <hr>     
+
+                        <hr class="mb-4">
+                        <h4 class="mb-3">Dados Profissionais</h4>
+
+                        <div class="mb-3">
+                            <label>Data de admissão:</label>
+                            <input type=date class="form-control" name="dataAdmissao" value="<%=func.getDataAdmissao()%>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Cargo:</label>
+                            <select name="cargo" class="form-control" id="cargo" value="<%=func.getCargo()%>">
+                                <option value="Engenheiro de Software Jr.">Engenheiro de Software Jr.</option>
+                                <option value="Engenheiro de Software Pl.">Engenheiro de Software Pl.</option>
+                                <option value="Engenheiro de Software Sr.">Engenheiro de Software Sr.</option>
+                                <option value="Analista de Software Jr.">Analista de Software Jr.</option>
+                                <option value="Analista de Software Pl.">Analista de Software Pl.</option>
+                                <option value="Analista de Software Sr.">Analista de Software Sr.</option>
+                                <option value="Analista de Recursos Humanos Jr.">Analista de Recursos Humanos Jr.</option>
+                                <option value="Analista de Recursos Humanos Pl.">Analista de Recursos Humanos Pl.</option>
+                                <option value="Analista de Recursos Humanos Sr.">Analista de Recursos Humanos Sr.</option>
+                                <option value="Gerente de Projetos Jr.">Gerente de projetos Jr.</option>
+                                <option value="Gerente de Projetos Pl.">Gerente de projetos Pl.</option>
+                                <option value="Gerente de Projetos Sr.">Gerente de projetos Sr.</option>
+                            </select>                    
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Departamento:</label>
+                            <select name="departamento" class="form-control" id="departamento">
+                                <option value="<%=func.getCodDepto()%>"><%=func.getCodDepto()%></option>
+                                <%
+                                    DepartamentoDao deptos = new DepartamentoDao();
+                                    ArrayList<DepartamentoModel> listaArray = deptos.listaDeptos();
+                                    int sizeLista = deptos.listaDeptos().size();
+                                    for (int i = 0; i < sizeLista; i++) {
+                                %>                           
+                                <option value="<%=listaArray.get(i).getCodDepto()%>"><%=listaArray.get(i).getCodDepto()%> - <%=listaArray.get(i).getNomeDepto()%></option>
+                                <% }%>
+                            </select>                    
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Carga Horária:</label>
+                            <select name="cargaHoraria" class="form-control" id="cargaHoraria">
+                                <option value="<%=func.getCargaHoraria()%>"><%=func.getCargaHoraria()%> horas mensais</option>
+                                <option value="180">180 horas mensais</option>
+                                <option value="220">220 horas mensais</option>
+                            </select>                    
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Salario:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">R$</span>
+                                </div>
+                                <input type="text" class="form-control salario" name="salario" value="<%=func.getSalario()%>">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Perfil de Permissão:</label>
+                            <select name="permissao" class="form-control" id="permissao">
+                                <option value="<%=func.getPermissao()%>"><%=func.getPermissao()%></option>
+                                <option value="demais">Demais Funcionarios</option>
+                                <option value="RH">RH</option>
+                                <option value="gestor">Gestores</option>
+                            </select>                   
+                        </div>
+
+                        <hr class="mb-4">
+
+                        <button class="btn btn-primary btn-lg" type="submit" name="enviar" value="Enviar">Editar Funcionário</button>
+
+                    </form>
+                </div>    
+            </div>
+            <div class="modal fade" id="modalConfirmaExcl" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Desligamento de Funcionário?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="textModalExclusao"></p> 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Dispensar</button>
+                            <a role="button" id="btnConfirmaExclusao" class="btn btn-danger">Confirmar</a>
                         </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label>Perfil de Permissão:</label>
-                        <select name="permissao" class="form-control" id="permissao">
-                            <option value="<%=func.getPermissao()%>"><%=func.getPermissao()%></option>
-                            <option value="demais">Demais Funcionarios</option>
-                            <option value="RH">RH</option>
-                            <option value="gestor">Gestores</option>
-                        </select>                   
-                    </div>
-
-                    <hr class="mb-4">
-
-                    <button class="btn btn-primary btn-lg" type="submit" name="enviar" value="Enviar">Editar Funcionário</button>
-
-                </form>
+                </div>
             </div>
         </main>
         <footer class="my-5 pt-5 text-muted text-center text-small position-relative">
@@ -301,7 +320,7 @@
         }
 
         var vGenero = '<%=func.getGenero()%>';
-            $("input[name=genero][value=" + vGenero + "]").prop('checked', true);
+        $("input[name=genero][value=" + vGenero + "]").prop('checked', true);
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>

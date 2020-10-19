@@ -80,9 +80,11 @@
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span>Lista de Funcionários do Departamento</span>
                         <%
+                            int codDepto = Integer.parseInt(session.getAttribute("codDepto").toString());
+                            
                             FuncionarioDao listaFunc = new FuncionarioDao();
-                            ArrayList<FuncionarioModel> listaArray = listaFunc.listaFuncDepto();
-                            int totalfunc = listaFunc.listaFuncDepto().size();
+                            ArrayList<FuncionarioModel> listaArray = listaFunc.listaFuncDepto(codDepto);
+                            int totalfunc = listaFunc.listaFuncDepto(codDepto).size();
                         %>
                         <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
                     </h4>

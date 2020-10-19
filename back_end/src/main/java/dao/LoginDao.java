@@ -21,16 +21,16 @@ public class LoginDao {
             Connection conn = Conexao.getConexao();
             PreparedStatement ps = conn.prepareStatement(sql);
             
-            ps.setInt(1, LoginModel.getNumMatricula());
-            ps.setString(2, LoginModel.getSenha());
+            ps.setInt(1, login.getNumMatricula());
+            ps.setString(2, login.getSenha());
 
             ResultSet rs = ps.executeQuery();
           
            if (rs.next()) {
-                    LoginModel.setPermissao(rs.getString("permissao"));
-                    LoginModel.setNome(rs.getString("nome"));
-                    LoginModel.setCodDepto(rs.getInt("idDepto"));
-                    LoginModel.setNomeDepto(rs.getString("nomeDepto"));
+                    login.setPermissao(rs.getString("permissao"));
+                    login.setNome(rs.getString("nome"));
+                    login.setCodDepto(rs.getInt("idDepto"));
+                    login.setNomeDepto(rs.getString("nomeDepto"));
                     status = true;
            }
            ps.close();

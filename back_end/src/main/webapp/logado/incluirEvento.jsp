@@ -90,9 +90,11 @@
                         <div class="input-group">
                             <select class="selectpicker form-control" name="participantes" multiple title="Selecionar Participantes.." data-live-search="true">
                             <%
+                                int codDepto = Integer.parseInt(session.getAttribute("codDepto").toString());
+                                
                                 FuncionarioDao funcios = new FuncionarioDao();
-                                ArrayList<FuncionarioModel> listaArray = funcios.listaFuncDepto();
-                                int sizeLista = funcios.listaFuncDepto().size();
+                                ArrayList<FuncionarioModel> listaArray = funcios.listaFuncDepto(codDepto);
+                                int sizeLista = funcios.listaFuncDepto(codDepto).size();
                                 for (int i = 0; i < sizeLista; i++) {
                             %>                           
                             <option value="<%=listaArray.get(i).getNumMatricula()%>"><%=listaArray.get(i).getNome()%></option>

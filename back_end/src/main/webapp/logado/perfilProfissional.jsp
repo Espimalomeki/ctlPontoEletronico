@@ -59,7 +59,8 @@
             </div>
             <%
                 FuncionarioDao funcDao = new FuncionarioDao();
-                FuncionarioModel func = funcDao.retornaFuncionario();
+                int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+                FuncionarioModel func = funcDao.retornaFuncionario(numMatricula);
             %>
             <div class="row">
                 <div class="col-sm-6">

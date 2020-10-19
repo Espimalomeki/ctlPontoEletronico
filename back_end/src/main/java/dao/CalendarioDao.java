@@ -15,50 +15,10 @@ import model.EventoUsuarioModel;
 import model.LoginModel;
 
 public class CalendarioDao {
-
-    public ArrayList listaEventos() {
-
-        Connection con = Conexao.getConexao();
-        LoginModel login = new LoginModel();
-
-        int numM = login.getNumMatricula();
-
-        ArrayList lista = new ArrayList();
-        try {
-            Connection conn = Conexao.getConexao();
-
-            String sql = "SELECT * FROM eventoCalendario WHERE numMatricula = ?";
-            PreparedStatement selectPs = con.prepareStatement(sql);
-            selectPs.setInt(1, numM);
-            ResultSet rs = selectPs.executeQuery();
-
-            while (rs.next()) {
-                CalendarioDTO eventos = new CalendarioDTO();
-                eventos.setId(rs.getInt("idEvento"));
-                eventos.setTitle(rs.getString("nomeEvento"));
-                eventos.setDesc(rs.getString("descEvento"));
-                eventos.setStart(rs.getString("dataInicial"));
-                eventos.setEnd(rs.getString("dataFinal"));
-                lista.add(eventos);
-            }
-
-            rs.close();
-            conn.close();
-
-            return lista;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
-
-    }
     
-    public ArrayList listaEventosTable() {
+    public ArrayList listaEventosTable(int numMatricula) {
 
         Connection con = Conexao.getConexao();
-        LoginModel login = new LoginModel();
-
-        int numM = login.getNumMatricula();
 
         ArrayList lista = new ArrayList();
         try {
@@ -71,7 +31,7 @@ public class CalendarioDao {
                          "WHERE U.numMatricula = ?";
                         
             PreparedStatement selectPs = con.prepareStatement(sql);
-            selectPs.setInt(1, numM);
+            selectPs.setInt(1, numMatricula);
             ResultSet rs = selectPs.executeQuery();
 
             while (rs.next()) {
@@ -82,7 +42,7 @@ public class CalendarioDao {
                 eventos.setStart(rs.getString("dataInicial"));
                 eventos.setEnd(rs.getString("dataFinal"));
                 
-                if(rs.getInt("numMatricula") == numM)
+                if(rs.getInt("numMatricula") == numMatricula)
                     eventos.setEditable(true);
                 else
                     eventos.setEditable(false);
@@ -130,13 +90,10 @@ public class CalendarioDao {
         return evento;
     }
     
-    public boolean insereEvento(CalendarioModel calendario) {
+    public boolean insereEvento(CalendarioModel calendario, int numMatricula) {
         boolean status = false;
 
         Connection con = Conexao.getConexao();
-        LoginModel login = new LoginModel();
-
-        int numM = login.getNumMatricula();
         Date dNow = new Date();
 
         try {
@@ -152,7 +109,7 @@ public class CalendarioDao {
             ps.setString(4, calendario.getDataInicio());
             ps.setString(5, calendario.getDataFim());
             ps.setString(6, calendario.getTipoEvento());
-            ps.setInt(7, numM);
+            ps.setInt(7, numMatricula);
             ps.execute();
             ps.close();
             con.close();
@@ -185,18 +142,15 @@ public class CalendarioDao {
 
     }
     
-    public int buscaId(String nome){
+    public int buscaId(String nome, int numMatricula){
         Connection conn = Conexao.getConexao();
-        
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
         
         int idEvento = 0;
         try {
             String sql = "SELECT idEvento FROM eventoCalendario WHERE nomeEvento = ? and numMatricula = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,nome);
-            ps.setInt(2,numM);
+            ps.setInt(2,numMatricula);
             ResultSet rs = ps.executeQuery();
 
             if(rs.next()) {

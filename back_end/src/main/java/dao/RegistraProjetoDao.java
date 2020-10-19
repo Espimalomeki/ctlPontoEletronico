@@ -21,12 +21,9 @@ public class RegistraProjetoDao {
 
     Conexao conn = new Conexao();
 
-    public boolean incluirProjeto(RegistraProjetoModel proj) {
+    public boolean incluirProjeto(RegistraProjetoModel proj, int numMatricula) {
         boolean status = false;
         String sql = "insert into projetos(descProjeto,cargaTotalHr,statusProjeto,numMatricula)values(?,?,?,?);";
-        
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
         
         try {
             Connection conn = Conexao.getConexao();
@@ -35,7 +32,7 @@ public class RegistraProjetoDao {
             ps.setString(1, proj.getDescProjeto());
             ps.setString(2, proj.getCargaTotalHr());
             ps.setString(3, proj.getStatusProjeto());
-            ps.setInt(4, numM);
+            ps.setInt(4, numMatricula);
 
             System.out.println(ps);
             if (ps.executeUpdate() > 0) {
@@ -85,20 +82,17 @@ public class RegistraProjetoDao {
         }
     }
 
-    public ArrayList<RegistraProjetoModel> ListaProjeto() {
+    public ArrayList<RegistraProjetoModel> ListaProjeto(int numMatricula) {
         RegistraProjetoModel model = new RegistraProjetoModel();
         int idProj = model.getIdProjeto();
         Connection con = Conexao.getConexao();
         ArrayList lista = new ArrayList();
         
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
-        
         try {
             Connection conn = Conexao.getConexao();
             String sql = "select * from projetos where numMatricula = ?";
             PreparedStatement selectPs = con.prepareStatement(sql);
-            selectPs.setInt(1, numM);           
+            selectPs.setInt(1, numMatricula);           
             ResultSet rs = selectPs.executeQuery();
 
             while (rs.next()) {

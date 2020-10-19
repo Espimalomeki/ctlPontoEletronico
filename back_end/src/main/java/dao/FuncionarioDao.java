@@ -92,48 +92,6 @@ public class FuncionarioDao {
         return status;
     }
 
-    public FuncionarioModel retornaFuncionario() {
-        FuncionarioModel func = new FuncionarioModel();
-        String sql = "select * from funcionario where numMatricula = ?";
-
-        try {
-            Connection conn = Conexao.getConexao();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            LoginModel login = new LoginModel();
-            int numM = login.getNumMatricula();
-            ps.setInt(1, numM);
-
-            System.out.println(ps);
-            ResultSet rs = ps.executeQuery();
-            System.out.println("passou por aqui");
-
-            if (rs.next()) {
-                func.setPermissao(rs.getString("permissao"));
-                func.setNome(rs.getString("nome"));
-                func.setCpf(rs.getString("cpf"));
-                func.setRne(rs.getString("rne"));
-                func.setCargo(rs.getString("cargo"));
-                func.setEmail(rs.getString("email"));
-                func.setDataNasc(rs.getString("dataNascimento"));
-                func.setTelefone(rs.getString("telefone"));
-                func.setContaBancaria(rs.getString("contaBancaria"));
-                func.setEndereco(rs.getString("endereco"));
-                func.setComplemento(rs.getString("complemento"));
-                func.setDataAdmissao(rs.getString("dataAdmissao"));
-                func.setCargaHoraria(rs.getString("cargaHoraria"));
-                func.setSalario(rs.getString("salario"));
-                func.setGenero(rs.getString("genero"));
-                func.setNumMatricula(Integer.parseInt(rs.getString("numMatricula")));
-                System.out.println(login.getPermissao());
-            }
-            ps.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace(System.err);
-        }
-        return func;
-    }
-
     public FuncionarioModel retornaFuncionario(int numMatricula) {
         FuncionarioModel func = new FuncionarioModel();
         String sql = "select * from funcionario where numMatricula = ?";
@@ -214,7 +172,7 @@ public class FuncionarioDao {
         return func;
     }
 
-    public ArrayList<FuncionarioModel> listaFuncDepto() {
+    public ArrayList<FuncionarioModel> listaFuncDepto(int codDepto) {
 
         Connection con = Conexao.getConexao();
         ArrayList<FuncionarioModel> lista = new ArrayList();
@@ -225,9 +183,7 @@ public class FuncionarioDao {
             String sql = "select * from funcionario where idDepto = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             
-            LoginModel login = new LoginModel();
-            int idDepartamento = login.getCodDepto();
-            ps.setInt(1, idDepartamento);
+            ps.setInt(1, codDepto);
             
             ResultSet rs = ps.executeQuery();
 
