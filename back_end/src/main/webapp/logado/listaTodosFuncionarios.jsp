@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped table sm">
+                <table class="table table-striped table sm" id="tabela-func">
                     <thead>
                         <tr>
                             <th>Matrícula</th>
@@ -110,14 +110,13 @@
                 <p class="mb-1">&copy; 2020 Espimalomeki</p>
             </footer>
             <script>
-
-
-
+                setTimeout(function(){ $('#tabela-func').DataTable(); }, 10000);
             </script>
             <script type="text/javascript" src="scripts.js"></script>
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-            <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
-            <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-            <script src="form-validation.js"></script>
+            <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js"></script>
+            
 </html>
