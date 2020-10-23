@@ -46,8 +46,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="projetos.jsp">Projetos</a>
                         <a class="nav-link" href="fichaFunc.jsp">Ficha</a>
-                        <a class="nav-link" href="projetoDemaisFunc.jsp">Visualizar Projetos</a>
-                 
+                     
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.perfil == 'RH'}">
@@ -70,6 +69,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários por Departamento</a>
+                                <a class="dropdown-item"  href="fichaFunc.jsp">Ficha de funcionario</a>
                             </div>
                         </li>
                     </c:when>

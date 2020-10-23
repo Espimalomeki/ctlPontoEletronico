@@ -3,7 +3,6 @@ package servlet;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
@@ -13,14 +12,10 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import dao.Conexao;
-import dao.RegistraProjetoDao;
 import dao.FichaFuncDao;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,33 +51,32 @@ public class fichaFuncServlet extends HttpServlet {
         response.setContentType("application/pdf");
         Connection con = Conexao.getConexao();
         OutputStream out = response.getOutputStream();
-                
+
         String matricula = request.getParameter("matricula");
-        
-        
+
         try {
-           
-                try {
+
+            try {
                 Connection conn = Conexao.getConexao();
                 String sql = " SELECT funcionario.numMatricula,"
-                    + " funcionario.nome,"
-                    + " funcionario.cargo,"
-                    + " departamento.nomeDepto,"
-                    + " usuariosEmProjeto.idProjeto,"
-                    + " usuariosEmProjeto.horasProjeto,"
-                    + " projetos.descProjeto,"
-                    + " alocacaoHoras.qtdHoras"
-                    + " FROM funcionario "
-                    + " INNER JOIN departamento ON funcionario.idDepto = departamento.idDepto"
-                    + " INNER JOIN usuariosEmProjeto ON funcionario.numMatricula = usuariosEmProjeto.numMatricula"
-                    + " INNER JOIN alocacaoHoras ON funcionario.numMatricula = alocacaoHoras.numMatricula"
-                    + " INNER JOIN projetos ON projetos.idProjeto = usuariosEmProjeto.idProjeto"
-                    + " WHERE funcionario.numMatricula= '"+matricula+"'"
-                    + " ORDER BY idProjeto";
-                
-                PreparedStatement selectPs = con.prepareStatement(sql); 
+                        + " funcionario.nome,"
+                        + " funcionario.cargo,"
+                        + " departamento.nomeDepto,"
+                        + " usuariosEmProjeto.idProjeto,"
+                        + " usuariosEmProjeto.horasProjeto,"
+                        + " projetos.descProjeto,"
+                        + " alocacaoHoras.qtdHoras"
+                        + " FROM funcionario "
+                        + " INNER JOIN departamento ON funcionario.idDepto = departamento.idDepto"
+                        + " INNER JOIN usuariosEmProjeto ON funcionario.numMatricula = usuariosEmProjeto.numMatricula"
+                        + " INNER JOIN alocacaoHoras ON funcionario.numMatricula = alocacaoHoras.numMatricula"
+                        + " INNER JOIN projetos ON projetos.idProjeto = usuariosEmProjeto.idProjeto"
+                        + " WHERE funcionario.numMatricula= '" + matricula + "'"
+                        + " ORDER BY idProjeto";
+
+                PreparedStatement selectPs = con.prepareStatement(sql);
                 ResultSet rs = selectPs.executeQuery();
-                
+
                 Document docFicha = new Document();
                 PdfWriter.getInstance(docFicha, out);
 
@@ -110,7 +104,7 @@ public class fichaFuncServlet extends HttpServlet {
                 docFicha.add(subTitulo);
 
                 PdfPTable tabela = new PdfPTable(8);
-                
+
                 PdfPCell Part1 = new PdfPCell(new Paragraph("N° Matricula", FontFactory.getFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                 PdfPCell Part2 = new PdfPCell(new Paragraph("Nome", FontFactory.getFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                 PdfPCell Part3 = new PdfPCell(new Paragraph("Cargo", FontFactory.getFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
@@ -121,7 +115,7 @@ public class fichaFuncServlet extends HttpServlet {
                 PdfPCell Part8 = new PdfPCell(new Paragraph("Horas Totais", FontFactory.getFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
 
                 tabela.setWidthPercentage(110);
-                
+
                 tabela.addCell(Part1);
                 tabela.addCell(Part2);
                 tabela.addCell(Part3);
@@ -131,7 +125,7 @@ public class fichaFuncServlet extends HttpServlet {
                 tabela.addCell(Part7);
                 tabela.addCell(Part8);
 
-                while(rs.next()){
+                while (rs.next()) {
                     tabela.addCell(rs.getString("numMatricula"));
                     tabela.addCell(rs.getString("nome"));
                     tabela.addCell(rs.getString("cargo"));
@@ -140,20 +134,23 @@ public class fichaFuncServlet extends HttpServlet {
                     tabela.addCell(rs.getString("descProjeto"));
                     tabela.addCell(rs.getString("qtdHoras"));
                     tabela.addCell(rs.getString("horasProjeto"));
+                    
                 }
-                
+
                 docFicha.add(tabela);
 
                 docFicha.close();
 
-            } catch (Exception ex) {ex.getMessage();}
-        }
-             catch (Exception ex) {ex.getMessage();}
-         finally {
+            } catch (Exception ex) {
+                ex.getMessage();
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
+        } finally {
             out.close();
         }
     }
-    
+
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);

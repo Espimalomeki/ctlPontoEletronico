@@ -37,7 +37,7 @@
             <jsp:include page="navbar.jsp"/>
         </header>
 
-        <main role="main" class="container">
+        <main  role="main" class="container">
             <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                 <div class="lh-100">
                     <h6 class="mb-0 text-white lh-100">Olá! ${sessionScope.nomeFunc}</h6>
@@ -47,12 +47,13 @@
 
             <div class="my-3 p-3 bg-white rounded shadow-sm">
                 <h6 class="border-bottom border-gray pb-2 mb-0">Menu Rápido</h6>
+                
                 <div class="media text-muted pt-3">
                     <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"/><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
                             <strong class="text-gray-dark">Lista de Funcionários</strong>
-                            <a href="#">Consultar</a>
+                            <a href="listaFuncionariosDepartamento.jsp">Consultar</a>
                         </div>
                         <span class="d-block">Consulte aqui a lista de todos os Funcionários de seu Departamento.</span>
                     </div>
@@ -67,28 +68,30 @@
                         <span class="d-block">Consulte o Ponto Eletrônico dos funcionários de seu departamento, você também pode realizar ajustes de batidas incorretas.</span>
                     </div>
                 </div>
-                <div class="media text-muted pt-3">
+                
+                <div draggable="true" class="media text-muted pt-3">
                     <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
                             <strong class="text-gray-dark">Projetos</strong>
-                            <a href="#">Gerenciar</a>
+                            <a href="projetos.jsp">Gerenciar</a>
                         </div>
                         <span class="d-block">Gerencie os projetos de seu departamento.</span>
                     </div>
                 </div>
+                
                 <div class="media text-muted pt-3">
                     <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#00FF7F"/><text x="50%" y="50%" fill="#00FF7F" dy=".3em">32x32</text></svg>
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
                             <strong class="text-gray-dark">Banco de Horas</strong>
-                            <a href="#">Consultar</a>
+                            <a href="bancoDeHorasGestor.html">Consultar</a>
                         </div>
                         <span class="d-block">Consulte o banco de horas dos funcionários de seu departamento, você também pode gerar relatórios coletivos e individuais.</span>
                     </div>
                 </div>
                 <small class="d-block text-right mt-3">
-                    <a href="#">Ver mais</a>
+                    <a href="principalCompleto.jsp">Ver mais</a>
                 </small>
             </div>
         </main>

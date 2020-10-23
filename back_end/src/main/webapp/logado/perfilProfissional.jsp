@@ -4,6 +4,8 @@
     Author     : claud
 --%>
 
+<%@page import="dao.SenhaDao"%>
+<%@page import="model.AlteraSenhaModel"%>
 <%@page import="model.FuncionarioModel"%>
 <%@page import="dao.FuncionarioDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -64,6 +66,7 @@
       </div>
     </div>
 <%  
+    SenhaDao senhaDao = new SenhaDao();
     FuncionarioDao funcDao = new FuncionarioDao();
     FuncionarioModel func = funcDao.retornaFuncionario();
     %>
@@ -97,13 +100,20 @@
           </div>
         </div>
       </div>
+          
+            
+            
       <div class="d-flex align-items-center p-3 my-3 bg-light rounded">
         <div class="lh-100">
-            <a href="principal.jsp" role="button"  class="btn btn-secondary btn-md">Voltar</a>
-          <button type="button" class="btn btn-primary btn-md">Alterar Senha</button>
+            
+          <a href="principal.jsp" role="button"  class="btn btn-secondary btn-md">Voltar</a>
+            
+          <a href="alteraSenha.jsp?numMatricula=<%=func.getNumMatricula()%>" role="button" name="alterarSenha" value="AlterarSenha" class="btn btn-primary btn-md">Alterar Senha</a>
+          
+          
         </div>
       </div>
-      
+     
     </div>  
   </main>
   <footer class="my-4 pt-3 text-muted text-center text-small">

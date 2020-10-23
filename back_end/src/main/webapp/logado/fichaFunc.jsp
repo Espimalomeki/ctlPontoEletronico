@@ -81,7 +81,7 @@
                             </form>
                             
                             <form class="validation" name="geral" action="<%=request.getContextPath()%>/PDGeral" target="_blank" novalidate>
-                                    <button class="btn btn-primary btn-lg" type="submit" name="envia" value="Envia" novalidate>   Gerar relatorio geral   </button>           
+                                    <button class="btn btn-primary btn-lg" type="submit" name="envia" value="Envia" novalidate>   Exportar relatorio geral   </button>           
                             </form>
 
                         </div>
