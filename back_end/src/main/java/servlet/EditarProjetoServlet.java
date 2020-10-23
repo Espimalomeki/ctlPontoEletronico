@@ -33,10 +33,10 @@ public class EditarProjetoServlet extends HttpServlet {
         
         proj.setIdProjeto(Integer.parseInt(request.getParameter("idProjeto")));
         proj.setDescProjeto(request.getParameter("descProjeto"));
-        proj.setStatusProjeto(request.getParameter("statusProjeto"));
+        proj.setStatusProjeto(request.getParameter("statusPojetrojeto"));
         proj.setCargaTotalHr(request.getParameter("cargaTotalHr"));
 
-        if (projDao.editaProjeto(proj)) {
+            if (projDao.editaProjeto(proj)) {
             response.sendRedirect("logado/projetos.jsp");
         } else {
             PrintWriter out = response.getWriter();

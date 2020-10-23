@@ -35,6 +35,7 @@ public class FichaFuncDao {
             PreparedStatement selectPs = con.prepareStatement(sql);         
             ResultSet rs = selectPs.executeQuery();
             
+            
             while(rs.next()){
  
             FichaFuncModel Ficha = new FichaFuncModel();
@@ -47,7 +48,10 @@ public class FichaFuncDao {
             Ficha.setQtdHoras(rs.getString("qtdHoras"));
             Ficha.setDescProjeto(rs.getString("descProjeto"));
             Ficha.setHorasProjeto(rs.getInt("horasProjeto"));
-               
+            
+      
+
+            
             lista.add(Ficha);    
             
         }

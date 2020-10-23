@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Editar Departamento - Portal Espimalomeki</title>
+        <title>Alterar Senha - Portal Espimalomeki</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
 
@@ -26,6 +26,7 @@
                 -ms-user-select: none;
                 user-select: none;
             }
+
             @media (min-width: 768px) {
                 .bd-placeholder-img-lg {
                     font-size: 3.5rem;
@@ -43,59 +44,39 @@
         <main role="main" class="container">
             <div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm">
                 <div class="lh-100">
-                    <h3>Editar Projetos</h3>
+                    <h3>Alterar senha</h3>
                 </div>
             </div>
             <div class="col-md-8 order-md-1">
 
-                <h4 class="mb-3">Informações</h4>
+                <h4 class="mb-3">Dados:</h4>
 
-                <form class="validation" name="editaProjeto" action="<%=request.getContextPath()%>/EditarProjeto" method="POST" novalidate>
+                <form class="validation" name="alterarSenha" action="<%=request.getContextPath()%>/AlterarSenha" method="POST" novalidate>
+                    
                     <div class="mb-3">
-                        <label>Código do Projeto</label>
+                        <label>numMatricula</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="idProjeto" value="<%=request.getParameter("idProjeto")%>" readonly="true"/>
+                            <input type="text" class="form-control" name="numMatricula" value="<%=request.getParameter("numMatricula")%>" readonly="true"/>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label >Descrição do Projeto</label>
+                        <label >Senha</label>
                         <div class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" name="descProjeto" value="<%=request.getParameter("descProjeto")%>">
+                            <input type="text" class="form-control" name="senha" placeholder="exemplo:senha@123">
                             <div class="invalid-feedback" style="width: 100%;">
-                                Descrição do projeto é requerido.
+                                A senha de funcionario é requerido.
                             </div>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label >Status do Projeto</label>
-                        <div class="input-group input-group-sm mb-3">
-                            <select  class="form-control" name="statusProjeto" value="<%=request.getParameter("statusProjeto")%>">
-                          <option value="andamento">Em andamento</option>
-                          <option value="parado">Parado</option>
-                          <option value="finalizado">Finalizado</option>
-                            </select>
-                              
-                        </div>
-                    </div>
+                    
 
-                    <div class="mb-3">
-                        <label >Carga Horaria Total</label>
-                        <div class="input-group input-group-sm mb-3">
-                            <select  class="form-control" name="cargaTotalHr" value="<%=request.getParameter("cargaTotalHr")%>">
-                            <option value="100h">100 Horas</option>
-                            <option value="500h">500 Horas</option>
-                            <option value="750h">750 Horas</option>
-                            <option value="1000h">1000 Horas</option>
-                            <option value="5000h">5000 Horas</option>
-                            </select>
-                        </div>
-                    </div>
+                   
 
-                    <hr class="mb-4">
+                   
 
-                    <button class="btn btn-primary btn-lg" type="submit" name="enviar" value="Enviar">Editar Projeto</button>
+                    <button class="btn btn-primary btn-lg" type="submit" name="alterarSenha" value="alterarSenha">Confirmar</button>
 
                 </form>
             </div>

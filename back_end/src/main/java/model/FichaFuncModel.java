@@ -1,6 +1,9 @@
+
 package model;
 
+
 public class FichaFuncModel {
+    
     
     private String nome; 
     private String nomeDepto;
@@ -74,5 +77,7 @@ public class FichaFuncModel {
 
     public void setNumMatricula(int numMatricula) {
         this.numMatricula = numMatricula;
-    }   
+    }
+    
+    
 }
