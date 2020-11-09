@@ -232,7 +232,7 @@
                         xhrIncluir.onload = function (e) {
                             if (xhrIncluir.readyState === 4) {
                                 if (xhrIncluir.status === 200) {
-                                    
+                                    alert("Funcionario(S) Inseridos!");
                                 } 
                             }
                         };

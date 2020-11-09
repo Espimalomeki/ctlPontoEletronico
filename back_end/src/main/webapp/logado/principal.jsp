@@ -7,6 +7,9 @@
     <head>
         <meta charset="utf-8">
         <title>Pagina Inicial - Portal Espimalomeki</title>
+        <link rel="stylesheet" type="text/css" href="../style/menu.css">
+        <link rel="stylesheet" type="text/css" href="../style/principal.css">
+
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
 
@@ -45,10 +48,11 @@
         </header>
 
         <main role="main" class="container">
+            <div class="conter">
             <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                 <div class="lh-100">
                     <h6 class="mb-0 text-white lh-100">Olá! ${sessionScope.nomeFunc}</h6>
-                    <small>${sessionScope.perfil}</small>
+                    <small class="font-pequena">${sessionScope.perfil}</small>
                 </div>
             </div>
 
@@ -156,7 +160,8 @@
                     </div>
                 </div>
             </div>
-              --%>                      
+              --%>   
+            </div>
         </main>
     </body>
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

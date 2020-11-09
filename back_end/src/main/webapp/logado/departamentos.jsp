@@ -37,6 +37,7 @@
     <body class="bg-light">
         <header id="navbar">
             <jsp:include page="navbar.jsp"/>
+            <link rel="stylesheet" type="text/css" href="../style/pontoEletronico.css">
         </header>
 
         <main role="main" class="container">

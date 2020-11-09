@@ -29,10 +29,13 @@ import sun.awt.KeyboardFocusManagerPeerImpl;
 public class PontoEletronicoDao {
 
     Conexao conn = new Conexao();
+    int numM;
+    
+    public void rgmUsuario(int numMatricula){
+        numM = numMatricula;
+    }
 
-    public ArrayList pontoDeHoje() {
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
+    public ArrayList pontoDeHoje() { 
 
         Date dNow = new Date();
         Connection con = Conexao.getConexao();
@@ -88,8 +91,8 @@ public class PontoEletronicoDao {
         ps.execute();
         ps.close();
         
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
+        
+        
         
         Date dNow = new Date();
         SimpleDateFormat hrFinal = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
@@ -112,8 +115,8 @@ public class PontoEletronicoDao {
 
     public ArrayList listaPontos(boolean relatorio) throws ParseException {
 
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
+        
+        
         Date dNow = new Date();
         Connection con = Conexao.getConexao();
         //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
@@ -202,13 +205,11 @@ public class PontoEletronicoDao {
     }
 
     public ArrayList listaHorario(int rgm) {
-        int numM;
+        
         if (rgm > 0) {
             numM = rgm;
-        } else {
-            LoginModel login = new LoginModel();
-            numM = login.getNumMatricula();
         }
+        
         Date dNow = new Date();
         Connection con = Conexao.getConexao();
         //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
@@ -300,8 +301,8 @@ public class PontoEletronicoDao {
         String resp = "";
 
         try {
-            LoginModel login = new LoginModel();
-            int numM = login.getNumMatricula();
+            
+            
             Date dNow = new Date();
             //SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm:ss a zzz");
             SimpleDateFormat dataAtual = new SimpleDateFormat("yyyy/MM/dd");
@@ -382,13 +383,10 @@ public class PontoEletronicoDao {
     }
 
     public String getTotalHorasTrabalhadas(int rgm) throws ParseException {
-        int numM;
+        
         if (rgm > 0) {
             numM = rgm;
-        } else {
-            LoginModel login = new LoginModel();
-            numM = login.getNumMatricula();
-        }
+        } 
         Connection con = Conexao.getConexao();
         String dataFinal = "";
         try {
@@ -452,13 +450,10 @@ public class PontoEletronicoDao {
     }
 
     public String getStatusDeHoras(int rgm) throws ParseException {
-        int numM;
         if (rgm > 0) {
             numM = rgm;
-        } else {
-            LoginModel login = new LoginModel();
-            numM = login.getNumMatricula();
         }
+        
         Connection con = Conexao.getConexao();
 
         try {

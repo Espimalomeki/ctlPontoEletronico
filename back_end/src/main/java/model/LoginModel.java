@@ -97,8 +97,5 @@ public class LoginModel {
      * @return the idDepto
      */
     
-
-    
-    
     
 }

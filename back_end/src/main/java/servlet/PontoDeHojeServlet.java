@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.PontoEletronicoModel;
 
@@ -52,7 +53,11 @@ public class PontoDeHojeServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();                                 
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
+        PontoEletronicoDao ptEletronico = new PontoEletronicoDao();    
+        ptEletronico.rgmUsuario(numMatricula);
         ArrayList<PontoEletronicoModel> ponto = ptEletronico.pontoDeHoje();
         String listaPontoAtual = "";
         //JOptionPane.showMessageDialog(null,ponto.get(0).getHoraEntrada());

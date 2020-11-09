@@ -18,10 +18,14 @@ import model.RegistraProjetoModel;
 public class AlocacaoDeHorasDao {
     
     PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+    int numM;
+    
+    public void rgmUsuario(int numMatricula){
+        numM = numMatricula;
+    }
     
     public ArrayList<AlocacaoDeHorasModel> ListaAlocacaoHoras() throws ParseException {
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
+        
         
         Connection con = Conexao.getConexao();
         ArrayList lista = new ArrayList();
@@ -101,8 +105,7 @@ public class AlocacaoDeHorasDao {
     }
     
     public String totalHorasDisponiveis() throws SQLException, ParseException{
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
+        
         
         String hrAlocadas = "1970-01-01 "+totalHorasAlocadas(numM, 0, false);
         String hrTrabalhadas = "1970-01-01 "+ptEletronico.getTotalHorasTrabalhadas(numM)+":00";
@@ -113,8 +116,7 @@ public class AlocacaoDeHorasDao {
     }
     
     public String alocaHoras(String qtdHoras, int idProj) throws SQLException, ParseException{
-        LoginModel login = new LoginModel();
-        int numM = login.getNumMatricula();
+        
         String resul;
         
         String hrPermitidas = ptEletronico.calculaHoraIntervalo("1970-01-01 "+qtdHoras+":00" , "1970-01-01 "+totalHorasDisponiveis());
