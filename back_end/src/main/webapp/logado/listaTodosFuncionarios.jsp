@@ -66,6 +66,7 @@
                             FuncionarioDao listaFunc = new FuncionarioDao();
                             ArrayList<FuncionarioModel> listaArray = listaFunc.listaGeralFunc();
                             int totalfunc = listaFunc.listaGeralFunc().size();
+
                         %>
                         <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
                     </h4>
@@ -81,14 +82,12 @@
                             <th>Email</th>
                             <th>Perfil Profissional</th>
                             <th>Banco De Horas</th>
-                            <th>Editar/ Desl.</th>
+                            <th>Editar/ Desligar</th>
                         </tr>
                     </thead>
                     <tbody>
                     <tbody>
-                        <%
-                            for (int i = 0; i < totalfunc; i++) {
-                        %>    
+                        <% for (int i = 0; i < totalfunc; i++) { %>    
                         <tr>
                             <td><%=listaArray.get(i).getNumMatricula()%></td>
                             <td><%= listaArray.get(i).getNome()%>  </td>
@@ -96,27 +95,23 @@
                             <td><%= listaArray.get(i).getEmail()%> </td>
                             <td><a href="#" class="card-link">Detalhar</a></td>
                             <td><a class="btn btn-primary btn-banco" id="bc<%=listaArray.get(i).getNumMatricula()%>" href="bancoDeHoras.jsp?rgm=<%=listaArray.get(i).getNumMatricula()%>">Visualizar</a></td>
-                    <c:if test="${sessionScope.perfil == 'RH'}">
-                        <td><a class="btn btn-danger btn-xs" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
-                    </c:if>
-                    </tr>
-                    <%
-                        }
-                    %>                
+                            <% if (session.getAttribute("perfil").toString().equals("RH") && listaArray.get(i).getDataRescisao() == null) {%>  
+                            <td><a class="btn btn-danger" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
+                            <%} else {%>
+                            <td><a class="btn btn-outline-danger disabled">Desligado</a></td>
+                            <%}%>
+                        </tr>
+                        <%}%>                
                     </tbody>
                 </table>
             </div>
             <footer class="my-5 pt-5 text-muted text-center text-small position-relative">
                 <p class="mb-1">&copy; 2020 Espimalomeki</p>
             </footer>
-            <script>
-                setTimeout(function(){ $('#tabela-func').DataTable(); }, 10000);
-            </script>
+                    
             <script type="text/javascript" src="scripts.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
             <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js"></script>
-            
+
 </html>

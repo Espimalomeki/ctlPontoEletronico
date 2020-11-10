@@ -32,11 +32,11 @@ public class DesligarFuncionarioServlet extends HttpServlet {
 
         FuncionarioDao func = new FuncionarioDao();
 
-        String statusLogin = func.confirmaLogin(numMatricula, senha);
+        String statusLogin = func.confirmaDesligamento(numMatricula, senha);
 
         if (statusLogin != "OK") {
             request.setAttribute("msgDesl", statusLogin);
-            response.sendRedirect("logado/editarFuncionario.jsp?numMatricula=" + numMatricula);
+            response.sendRedirect("logado/editarFuncionario.jsp?numMatricula=" + nMatriculaFunc);
         }else{
             try {
                 if(func.desligarFuncionario(numMatricula, nMatriculaFunc, senha)){

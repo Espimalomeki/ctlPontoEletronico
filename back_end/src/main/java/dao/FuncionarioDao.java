@@ -62,7 +62,7 @@ public class FuncionarioDao {
     public boolean incluirUsuario(FuncionarioModel func) {
         boolean status = false;
         String sql = "select numMatricula, permissao from funcionario where cpf = ?";
-        String sql2 = "insert into usuario(numMatricula, senha, permissao)values(?,?,?);";
+        String sql2 = "insert into usuario(numMatricula, senha, permissao, ativado)values(?,?,?,?);";
 
         try {
             Connection conn = Conexao.getConexao();
@@ -80,6 +80,7 @@ public class FuncionarioDao {
                 ps2.setString(1, matricula);
                 ps2.setString(2, GeraSenha.gerarSenhaAleatoria());
                 ps2.setString(3, permissao);
+                ps2.setBoolean(4, true);
 
                 if (ps2.executeUpdate() > 0) {
                     System.out.println("Deu certo o cadastro de usuario");
@@ -143,7 +144,6 @@ public class FuncionarioDao {
         try {
             Connection conn = Conexao.getConexao();
             PreparedStatement ps = conn.prepareStatement(sql);
-            //LoginModel login = new LoginModel();
             int numM = Integer.parseInt(numMFunc);
             ps.setInt(1, numM);
 
@@ -197,6 +197,7 @@ public class FuncionarioDao {
                 listaFunc.setNome(rs.getString("nome"));
                 listaFunc.setCargo(rs.getString("cargo"));
                 listaFunc.setEmail(rs.getString("email"));
+                listaFunc.setDataRescisao(rs.getString("dataRecisao"));
                 lista.add(listaFunc);
             }
 
@@ -225,6 +226,8 @@ public class FuncionarioDao {
                 listaFunc.setNome(rs.getString("nome"));
                 listaFunc.setCargo(rs.getString("cargo"));
                 listaFunc.setEmail(rs.getString("email"));
+                listaFunc.setDataRescisao(rs.getString("dataRecisao"));
+                System.out.println(rs.getString("dataRecisao"));
                 lista.add(listaFunc);
             }
 
@@ -328,7 +331,7 @@ public class FuncionarioDao {
         return status;
     }
 
-    public String confirmaLogin(int numMatricula, String senha) {
+    public String confirmaDesligamento(int numMatricula, String senha) {
 
         String status = "N";
 
@@ -366,7 +369,7 @@ public class FuncionarioDao {
 
         String sqlLog = "INSERT INTO logs (descLog, numMatricula, dataHora) VALUES (?, ?, ?);";
         String sqlSetDesligado = "UPDATE funcionario SET dataRecisao = ? WHERE numMatricula = ?";
-        String sqlExcluiUser = "DELETE FROM usuario where numMatricula = ?";
+        String sqlSetInativado = "UPDATE usuario SET ativado = false WHERE numMatricula = ?";
         
         SimpleDateFormat dtRescisao = new SimpleDateFormat("yyyy/MM/dd");
         SimpleDateFormat hrFinal = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
@@ -379,7 +382,7 @@ public class FuncionarioDao {
             psDesligar.executeUpdate(); //executeUpdate faz inserção no banco
             psDesligar.close();
 
-            PreparedStatement psDeleteUser = con.prepareStatement(sqlExcluiUser);
+            PreparedStatement psDeleteUser = con.prepareStatement(sqlSetInativado);
             psDeleteUser.setInt(1, numMatrFunc);
             psDeleteUser.execute();
             psDeleteUser.close();

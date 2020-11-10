@@ -15,7 +15,7 @@ public class LoginDao {
                          "FROM usuario as U " +
                          "INNER JOIN funcionario as F ON U.numMatricula = F.numMatricula " +
                          "INNER JOIN departamento as D ON F.idDepto = D.idDepto " +
-                         "WHERE U.numMatricula = ? and U.senha = ?";
+                         "WHERE U.numMatricula = ? and U.senha = ? and U.ativado = true";
         
         try {            
             Connection conn = Conexao.getConexao();
