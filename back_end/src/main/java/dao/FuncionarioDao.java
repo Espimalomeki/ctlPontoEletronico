@@ -62,7 +62,7 @@ public class FuncionarioDao {
     public boolean incluirUsuario(FuncionarioModel func) {
         boolean status = false;
         String sql = "select numMatricula, permissao from funcionario where cpf = ?";
-        String sql2 = "insert into usuario(numMatricula, senha, permissao, ativado)values(?,?,?,?);";
+        String sql2 = "insert into usuario(numMatricula, senha, permissao, ativado)values(?,MD5(?),?);";
 
         try {
             Connection conn = Conexao.getConexao();
