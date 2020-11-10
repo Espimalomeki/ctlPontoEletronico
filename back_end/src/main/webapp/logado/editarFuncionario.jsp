@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.FuncionarioModel"%>
 <%@page import="dao.FuncionarioDao"%>
 <%@page import="model.DepartamentoModel"%>
@@ -17,20 +18,14 @@
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
-        <!-- Favicons -->
-        <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-        <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-        <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-        <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
-        <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-        <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
-        <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
-        <meta name="theme-color" content="#563d7c">
-
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+        <style>
+            .mt-100{ margin-top: 6rem!important }
+        </style>
+
     </head>
     <body class="bg-light">
 
@@ -45,31 +40,22 @@
                 FuncionarioModel func = funcDao.retornaFuncionario(numM);
             %>
 
-            <div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm">
+            <div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm mt-100">
                 <div class="lh-100">
-                    <h3> Editar Funcionário </h3>
+                    <h3>Editar Funcionário </h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">
-                    <h5 class="text-danger">Desligamento de Funcionário</h5>  
+                    <h5>Desligamento de Funcionário</h5>  
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between">
-
+                            <button class="btn btn-danger btn-md" id="btnDesligar">Desligar Funcionário</button>
                         </li>
                     </ul>
-
-                    <form class="card p-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Promo code">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary">Redeem</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
                 <div class="col-md-8 order-md-1">
-
+                    <h5 class="text-danger"><c:out value="${msgDesl}"/></h5>
                     <h4 class="mb-3">Dados Pessoais</h4>
 
                     <form class="validation" name="editaFunc" action="<%=request.getContextPath()%>/EditarFuncionario" method="post" novalidate>
@@ -183,15 +169,24 @@
                         <div class="mb-3">
                             <label>Cargo:</label>
                             <select name="cargo" class="form-control" id="cargo" value="<%=func.getCargo()%>">
-                                <option value="Engenheiro de Software Jr.">Engenheiro de Software Jr.</option>
-                                <option value="Engenheiro de Software Pl.">Engenheiro de Software Pl.</option>
-                                <option value="Engenheiro de Software Sr.">Engenheiro de Software Sr.</option>
-                                <option value="Analista de Software Jr.">Analista de Software Jr.</option>
-                                <option value="Analista de Software Pl.">Analista de Software Pl.</option>
-                                <option value="Analista de Software Sr.">Analista de Software Sr.</option>
+                                <option value="Analista de Negocios Jr.">Analista de Negócios Jr.</option>
+                                <option value="Analista de Negocios Pl.">Analista de Negócios Pl.</option>
+                                <option value="Analista de Negocios Sr.">Analista de Negócios Sr.</option>
                                 <option value="Analista de Recursos Humanos Jr.">Analista de Recursos Humanos Jr.</option>
                                 <option value="Analista de Recursos Humanos Pl.">Analista de Recursos Humanos Pl.</option>
                                 <option value="Analista de Recursos Humanos Sr.">Analista de Recursos Humanos Sr.</option>
+                                <option value="Analista de Software Jr.">Analista de Software Jr.</option>
+                                <option value="Analista de Software Pl.">Analista de Software Pl.</option>
+                                <option value="Analista de Software Sr.">Analista de Software Sr.</option>
+                                <option value="Coordenador Jr.">Coordenador Jr.</option>
+                                <option value="Coordenador Pl.">Coordenador Jr.</option>
+                                <option value="Coordenador Sr.">Coordenador Jr.</option>
+                                <option value="Designer Jr.">Designer Jr.</option>
+                                <option value="Designer Pl.">Designer Pl.</option>
+                                <option value="Designer Sr.">Designer Sr.</option>
+                                <option value="Engenheiro de Software Jr.">Engenheiro de Software Jr.</option>
+                                <option value="Engenheiro de Software Pl.">Engenheiro de Software Pl.</option>
+                                <option value="Engenheiro de Software Sr.">Engenheiro de Software Sr.</option>
                                 <option value="Gerente de Projetos Jr.">Gerente de projetos Jr.</option>
                                 <option value="Gerente de Projetos Pl.">Gerente de projetos Pl.</option>
                                 <option value="Gerente de Projetos Sr.">Gerente de projetos Sr.</option>
@@ -249,7 +244,7 @@
                     </form>
                 </div>    
             </div>
-            <div class="modal fade" id="modalConfirmaExcl" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="modalConfirmaDeslig" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -259,11 +254,25 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p id="textModalExclusao"></p> 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Dispensar</button>
-                            <a role="button" id="btnConfirmaExclusao" class="btn btn-danger">Confirmar</a>
+                            <p class="text-danger">Atenção! O desligamento de funcionário é irreversível. Para efetivar a ação é necessário a utilização da senha.</p>
+                            <p id="textModalDeslig"></p>
+
+                            <p id="resposta"></p>
+                            
+                            <form class="form-senha" name="form-senha" method="post" action="../DesligarFuncionario">
+                                <input type="text" class="form-control" name="numMatriculaFunc" id="numMatriculaFunc" readonly value="<%=func.getNumMatricula()%>"></input>
+
+                                <hr class="mb-2">
+
+                                <label>Para esta ação, digite sua senha:</label> 
+                                <input type="password" id="inputSenha" class="form-control" name="password" placeholder="Senha" required>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Dispensar</button>
+                                    <button type="submit" role="button" id="btnConfirmaDeslig" class="btn btn-danger">Confirmar</button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -274,6 +283,15 @@
         </footer>
     </body>
     <script>
+
+        document.getElementById('btnDesligar').onclick = function () {
+            var nome = "<%=func.getNome()%>";
+            document.getElementById("numMatriculaFunc").textContent = numMatriculaFunc;
+            document.getElementById("textModalDeslig").textContent = "Tem certeza que deseja desligar o funcionário: " + nome + "?";
+            document.getElementById("btnConfirmaDeslig").href = "<%=request.getContextPath()%>/DesligarFuncionario?id=";
+            $('#modalConfirmaDeslig').modal('show');
+        }
+
         function mascara(i, t) {
             var v = i.value;
             if (isNaN(v[v.length - 1])) {

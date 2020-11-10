@@ -109,6 +109,10 @@
                     <tbody>
                         <%
                             for (int i = 0; i < totalfunc; i++) {
+                                if(listaArray.get(i).getDataRescisao() == null){
+                                    System.out.println(listaArray.get(i).getDataRescisao());
+                                    boolean edit = true;
+                                }
                         %>    
                         <tr>
                             <td><%=listaArray.get(i).getNumMatricula()%></td>
@@ -117,7 +121,7 @@
                             <td><%= listaArray.get(i).getEmail()%> </td>
                             <td><a href="#" class="card-link">Detalhar</a></td>
                             <td><a class="btn btn-primary btn-banco" id="bc<%=listaArray.get(i).getNumMatricula()%>" href="bancoDeHoras.jsp?rgm=<%=listaArray.get(i).getNumMatricula()%>">Visualizar</a></td>
-                            <c:if test="${sessionScope.perfil == 'RH'}">
+                            <c:if test="${sessionScope.perfil == 'RH' && edit == false}">
                                 <td><a class="btn btn-danger btn-xs" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
                             </c:if>
                         </tr>

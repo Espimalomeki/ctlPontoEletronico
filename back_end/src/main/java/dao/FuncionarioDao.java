@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.FuncionarioModel;
 import model.LoginModel;
 import model.RelatorioFuncionarioSelecionadoModel;
@@ -40,7 +44,7 @@ public class FuncionarioDao {
             ps.setString(14, func.getGenero());
             ps.setString(15, func.getPermissao());
             ps.setInt(16, func.getCodDepto());
-            
+
             System.out.println(ps);
             if (ps.executeUpdate() > 0) {
                 ps.close();
@@ -58,7 +62,7 @@ public class FuncionarioDao {
     public boolean incluirUsuario(FuncionarioModel func) {
         boolean status = false;
         String sql = "select numMatricula, permissao from funcionario where cpf = ?";
-        String sql2 = "insert into usuario(numMatricula, senha, permissao)values(?,MD5(?),?);";
+        String sql2 = "insert into usuario(numMatricula, senha, permissao, ativado)values(?,MD5(?),?);";
 
         try {
             Connection conn = Conexao.getConexao();
@@ -76,6 +80,7 @@ public class FuncionarioDao {
                 ps2.setString(1, matricula);
                 ps2.setString(2, GeraSenha.gerarSenhaAleatoria());
                 ps2.setString(3, permissao);
+                ps2.setBoolean(4, true);
 
                 if (ps2.executeUpdate() > 0) {
                     System.out.println("Deu certo o cadastro de usuario");
@@ -131,7 +136,7 @@ public class FuncionarioDao {
         }
         return func;
     }
-    
+
     public RelatorioFuncionarioSelecionadoModel retornaFuncionarioSelecionado(String numMFunc) {
         RelatorioFuncionarioSelecionadoModel func = new RelatorioFuncionarioSelecionadoModel();
         String sql = "select * from funcionario where numMatricula = ?";
@@ -139,7 +144,6 @@ public class FuncionarioDao {
         try {
             Connection conn = Conexao.getConexao();
             PreparedStatement ps = conn.prepareStatement(sql);
-            //LoginModel login = new LoginModel();
             int numM = Integer.parseInt(numMFunc);
             ps.setInt(1, numM);
 
@@ -178,13 +182,13 @@ public class FuncionarioDao {
         ArrayList<FuncionarioModel> lista = new ArrayList();
 
         try {
-            
+
             Connection conn = Conexao.getConexao();
             String sql = "select * from funcionario where idDepto = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            
+
             ps.setInt(1, codDepto);
-            
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -193,6 +197,7 @@ public class FuncionarioDao {
                 listaFunc.setNome(rs.getString("nome"));
                 listaFunc.setCargo(rs.getString("cargo"));
                 listaFunc.setEmail(rs.getString("email"));
+                listaFunc.setDataRescisao(rs.getString("dataRecisao"));
                 lista.add(listaFunc);
             }
 
@@ -201,18 +206,18 @@ public class FuncionarioDao {
         }
         return lista;
     }
-    
+
     public ArrayList<FuncionarioModel> listaGeralFunc() {
 
         Connection con = Conexao.getConexao();
         ArrayList<FuncionarioModel> lista = new ArrayList();
 
         try {
-            
+
             Connection conn = Conexao.getConexao();
             String sql = "select * from funcionario";
             PreparedStatement ps = con.prepareStatement(sql);
-            
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -221,6 +226,8 @@ public class FuncionarioDao {
                 listaFunc.setNome(rs.getString("nome"));
                 listaFunc.setCargo(rs.getString("cargo"));
                 listaFunc.setEmail(rs.getString("email"));
+                listaFunc.setDataRescisao(rs.getString("dataRecisao"));
+                System.out.println(rs.getString("dataRecisao"));
                 lista.add(listaFunc);
             }
 
@@ -230,7 +237,7 @@ public class FuncionarioDao {
         return lista;
     }
 
-     public boolean atualizarUsuario(FuncionarioModel func) {
+    public boolean atualizarUsuario(FuncionarioModel func) {
         boolean status = false;
         String sql = "select numMatricula, permissao from funcionario where cpf = ?";
         String sql2 = "update usuario set permissao = ? where numMatricula = ?";
@@ -265,7 +272,8 @@ public class FuncionarioDao {
 
         return status;
     }
-    public boolean editaFuncionario(FuncionarioModel func){
+
+    public boolean editaFuncionario(FuncionarioModel func) {
         boolean status = false;
         String sql;
         sql = "update funcionario set "
@@ -307,8 +315,8 @@ public class FuncionarioDao {
             ps.setString(14, func.getGenero());
             ps.setString(15, func.getPermissao());
             ps.setInt(16, func.getCodDepto());
-            ps.setInt(17,func.getNumMatricula());
-            
+            ps.setInt(17, func.getNumMatricula());
+
             System.out.println(ps);
             if (ps.executeUpdate() > 0) {
                 ps.close();
@@ -321,5 +329,82 @@ public class FuncionarioDao {
             e.printStackTrace(System.err);
         }
         return status;
-    } 
+    }
+
+    public String confirmaDesligamento(int numMatricula, String senha) {
+
+        String status = "N";
+
+        Connection con = Conexao.getConexao();
+
+        String sqlConfirmaLogin = "SELECT * FROM usuario where numMatricula = ? and senha = ?";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sqlConfirmaLogin);
+            ps.setInt(1, numMatricula);
+            ps.setString(2, senha);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next())
+                status = "OK";
+            else
+                status = "Login Incorreto";
+            
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+
+        return status;
+    }
+
+    public boolean desligarFuncionario(int numMatricula, int numMatrFunc, String nomeFunc) throws SQLException {
+        Connection con = Conexao.getConexao();
+
+        boolean status = false;
+        
+        Date dNow = new Date();
+
+        String sqlLog = "INSERT INTO logs (descLog, numMatricula, dataHora) VALUES (?, ?, ?);";
+        String sqlSetDesligado = "UPDATE funcionario SET dataRecisao = ? WHERE numMatricula = ?";
+        String sqlSetInativado = "UPDATE usuario SET ativado = false WHERE numMatricula = ?";
+        
+        SimpleDateFormat dtRescisao = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat hrFinal = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+
+        try{
+        
+            PreparedStatement psDesligar = con.prepareStatement(sqlSetDesligado);
+            psDesligar.setString(1, dtRescisao.format(dNow));
+            psDesligar.setInt(2, numMatrFunc);
+            psDesligar.executeUpdate(); //executeUpdate faz inserção no banco
+            psDesligar.close();
+
+            PreparedStatement psDeleteUser = con.prepareStatement(sqlSetInativado);
+            psDeleteUser.setInt(1, numMatrFunc);
+            psDeleteUser.execute();
+            psDeleteUser.close();
+
+            String setLogDesligamento = "Funcionário: " + numMatricula + " , efetuou o desligamento do funcionário: " + nomeFunc + " - " + numMatrFunc;
+
+            PreparedStatement log = con.prepareStatement(sqlLog);
+            log.setString(1, setLogDesligamento);
+            log.setInt(2, numMatricula);
+            log.setString(3, hrFinal.format(dNow));
+            log.execute();
+            log.close();
+
+            con.close();
+            
+            status = true;
+            
+        }catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        
+        return status;
+        
+    }
 }
