@@ -1,0 +1,40 @@
+.container {
+    max-width: 90% !important;
+}
+
+@media (min-width: 1300px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .img-logo{
+        width: 45px!important;
+    }
+    
+    .txt-logo{
+        font-size: 1.5rem!important;
+    }
+    
+    .navbar-toggler-icon {
+        width: 1.5em;
+        height: 1.5em;
+    }
+    
+    .nav-link {
+        font-size: clamp(1em, 0em + 2vw, 1em)!important;
+    }
+    
+    .nav-cel {
+        width: 91%;
+    }
+    
+    .table-responsive{
+        overflow-x: scroll;
+    }
+    
+    .card{
+            margin-bottom: 15px;
+    }
+}

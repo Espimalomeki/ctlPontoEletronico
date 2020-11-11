@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -69,10 +70,13 @@ public class PontoEletronicoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String home = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         PrintWriter out = response.getWriter();
         boolean homeOffice = Boolean.parseBoolean(home);
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
-
+        ptEletronico.rgmUsuario(numMatricula);
         ptEletronico.inserePonto(homeOffice);
         
         response.setContentType("text/html;charset=UTF-8");

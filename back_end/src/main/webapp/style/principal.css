@@ -1,0 +1,55 @@
+.conter{
+    
+}
+
+.container {
+    max-width: 80%!important;
+    margin: 0 auto!important;
+}
+
+
+@media only screen and (max-width: 990px) {
+    
+    
+    
+    .font-pequena, small > a{
+        font-size: 1.8rem!important;
+        
+    }
+    
+    .lh-100 > h6{
+        font-size: 3rem!important;
+    }
+    
+    h6{
+        font-size: 4rem!important;
+    }
+    
+    .container {
+        max-width: 100%!important;
+        margin: 0 0;
+        margin-top: 100px;
+    }
+    
+    .text-gray-dark{
+        font-size: 3rem;
+    }
+    
+    .d-flex > a{
+        font-size: 2rem;
+    }
+    
+    span{
+        font-size: 2rem;
+    }
+    
+    .bd-placeholder-img {
+        margin: 5% 15px 0 0;
+        height: 50px;
+        width: 50px;
+    }
+    
+    .media-body{
+        padding-left: 15px;
+    }
+}

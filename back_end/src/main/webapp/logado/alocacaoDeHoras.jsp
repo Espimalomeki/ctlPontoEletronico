@@ -68,22 +68,23 @@
     <body id="cont-body" class="bg-light">
         <header id="navbar">
             <jsp:include page="navbar.jsp"/>
+            <link rel="stylesheet" type="text/css" href="../style/alocacaoDeHoras.css">
         </header>
         
         
-        <main role="main" class="col-md-12 px-5">
+        <main role="main" class="col-md-12 px-lg-5 px-sm-0">
 
-            <article class="row pt-5 mb-3 mx-0">
-                <div class="col-6">
-                    <h3 class="mb-0 lh-100">
-                        <span class="material-icons icones position-relative float-left">
+            <article class="row pt-5 mb-3 mx-0 " style="text-align: center;">
+                <div class="col-lg-6 col-sm-12">
+                    <h3 class="mb-0 lh-100" style="text-align: center;">
+                        <span class="material-icons icones position-relative float-left label-alocacao">
                             access_time
                         </span>
-                        <p class="mb-2 position-relative float-left mt-2 ml-2">Alocação de Horas</p>
+                        <p class="mb-2 position-relative float-left mt-2 ml-2 label-alocacao">Alocação de Horas</p>
                     </h3>
                 </div>
-                <div class="col-3 offset-3">
-                    <h4>Horas a Alocar: </h4>
+                <div class="col-lg-3 col-sm-12 offset-lg-3" >
+                    <h4 class="label-alocacao">Horas a Alocar: </h4>
                     <h3 id="horasDisponiveis" style="color:green;"></h3>
                 </div>
             </article>

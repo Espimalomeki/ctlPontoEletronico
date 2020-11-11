@@ -62,7 +62,10 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         //FileWriter arquivo = new FileWriter(new File("C:\\Users\\filip\\OneDrive\\Desktop\\tabuada.html"));
 
         HttpSession session = request.getSession();
@@ -70,6 +73,7 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
         
         
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+        ptEletronico.rgmUsuario(numMatricula);
         ArrayList<PontoEletronicoModel> listaArray = ptEletronico.listaHorario(0);
         int tmListaPt = listaArray.size();
         String resultadoTxt = "<html> <head> </head> "
@@ -124,8 +128,12 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String str = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-
+        
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+        ptEletronico.rgmUsuario(numMatricula);
         ArrayList<RelatorioFuncionarioSelecionadoModel> listaArray = ptEletronico.listaPontosFuncSelecionado(str);
         int tmListaPt = listaArray.size();
 

@@ -15,6 +15,7 @@
 
 .navbar{
 	background: linear-gradient(135deg, #194e51 0%, #0d2a88 100%);
+        position: relative
 }
 
 main{
@@ -26,7 +27,8 @@ main{
 }
 
 body{
-	margin-top: 2rem;
+	padding: 0;
+        height: 100vh;
 }
 
 .modal-dialog {
@@ -40,3 +42,11 @@ footer{
 	text-align: center;
 	width: 100%;
 }
+
+.container{
+    width: auto!important;
+    max-width: 100%;
+}
+
+
+
