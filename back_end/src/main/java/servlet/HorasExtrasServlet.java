@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.BancoDeHorasModel;
 import model.PontoEletronicoModel;
 
@@ -27,11 +28,14 @@ public class HorasExtrasServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();        
         String getHorasExtras= "";
         
         try {
-            getHorasExtras =  ptEletronico.getStatusDeHoras(0);
+            getHorasExtras =  ptEletronico.getStatusDeHoras(numMatricula);
             response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
             response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
             response.getWriter().write(getHorasExtras);

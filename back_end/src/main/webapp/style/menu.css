@@ -1,0 +1,119 @@
+nav{    
+    height: 85px;
+}
+
+.nav-link{
+    font-size: clamp(0.5em, 0em + 1vw, 1em)!important;
+}
+
+.contem-logo{
+    display: contents;
+}
+
+
+
+@keyframes up-down {
+    0%{
+        margin-top: -80%;
+    }
+    100%{
+        margin-top: 0%;
+    }
+}
+
+
+@media only screen and (max-width: 1230px) {
+    .txt-logo{
+        font-size: 1rem!important;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .txt-logo{
+        font-size: 3.3rem!important;
+    }
+    
+    .navbar-toggler-icon {
+        height: 100px;
+        width: 100px;
+        position: absolute;
+        right: 0;
+    }
+
+    .centralizar{
+        display: block;
+        text-align: -webkit-center;
+        flex: 0 0 100%!important;
+        max-width: 100%!important;
+        height: 95%;
+    }
+
+    .menu-app{
+        float: right;
+        margin-top: 0;
+    }
+
+    .collapse{
+        display: none!important;
+    }
+
+    .contem-logo{
+        display: block;
+        text-align: center;
+        margin-left: 33%;
+    }
+
+    .nav-cel, .dropdown-menu{
+        background: linear-gradient(135deg, #194e51 0%, #0d2a88 100%);
+
+    }
+
+    .nav-link , .dropdown-item{
+        color: white!important;
+    }
+
+    .nav-cel{
+        width: 98%;
+        display: none;
+/*        margin-top: -1%;*/
+        position: absolute;
+        z-index: 100;
+        top: 100%;
+    }
+
+    .nav-link{
+        font-size: clamp(3em, 0em + 2vw, 2em)!important;
+        text-align: right;
+    }
+
+    .img-logo{
+        height: auto!important;
+        width: 40%!important;
+    }
+
+    .menu-ativo{
+        display: block;
+        animation: up-down 0.5s;
+    }
+
+    .navbar-brand{
+        padding-top: 0;
+    }
+
+    nav {
+        height: auto;
+    }
+
+    .navbar{
+        max-height: 250px;
+    }
+    
+    .lh-125 {
+        line-height: unset;
+    }
+    
+    .dropdown-item {
+        font-size: clamp(3em, 0em + 2vw, 2em)!important;
+    }
+}
+

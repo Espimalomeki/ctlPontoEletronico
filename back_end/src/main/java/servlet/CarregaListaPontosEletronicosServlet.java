@@ -59,12 +59,16 @@ public class CarregaListaPontosEletronicosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         try {
             HttpSession session = request.getSession();
             int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
         
             
             PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+            ptEletronico.rgmUsuario(numMatricula);
             ArrayList <PontoEletronicoModel> listaArray = ptEletronico.listaPontos(false);
             int tmListaPt = listaArray.size();
             String listaTr = "";

@@ -112,24 +112,25 @@
 
         <header id="navbar">
             <jsp:include page="navbar.jsp"/>
+            <link rel="stylesheet" type="text/css" href="../style/bancoDeHoras.css">
         </header>
 
         <main role="main" class="container">
 
             <article class="row pt-5 mb-3 mx-0">
-                <div class="col-6">
-                    <h4 class="mb-0 lh-100">
+                <div class="cont-titulo col-sm-12 col-md-6">
+                    <h4 class="mb-0 lh-100 ">
                         <span class="material-icons icones position-relative float-left">
                             access_time
                         </span>
-                        <p class="mb-2 position-relative float-left mt-2 ml-2">Banco de Horas  </p> 
+                        <p class="mb-2 position-relative float-left mt-2 ml-2 txt-bd titulo">Banco de Horas  </p> 
                          
                     </h4>
                 </div>
-                <div class="col-3">
+                <div class="col-3 barra-pesquisa">
                     <input type="date" class="form-control" id="validationDefault01" placeholder="data Inicial">
                 </div>
-                <div class="col-3">
+                <div class="col-3 barra-pesquisa">
                     <input type="date" class="form-control" id="validationDefault01" placeholder="data Fim">
                 </div>
             </article>
@@ -158,22 +159,22 @@
             <br>
             <div class="row">
 
-                <div class="col-sm-6">
+                <div class="card-parte-1 col-sm-12 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Horas Totais:</h5>
                             <div class="row">
-                                <div class="card col-4 offset-1">
+                                <div class="card card-temp col-4 offset-1">
                                     <p id="qtdTotalHorasTrabalhadas"> </p>
                                 </div>
-                                <div class="card col-4 offset-1" style="color:green">
+                                <div class="card card-temp col-4 offset-1" style="color:green">
                                     <p id="horasExtras"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="card-parte-1 col-sm-12 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Gerar Relatórios</h5>

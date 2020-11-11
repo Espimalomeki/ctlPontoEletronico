@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.AlocacaoDeHorasModel;
 
 /**
@@ -64,8 +65,11 @@ public class ListaAlocacaoHorasServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
         try {
             AlocacaoDeHorasDao projeto = new AlocacaoDeHorasDao();
+            projeto.rgmUsuario(numMatricula);
             ArrayList <AlocacaoDeHorasModel> listaArray = projeto.ListaAlocacaoHoras();
             int tmListaPt = listaArray.size();
             String listaTr = "";

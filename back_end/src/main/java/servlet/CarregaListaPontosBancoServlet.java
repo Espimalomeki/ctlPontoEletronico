@@ -14,11 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.BancoDeHorasModel;
 import model.PontoEletronicoModel;
 
 @WebServlet(name = "CarregaListaPontosBancoServlet", urlPatterns = {"/CarregaListaPontosBancoServlet"})
 public class CarregaListaPontosBancoServlet extends HttpServlet {
+    
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,8 +42,11 @@ public class CarregaListaPontosBancoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();        
-        ArrayList<PontoEletronicoModel> listaHr = ptEletronico.listaHorario(0);
+        ArrayList<PontoEletronicoModel> listaHr = ptEletronico.listaHorario(numMatricula);
             int tamListaHr = listaHr.size();
         
             String listaResul = "";
@@ -70,7 +76,12 @@ public class CarregaListaPontosBancoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int str = Integer.parseInt(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+        
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
+        //ptEletronico.rgmUsuario(numMatricula);
         
         ArrayList<PontoEletronicoModel> listaHr = ptEletronico.listaHorario(str);
             int tamListaHr = listaHr.size();
