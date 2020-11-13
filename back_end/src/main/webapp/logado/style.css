@@ -29,10 +29,6 @@ main{
 	font-size: 40px;
 }
 
-body{
-	margin-top: 2rem;
-}
-
 .modal-dialog {
     max-width: 1200px;
 }

@@ -98,9 +98,11 @@
                         
                         
                             <%
+                                int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+                                
                                 RegistraProjetoDao rgProjeto = new RegistraProjetoDao();
-                                ArrayList<RegistraProjetoModel> listaArray = rgProjeto.ListaProjeto();
-                                int tmListaPt = rgProjeto.ListaProjeto().size();
+                                ArrayList<RegistraProjetoModel> listaArray = rgProjeto.ListaProjeto(numMatricula);
+                                int tmListaPt = rgProjeto.ListaProjeto(numMatricula).size();
                                 for (int i = 0; i < tmListaPt; i++) {
                             %>
                             <tr>

@@ -27,4 +27,9 @@
     .card{
             margin-bottom: 15px;
     }
+    
+    .container{
+        width: 80%;
+        margin: 0 auto;
+    }
 }

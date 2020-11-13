@@ -1,19 +1,9 @@
 package dao;
 
-import static dao.PontoEletronicoDao.completeToLeft;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.swing.JOptionPane;
-import model.AlocacaoDeHorasModel;
-import model.LoginModel;
 import java.util.ArrayList;
 import model.RegistraProjetoModel;
 

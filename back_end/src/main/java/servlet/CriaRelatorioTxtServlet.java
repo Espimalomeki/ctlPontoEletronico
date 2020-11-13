@@ -67,10 +67,6 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
         int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
         
         //FileWriter arquivo = new FileWriter(new File("C:\\Users\\filip\\OneDrive\\Desktop\\tabuada.html"));
-
-        HttpSession session = request.getSession();
-        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
-        
         
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
         ptEletronico.rgmUsuario(numMatricula);
