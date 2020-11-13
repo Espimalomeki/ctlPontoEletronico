@@ -241,6 +241,69 @@
                 }
                 
             }
+            let trTable = document.getElementById("trTable");
+            let permissao = "${sessionScope.perfil}";
+//            if(permissao == "gestor" || permissao == "RH"){
+//                    trTable.innerHTML += "<th><button class='btn btn-warning' onclick='habilitarEdicao()' >Editar</button></th>";
+//
+//            }
+            
+            function modificarPonto(id){
+                let hrEntrada   = document.getElementById("hrEntrada"+id);
+                let hrIntervalo = document.getElementById("hrIntervalo"+id);
+                let hrSaida     = document.getElementById("hrSaida"+id);
+                let hmOffice    = document.getElementById("hmOffice"+id);
+                let mt          = document.getElementById("mt"+id);
+                let btnEditar   = document.getElementById("btnEditar"+id);
+                
+                hrEntrada.innerHTML = `<input id="inpHrEntrada${id}" type="datetime-local">`;
+                //hrIntervalo.innerHTML = `<input id="inpHrIntervalo${id}" type="time">`;
+                hrSaida.innerHTML = `<input id="inpHrSaida${id}" type="datetime-local">`;
+                hmOffice.innerHTML = `<select id="inpMotivo${id}"> 
+                                            <option value="false">Não</option>
+                                            <option value="true">Sim</option>
+                                        </select>`;
+                mt.innerHTML = `<input id="inpMotivo${id}" type="text">`;
+                btnEditar.innerHTML = `<button class="btn-warning" onclick="editarPonto(${id})">Salvar</button>`
+            }
+            
+            
+            
+            
+             function editarPonto(id){
+                    let hrEntrada   = document.getElementById("inpHrEntrada"+id).value;
+                    let hrIntervalo = document.getElementById("inpHrIntervalo"+id).value;
+                    let hrSaida     = document.getElementById("inpHrSaida"+id).value;
+                    let hmOffice    = document.getElementById("inpHmOffice"+id).value;
+                    let mt          = document.getElementById("inpMotivo"+id).value;
+                    let btnEditar   = document.getElementById("inpBtnEditar"+id).value;
+                            
+                    let objPontoEletronico = {
+                        "idPonto"   : id,
+                        "hrEntrada" : hrEntrada,
+                        "hrIntervalo" : hrIntervalo,
+                        "hmOffice" : hmOffice,
+                        "motivoAjuste" : mt
+                    }
+                    
+                    var xhrEditaPonto = new XMLHttpRequest();
+                    xhrEditaPonto.open("POST", "../EditaPontosEletronicoServlet", true);
+                    xhrEditaPonto.onload = function (e) {
+                            if (xhrEditaPonto.readyState === 4) {
+                                    if (xhrEditaPonto.status === 200) {      
+                                            alert(xhrEditaPonto.responseText);
+                                            window.location.reload();
+                                    } else {
+                                            alert("aconteceu algo errado");
+                                    }
+                            }
+                    };
+                    xhrEditaPonto.onerror = function (e) {
+                            console.error(xhrEditaPonto.statusText);
+                    };
+                    xhrEditaPonto.send(objPontoEletronico);
+                
+            }
             
             let listaPontosEletronicos = document.getElementById("listaPontosEletronicos");
             let pontoHoje = document.getElementById("pontoHoje");

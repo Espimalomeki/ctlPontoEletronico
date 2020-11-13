@@ -83,15 +83,15 @@ public class CarregaListaPontosEletronicosServlet extends HttpServlet {
                 
                 listaTr += ""
 //                    + "<td>"+listaArray.get(i).getNumMatricula()+" </td>"
-                        + "<td><center>"+listaArray.get(i).getHoraEntrada()+"</center></td>"
-                        + "<td class='pl-5'>"+listaArray.get(i).getTotalHrIntervalo()+"</td>"
-                        + "<td><center>"+listaArray.get(i).getHoraSaida()+"</center></td>"
-                        + "<td class='pl-4'>"+listaArray.get(i).getHomeOffice()+"</td>"
-                        + "<td><small>"+listaArray.get(i).getMotivoAjuste()+"</small></td>";
-                
-                        if(funcao.equals("RH")){
-                            listaTr += "<td><button class='btn btn-danger' onclick='excluirPonto(`"+idPonto+"`)' >Excluir</button></td>";
-                        }
+                        + "<td id='hrEntrada"+idPonto+"'><center>"+listaArray.get(i).getHoraEntrada()+"</center></td>"
+                        + "<td id='hrIntervalo"+idPonto+"' class='pl-5'>"+listaArray.get(i).getTotalHrIntervalo()+"</td>"
+                        + "<td id='hrSaida"+idPonto+"' ><center>"+listaArray.get(i).getHoraSaida()+"</center></td>"
+                        + "<td id='hmOffice"+idPonto+"' class='pl-4'>"+listaArray.get(i).getHomeOffice()+"</td>"
+                        + "<td id='mt"+idPonto+"' ><small>"+listaArray.get(i).getMotivoAjuste()+"</small></td>";
+                if(funcao.equals("RH")){
+                    listaTr += "<td> <button class='btn btn-warning' id='btnEditar"+idPonto+"' onclick='modificarPonto("+idPonto+")'> Editar </button> </td>";
+                }
+                        
                                 
                 listaTr += "</tr>";
             }
