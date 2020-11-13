@@ -24,6 +24,8 @@ import model.FuncionarioModel;
 import model.LoginModel;
 import model.PontoEletronicoModel;
 import model.RelatorioFuncionarioSelecionadoModel;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import sun.awt.KeyboardFocusManagerPeerImpl;
 
 public class PontoEletronicoDao {
@@ -295,6 +297,50 @@ public class PontoEletronicoDao {
         }
         return lista;
 
+    }
+    
+    public boolean atualizarPonto(JSONObject obj) throws SQLException{;;;
+        boolean resul = false;
+        
+        int idPonto = obj.getInt("idPonto");
+        String hrEntrada = obj.getString("hrEntrada");
+        String hrSaida = obj.getString("hrSaida");
+        String hmOffice = obj.getString("hmOffice");
+        String motivoAjuste = obj.getString("motivoAjuste");
+        boolean mtAjuste = true;
+        
+        if(motivoAjuste.equals("true")){
+            mtAjuste = true;
+        }else{
+            mtAjuste = false;
+        }
+        
+        try {
+            Connection conecta = Conexao.getConexao();
+        String updateSql = "UPDATE `pontoEletronico` "
+                + "SET `horaEntrada` = ?, `horaSaida` = ?, `motivoAjuste` = ?, `homeOffice` = ? "
+                + "WHERE (`idPtEletronico` = ?);";
+        
+        
+        PreparedStatement ts = conecta.prepareStatement(updateSql);
+        ts.setInt(5, idPonto);
+        ts.setString(1, hrEntrada);
+        ts.setString(2, hrSaida);
+        ts.setString(3, hmOffice);
+        ts.setBoolean(4, mtAjuste);
+        
+        ts.executeUpdate(); //executeUpdate faz inserção no banco
+        ts.close();
+        conecta.close();
+        } catch (Exception e) {
+            return resul;
+        }
+        
+        resul = true;
+        
+        return resul;
+        
+        
     }
 
     public String inserePonto(boolean homeOffice) {
