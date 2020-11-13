@@ -7,10 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.FuncionarioModel;
-import model.LoginModel;
 import model.RelatorioFuncionarioSelecionadoModel;
 import util.GeraSenha;
 
@@ -62,12 +59,16 @@ public class FuncionarioDao {
     public boolean incluirUsuario(FuncionarioModel func) {
         boolean status = false;
         String sql = "select numMatricula, permissao from funcionario where cpf = ?";
-        String sql2 = "insert into usuario(numMatricula, senha, permissao, ativado)values(?,MD5(?),?);";
+        String sql2 = "insert into usuario(numMatricula, senha, permissao, ativado)values(?,MD5(?),?,?);";
 
+        String senhaAleatoria = null;
+        
         try {
             Connection conn = Conexao.getConexao();
             PreparedStatement ps = conn.prepareStatement(sql);
 
+            senhaAleatoria = GeraSenha.gerarSenhaAleatoria();
+            
             ps.setString(1, func.getCpf());
 
             ResultSet rs = ps.executeQuery();
@@ -78,7 +79,7 @@ public class FuncionarioDao {
 
                 PreparedStatement ps2 = conn.prepareStatement(sql2);
                 ps2.setString(1, matricula);
-                ps2.setString(2, GeraSenha.gerarSenhaAleatoria());
+                ps2.setString(2, senhaAleatoria);
                 ps2.setString(3, permissao);
                 ps2.setBoolean(4, true);
 
@@ -123,6 +124,7 @@ public class FuncionarioDao {
                 func.setEndereco(rs.getString("endereco"));
                 func.setComplemento(rs.getString("complemento"));
                 func.setDataAdmissao(rs.getString("dataAdmissao"));
+                func.setDataRescisao(rs.getString("dataRecisao"));
                 func.setCargaHoraria(rs.getString("cargaHoraria"));
                 func.setSalario(rs.getString("salario"));
                 func.setGenero(rs.getString("genero"));
@@ -206,6 +208,37 @@ public class FuncionarioDao {
         }
         return lista;
     }
+    
+    public ArrayList<FuncionarioModel> listaFiltroDepto(String query, int codDepto) {
+
+        Connection con = Conexao.getConexao();
+        ArrayList<FuncionarioModel> lista = new ArrayList();
+
+        try {
+
+            Connection conn = Conexao.getConexao();
+            String sql = "SELECT * from funcionario WHERE idDepto = ? and nome LIKE '%"+ query +"%'";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, codDepto);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                FuncionarioModel listaFunc = new FuncionarioModel();
+                listaFunc.setNumMatricula(rs.getInt("numMatricula"));
+                listaFunc.setNome(rs.getString("nome"));
+                listaFunc.setCargo(rs.getString("cargo"));
+                listaFunc.setEmail(rs.getString("email"));
+                listaFunc.setDataRescisao(rs.getString("dataRecisao"));
+                lista.add(listaFunc);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 
     public ArrayList<FuncionarioModel> listaGeralFunc() {
 
@@ -236,6 +269,36 @@ public class FuncionarioDao {
         }
         return lista;
     }
+    
+    public ArrayList<FuncionarioModel> listaFiltroFunc(String query) {
+
+        Connection con = Conexao.getConexao();
+        ArrayList<FuncionarioModel> lista = new ArrayList();
+
+        try {
+
+            String sql = "select * from funcionario where nome like '%" + query +"%'";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                FuncionarioModel listaFunc = new FuncionarioModel();
+                listaFunc.setNumMatricula(rs.getInt("numMatricula"));
+                listaFunc.setNome(rs.getString("nome"));
+                listaFunc.setCargo(rs.getString("cargo"));
+                listaFunc.setEmail(rs.getString("email"));
+                listaFunc.setDataRescisao(rs.getString("dataRecisao"));
+                System.out.println(rs.getString("dataRecisao"));
+                lista.add(listaFunc);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
 
     public boolean atualizarUsuario(FuncionarioModel func) {
         boolean status = false;
@@ -337,7 +400,7 @@ public class FuncionarioDao {
 
         Connection con = Conexao.getConexao();
 
-        String sqlConfirmaLogin = "SELECT * FROM usuario where numMatricula = ? and senha = ?";
+        String sqlConfirmaLogin = "SELECT * FROM usuario where numMatricula = ? and senha = MD5(?)";
 
         try {
 

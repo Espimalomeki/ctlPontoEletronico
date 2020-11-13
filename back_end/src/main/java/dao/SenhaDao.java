@@ -10,7 +10,7 @@ public class SenhaDao {
     
     public boolean editaSenha(AlteraSenhaModel senha) {
         boolean status = false;
-        String sql = "UPDATE usuario set senha = ? WHERE numMatricula = ?;";
+        String sql = "UPDATE usuario set senha = MD5(?) WHERE numMatricula = ?";
 
         try {
             Connection conn = Conexao.getConexao();

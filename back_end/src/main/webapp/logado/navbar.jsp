@@ -26,24 +26,9 @@
             <li class="nav-item">
                 <a class="nav-link nav-syze" href="pontoEletronico.jsp">Ponto Eletrônico</a>
             </li>
-            <c:choose>
-                <c:when test="${sessionScope.perfil == 'gestor'}">
-                    <li class="nav-item">
-                        <a class="nav-link nav-syze dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Banco de Horas
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="bancoDeHoras.jsp">Banco de Horas</a>
-                            <a class="dropdown-item" href="bancoDeHorasGestor.html">Banco De Horas - Gestor</a>
-                        </div>
-                    </li>
-                </c:when>
-                <c:otherwise>
-                    <li class="nav-item">
-                        <a class="nav-link nav-syze" href="bancoDeHoras.jsp">Banco de Horas</a>
-                    </li>
-                </c:otherwise>
-            </c:choose>
+            <li class="nav-item">
+                <a class="nav-link nav-syze" href="bancoDeHoras.jsp">Banco de Horas</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link nav-syze" href="alocacaoDeHoras.jsp">Alocação de Horas </a>
             </li>
