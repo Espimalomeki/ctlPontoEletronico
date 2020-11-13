@@ -15,22 +15,22 @@ public class LoginDao {
                          "FROM usuario as U " +
                          "INNER JOIN funcionario as F ON U.numMatricula = F.numMatricula " +
                          "INNER JOIN departamento as D ON F.idDepto = D.idDepto " +
-                         "WHERE U.numMatricula = ? and U.senha = ?";
+                         "WHERE U.numMatricula = ? and U.senha = MD5(?) and U.ativado = true";
         
         try {            
             Connection conn = Conexao.getConexao();
             PreparedStatement ps = conn.prepareStatement(sql);
             
-            ps.setInt(1, LoginModel.getNumMatricula());
-            ps.setString(2, LoginModel.getSenha());
+            ps.setInt(1, login.getNumMatricula());
+            ps.setString(2, login.getSenha());
 
             ResultSet rs = ps.executeQuery();
           
            if (rs.next()) {
-                    LoginModel.setPermissao(rs.getString("permissao"));
-                    LoginModel.setNome(rs.getString("nome"));
-                    LoginModel.setCodDepto(rs.getInt("idDepto"));
-                    LoginModel.setNomeDepto(rs.getString("nomeDepto"));
+                    login.setPermissao(rs.getString("permissao"));
+                    login.setNome(rs.getString("nome"));
+                    login.setCodDepto(rs.getInt("idDepto"));
+                    login.setNomeDepto(rs.getString("nomeDepto"));
                     status = true;
            }
            ps.close();

@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.RegistraProjetoModel;
 
@@ -33,13 +34,16 @@ public class RegistraProjetoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+        
         RegistraProjetoModel proj = new RegistraProjetoModel();
         proj.setCargaTotalHr(request.getParameter("cargaTotalHr"));
         proj.setDescProjeto(request.getParameter("descProjeto"));
         proj.setStatusProjeto(request.getParameter("statusProjeto"));
         
         
-        if (projDao.incluirProjeto(proj)) {
+        if (projDao.incluirProjeto(proj, numMatricula)) {
             System.out.println("Deu certo !");
             response.sendRedirect("logado/projetos.jsp");
         }

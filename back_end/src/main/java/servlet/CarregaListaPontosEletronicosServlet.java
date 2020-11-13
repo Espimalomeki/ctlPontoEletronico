@@ -63,13 +63,14 @@ public class CarregaListaPontosEletronicosServlet extends HttpServlet {
         int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
         
         try {
+            
             PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
             ptEletronico.rgmUsuario(numMatricula);
             ArrayList <PontoEletronicoModel> listaArray = ptEletronico.listaPontos(false);
             int tmListaPt = listaArray.size();
             String listaTr = "";
             FuncionarioDao funcDao = new FuncionarioDao();
-            FuncionarioModel func = funcDao.retornaFuncionario();
+            FuncionarioModel func = funcDao.retornaFuncionario(numMatricula);
             String funcao = func.getPermissao();
             
             int idPonto;

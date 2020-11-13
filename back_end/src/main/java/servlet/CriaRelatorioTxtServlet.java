@@ -67,7 +67,7 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
         int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
         
         //FileWriter arquivo = new FileWriter(new File("C:\\Users\\filip\\OneDrive\\Desktop\\tabuada.html"));
-
+        
         PontoEletronicoDao ptEletronico = new PontoEletronicoDao();
         ptEletronico.rgmUsuario(numMatricula);
         ArrayList<PontoEletronicoModel> listaArray = ptEletronico.listaHorario(0);
@@ -77,7 +77,7 @@ public class CriaRelatorioTxtServlet extends HttpServlet {
                 + "<body style='margin-left:50px'> ";
         
         FuncionarioDao funcDao = new FuncionarioDao();
-        FuncionarioModel func = funcDao.retornaFuncionario();
+        FuncionarioModel func = funcDao.retornaFuncionario(numMatricula);
         resultadoTxt += "<center><h2>Relatorio Geral</h2></center> <div style='margin-left: 6rem;margin-bottom: 3rem; width: 45%; position: relative; float: left; font-size: 1.3rem;'>"
         + "<p class='card-text'>Nome Completo:"+ func.getNome()+"</p>"+
         "<p class='card-text'>CPF: "+ func.getCpf()+"</p>"+

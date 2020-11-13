@@ -5,12 +5,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Calendário - Portal Espimalomeki</title>
+        <link rel="stylesheet" type="text/css" href="../style/menu.css">
         <link href='../resources/fullcalendar/lib/main.css' rel='stylesheet' />
         <script src='../resources/fullcalendar/lib/main.js'></script>
         <script src='../resources/fullcalendar/lib/locales-all.js'></script>
+        <link rel="stylesheet" type="text/css" href="../style/principal.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+        <!-- Custom styles for this template -->
+        <link href="offcanvas.css" rel="stylesheet">
+        
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('script-warning').style.display = 'none';

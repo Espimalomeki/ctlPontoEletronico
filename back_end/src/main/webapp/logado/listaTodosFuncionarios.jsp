@@ -16,30 +16,13 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-        </style>
-        <!-- Custom styles for this template -->
         <link href="form-validation.css" rel="stylesheet">
         <link href="offcanvas.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../style/pontoEletronico.css">
     </head>
     <body class="bg-light">
         <header id="navbar">
             <jsp:include page="navbar.jsp"/>
-            <link rel="stylesheet" type="text/css" href="../style/pontoEletronico.css">
         </header>
 
         <main role="main" class="container-md">
@@ -51,9 +34,9 @@
             </div>
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">
-                    <form class="card p-0">
+                    <form class="card p-0" method="POST" action="">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Pesquisar por nome">
+                            <input type="text" class="form-control" name="queryText" placeholder="Pesquisar por nome..">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-secondary">Pesquisar</button>
                             </div>
@@ -64,16 +47,26 @@
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span>Lista de Funcionários</span>
                         <%
+                            ArrayList<FuncionarioModel> listaArray = null;
+                            int totalfunc = 0;
                             FuncionarioDao listaFunc = new FuncionarioDao();
-                            ArrayList<FuncionarioModel> listaArray = listaFunc.listaGeralFunc();
-                            int totalfunc = listaFunc.listaGeralFunc().size();
+                            
+                            String query = request.getParameter("queryText");
+                            if(query!=null){
+                                listaArray = listaFunc.listaFiltroFunc(query);
+                                totalfunc = listaFunc.listaFiltroFunc(query).size();
+                            }
+                            else{
+                                listaArray = listaFunc.listaGeralFunc();
+                                totalfunc = listaFunc.listaGeralFunc().size();
+                            }
                         %>
                         <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
                     </h4>
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped table sm">
+                <table class="table table-striped table sm" id="tabela-func">
                     <thead>
                         <tr>
                             <th>Matrícula</th>
@@ -82,43 +75,36 @@
                             <th>Email</th>
                             <th>Perfil Profissional</th>
                             <th>Banco De Horas</th>
-                            <th>Editar</th>
+                            <th>Editar/ Desligar</th>
                         </tr>
                     </thead>
                     <tbody>
                     <tbody>
-                        <%
-                            for (int i = 0; i < totalfunc; i++) {
-                        %>    
+                        <% for (int i = 0; i < totalfunc; i++) { %>    
                         <tr>
                             <td><%=listaArray.get(i).getNumMatricula()%></td>
                             <td><%= listaArray.get(i).getNome()%>  </td>
                             <td><%= listaArray.get(i).getCargo()%></td>
                             <td><%= listaArray.get(i).getEmail()%> </td>
-                            <td><a href="#" class="card-link">Detalhar</a></td>
+                            <td><a href="perfilProfissionalGestao.jsp?id=<%=listaArray.get(i).getNumMatricula()%>" class="card-link">Detalhar</a></td>
                             <td><a class="btn btn-primary btn-banco" id="bc<%=listaArray.get(i).getNumMatricula()%>" href="bancoDeHoras.jsp?rgm=<%=listaArray.get(i).getNumMatricula()%>">Visualizar</a></td>
-                    <c:if test="${sessionScope.perfil == 'RH'}">
-                        <td><a class="btn btn-danger btn-xs" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
-                    </c:if>
-                    </tr>
-                    <%
-                        }
-                    %>                
+                            <% if (session.getAttribute("perfil").toString().equals("RH") && listaArray.get(i).getDataRescisao() == null) {%>  
+                            <td><a class="btn btn-danger" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
+                            <%} else {%>
+                            <td><a class="btn btn-outline-danger disabled">Desligado</a></td>
+                            <%}%>
+                        </tr>
+                        <%}%>                
                     </tbody>
                 </table>
             </div>
             <footer class="my-5 pt-5 text-muted text-center text-small position-relative">
                 <p class="mb-1">&copy; 2020 Espimalomeki</p>
             </footer>
-            <script>
-
-
-
-            </script>
+                    
             <script type="text/javascript" src="scripts.js"></script>
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-            <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
-            <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-            <script src="form-validation.js"></script>
+            <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

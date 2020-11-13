@@ -18,6 +18,7 @@ public class FuncionarioModel {
     private String salario;
     private String genero;
     private String permissao;
+    private String dataRescisao;
     private int numMatricula;
     private int codDepto;
 
@@ -163,5 +164,13 @@ public class FuncionarioModel {
 
     public void setCodDepto(int codDepto) {
         this.codDepto = codDepto;
+    }
+
+    public String getDataRescisao() {
+        return dataRescisao;
+    }
+
+    public void setDataRescisao(String dataRescisao) {
+        this.dataRescisao = dataRescisao;
     }
 }

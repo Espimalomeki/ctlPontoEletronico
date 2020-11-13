@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.RegistraProjetoModel;
 
 /**
@@ -60,22 +61,27 @@ public class ListaProjetosServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RegistraProjetoDao projeto = new RegistraProjetoDao();
-            ArrayList <RegistraProjetoModel> listaArray = projeto.ListaProjeto();
-            int tmListaPt = listaArray.size();
-            String listaTr = "<option data-default disabled selected></option>";
             
-            int idPonto;
-            String nomeProj;
-            for (int i = 0; i < tmListaPt; i++) {
-                idPonto = listaArray.get(i).getIdProjeto();
-                nomeProj = listaArray.get(i).getDescProjeto();
+        HttpSession session = request.getSession();
+        int numMatricula = Integer.parseInt(session.getAttribute("matricula").toString());
+            
+        RegistraProjetoDao projeto = new RegistraProjetoDao();
+            
+        ArrayList <RegistraProjetoModel> listaArray = projeto.ListaProjeto(numMatricula);
+        int tmListaPt = listaArray.size();
+        String listaTr = "<option data-default disabled selected></option>";
+        
+        int idPonto;
+        String nomeProj;
+        for (int i = 0; i < tmListaPt; i++) {
+            idPonto = listaArray.get(i).getIdProjeto();
+            nomeProj = listaArray.get(i).getDescProjeto();
                 
-                listaTr += "<option value='"+idPonto+"'>"+idPonto+" - "+nomeProj+"</option>";
-            }
-            response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-            response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-            response.getWriter().write(listaTr);
+            listaTr += "<option value='"+idPonto+"'>"+idPonto+" - "+nomeProj+"</option>";
+        }
+        response.setContentType("text/plain"); 
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(listaTr);
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -67,9 +67,9 @@
             </div>
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">
-                    <form class="card p-0">
+                    <form class="card p-0" method="POST" action="">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Pesquisar por nome">
+                            <input type="text" class="form-control" name="queryText" placeholder="Pesquisar por nome..">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-secondary">Pesquisar</button>
                             </div>
@@ -80,9 +80,23 @@
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span>Lista de Funcionários do Departamento</span>
                         <%
+                            int codDepto = Integer.parseInt(session.getAttribute("codDepto").toString());
+                            
                             FuncionarioDao listaFunc = new FuncionarioDao();
-                            ArrayList<FuncionarioModel> listaArray = listaFunc.listaFuncDepto();
-                            int totalfunc = listaFunc.listaFuncDepto().size();
+                            ArrayList<FuncionarioModel> listaArray = null;
+                            int totalfunc = 0;
+                            
+                            String query = request.getParameter("queryText");
+                            if(query!=null){
+                                listaArray = listaFunc.listaFiltroDepto(query, codDepto);
+                                totalfunc = listaFunc.listaFiltroDepto(query, codDepto).size();
+                            }
+                            else{
+                                listaArray = listaFunc.listaFuncDepto(codDepto);
+                                totalfunc = listaFunc.listaFuncDepto(codDepto).size();
+                                
+                            }
+
                         %>
                         <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
                     </h4>
@@ -105,19 +119,19 @@
                     </thead>
                     <tbody>
                     <tbody>
-                        <%
-                            for (int i = 0; i < totalfunc; i++) {
-                        %>    
+                        <% for (int i = 0; i < totalfunc; i++) { %>    
                         <tr>
                             <td><%=listaArray.get(i).getNumMatricula()%></td>
                             <td><%= listaArray.get(i).getNome()%>  </td>
                             <td><%= listaArray.get(i).getCargo()%></td>
                             <td><%= listaArray.get(i).getEmail()%> </td>
-                            <td><a href="#" class="card-link">Detalhar</a></td>
+                            <td><a href="perfilProfissionalGestao.jsp?id=<%=listaArray.get(i).getNumMatricula()%>" class="card-link">Detalhar</a></td>
                             <td><a class="btn btn-primary btn-banco" id="bc<%=listaArray.get(i).getNumMatricula()%>" href="bancoDeHoras.jsp?rgm=<%=listaArray.get(i).getNumMatricula()%>">Visualizar</a></td>
-                            <c:if test="${sessionScope.perfil == 'RH'}">
-                                <td><a class="btn btn-danger btn-xs" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
-                            </c:if>
+                            <% if (session.getAttribute("perfil").toString().equals("RH") && listaArray.get(i).getDataRescisao() == null) {%>  
+                            <td><a class="btn btn-danger" href="editarFuncionario.jsp?numMatricula=<%=listaArray.get(i).getNumMatricula()%>">Editar</a></td>
+                            <%} else if (session.getAttribute("perfil").toString().equals("RH") && listaArray.get(i).getDataRescisao() != null) {%>
+                            <td><a class="btn btn-outline-danger disabled">Desligado</a></td>
+                            <%}%>
                         </tr>
                         <%
                             }
