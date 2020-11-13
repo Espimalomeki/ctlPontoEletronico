@@ -83,7 +83,7 @@ public class AlertasEventosServlet extends HttpServlet {
                         + "        <svg class='bd-placeholder-img rounded mr-2' width='20' height='20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img'><rect width='100%' height='100%' fill='#007aff'></rect></svg>"
                         + "        <strong class='mr-auto'>"+listaArray.get(i).getNomeEvento()+"</strong>"
                         + "        <button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>"
-                        + "          <span aria-hidden='true'>"+listaArray.get(i).getTipoEvento()+"</span>"
+                        + "          <span aria-hidden='true' style='font-size: 1rem;'>"+listaArray.get(i).getTipoEvento()+"</span>"
                         + "        </button>"
                         + "      </div>"
                         + "      <div class='toast-body'>"

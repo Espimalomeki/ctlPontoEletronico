@@ -135,7 +135,7 @@
                         areaAlerta.innerHTML = xhrAlertas.responseText;
                         setTimeout(()=>{
                             areaAlerta.innerHTML = "";
-                        },11000);
+                        },8000);
                     }
                 }
             };
