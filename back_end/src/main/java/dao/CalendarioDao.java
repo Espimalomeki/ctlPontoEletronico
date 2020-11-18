@@ -63,7 +63,6 @@ public class CalendarioDao {
 
     public CalendarioDTO listaUnico(int id){
         Connection conn = Conexao.getConexao();
-        LoginModel login = new LoginModel();
         CalendarioDTO evento = new CalendarioDTO();
 
         try {         

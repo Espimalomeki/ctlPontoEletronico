@@ -62,7 +62,6 @@
                         <a class="nav-link nav-syze dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"  href="listaFuncionariosDepartamento.jsp">Lista de Funcionários por Departamento</a>
-                            <a class="dropdown-item"  href="listaTodosFuncionarios.jsp">Lista de Funcionários</a>
                             <a class="dropdown-item"  href="fichaFunc.jsp">Ficha de Funcionários</a>
                             <a class="dropdown-item"  href="incluirFuncionarioProjeto.jsp">Incluir Funcionários Em Projeto</a>
                         </div>

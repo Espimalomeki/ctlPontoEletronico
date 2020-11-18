@@ -80,15 +80,18 @@ public class AlertasEventosServlet extends HttpServlet {
                 divAlertas += ""
                         + "<div class='toast fade show' role='alert' aria-live='assertive' aria-atomic='true'>"
                         + "      <div class='toast-header'>"
-                        + "        <svg class='bd-placeholder-img rounded mr-2' width='20' height='20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img'><rect width='100%' height='100%' fill='#007aff'></rect></svg>"
-                        + "        <strong class='mr-auto'>"+listaArray.get(i).getNomeEvento()+"</strong>"
+                        + "        <svg width='20' height='20' viewBox='0 0 16 16' class='bi mr-2 bi-calendar3' fill='currentColor' xmlns='http://www.w3.org/2000/svg\'>"
+                        + "            <path fill-rule='evenodd' d='M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z'/>"
+                        + "            <path fill-rule='evenodd' d='M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z'/>"
+                        + "        </svg>"
+                        + "        <b class='mr-auto'>"+listaArray.get(i).getNomeEvento()+"</b>"
                         + "        <button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>"
                         + "          <span aria-hidden='true' style='font-size: 1rem;'>"+listaArray.get(i).getTipoEvento()+"</span>"
                         + "        </button>"
                         + "      </div>"
                         + "      <div class='toast-body'>"
                         + "        "+listaArray.get(i).getDescEvento()+"<br>"
-                        + "Inicio: "+listaArray.get(i).getDataInicial()+"  - Fim:" +listaArray.get(i).getDataFinal()
+                        + "Inicio: "+listaArray.get(i).getDataInicial()+"  - Fim: " +listaArray.get(i).getDataFinal()
                         + "      </div>"
                         + "    </div>";
             }
