@@ -1,13 +1,13 @@
 <%@page import="model.FuncionarioModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.FuncionarioDao"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" %>
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Calend√°rio - Portal Espimalomeki</title>
+        <title>Calend·rio - Portal Espimalomeki</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
@@ -17,6 +17,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/js/bootstrap-select.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/css/bootstrap-select.min.css" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="offcanvas.css" rel="stylesheet">
 
         <script>
             $(document).ready(function () {
@@ -30,7 +31,7 @@
         </header>
         <main role="main" class="container mt-100" >
 
-            <div class="col-md-8 order-md-1" style="margin-top:100px;">
+            <div class="col-md-8 order-md-1">
 
                 <div class="lh-100 mb-3">
                     <h4 class="mb-0 lh-100">
@@ -38,32 +39,32 @@
                         <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
                         <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
                         </svg>
-                        Criar novo evento de Calend√°rio
+                        Criar novo evento de Calend·rio
                     </h4>
                 </div>
 
                 <form class="validation" name="incluirEvento" action="<%=request.getContextPath()%>/IncluiEvento" method="post" novalidate>
                     <div class="mb-3">
-                        <label >T√≠tulo do Evento:</label>
+                        <label >TÌtulo do Evento:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="nomeEvento" placeholder="t√≠tulo do evento" required>
+                            <input type="text" class="form-control" name="nomeEvento" placeholder="tÌtulo do evento" required>
                             <div class="invalid-feedback" style="width: 100%;">
-                                O nome do evento √© requerido.
+                                O nome do evento È requerido.
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label >Descri√ß√£o do Evento:</label>
+                        <label >DescriÁ„o do Evento:</label>
                         <div class="input-group">
-                            <textarea class="form-control" name="descEvento" placeholder="descri√ß√£o do evento (max: 100 caracteres)"></textarea>
+                            <textarea class="form-control" name="descEvento" placeholder="descriÁ„o do evento (max: 100 caracteres)"></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label >Data/hora de In√≠cio</label>
+                        <label >Data/hora de InÌcio</label>
                         <div class="input-group">
                             <input type="datetime-local" class="form-control" name="dtInicio">
                             <div class="invalid-feedback" style="width: 100%;">
-                                A data/hora de in√≠cio √© requerida.
+                                A data/hora de inÌcio È requerida.
                             </div>
                         </div>
                     </div>
@@ -72,7 +73,7 @@
                         <div class="input-group">
                             <input type="datetime-local" class="form-control" name="dtFim">
                             <div class="invalid-feedback" style="width: 100%;">
-                                A data/hora de fim √© requerida.
+                                A data/hora de fim È requerida.
                             </div>
                         </div>
                     </div>
@@ -80,7 +81,7 @@
                         <label>Tipo de Evento:</label>
                         <select name="tipoEvento" class="form-control" id="tipoEvento">
                             <option value="">--Selecione o tipo de evento--</option>
-                            <option value="reuniao">Reuni√£o</option>
+                            <option value="reuniao">Reuni„o</option>
                             <option value="meetup">Meetup</option>
                             <option value="treinamento">Treinamento</option>
                         </select>  

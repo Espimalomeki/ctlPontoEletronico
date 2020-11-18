@@ -46,8 +46,8 @@
 
                         document.getElementById("modalTitle").textContent = "Evento: " + eventObj.title;
                         document.getElementById("descModal").textContent = eventObj.display;
-                        document.getElementById("dtInicioModal").textContent = eventObj.start;
-                        document.getElementById("dtFinalModal").textContent = eventObj.end;
+                        document.getElementById("dtInicioModal").textContent = eventObj.start.toLocaleString();
+                        document.getElementById("dtFinalModal").textContent = eventObj.end.toLocaleString();
                         
                         let e = eventObj.startEditable;
                         editableButton(e);
@@ -95,7 +95,7 @@
                 margin: 20px auto;
                 padding: 0 10px;
             }
-            .cabecalho{ margin-top: 60px;}
+            .cabecalho{ margin-top: 20px;}
         </style>
     </head>
     <body class="bg-light">
