@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Editar Departamento - Portal Espimalomeki</title>
+        <title>Editar Projeto - Portal Espimalomeki</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
 

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Pagina Inicial - Portal Espimalomeki</title>
+        <title>Alocação de Horas - Portal Espimalomeki</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
