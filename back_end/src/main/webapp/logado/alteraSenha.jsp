@@ -51,7 +51,7 @@
 
                 <h4 class="mb-3">Dados:</h4>
 
-                <form class="validation" name="alterarSenha" action="<%=request.getContextPath()%>/AlterarSenha" method="POST" novalidate>
+                <form class="validation" name="alterarSenha" action="<%=request.getContextPath()%>/AlterarSenha" method="POST">
                     
                     <div class="mb-3">
                         <label>numMatricula</label>
@@ -63,7 +63,7 @@
                     <div class="mb-3">
                         <label >Senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" name="senha">
+                            <input type="password" class="form-control" name="senha" required>
                             <div class="invalid-feedback" style="width: 100%;">
                                 A senha de funcionario é requerido.
                             </div>

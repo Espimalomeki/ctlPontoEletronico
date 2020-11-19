@@ -1,51 +1,18 @@
 <%@page import="model.DepartamentoModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.DepartamentoDao"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" %>
 <!DOCTYPE html>
 
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Cadastrar funcion√°rio - Portal Espimalomeki</title>
+        <title>Cadastrar funcion·rio - Portal Espimalomeki</title>
 
-        <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
-
-        <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-        <!-- Favicons -->
-        <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-        <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-        <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-        <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
-        <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-        <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
-        <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
-        <meta name="theme-color" content="#563d7c">
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-        </style>
         <!-- Custom styles for this template -->
         <link href="form-validation.css" rel="stylesheet">
         <link href="offcanvas.css" rel="stylesheet">
@@ -65,13 +32,13 @@
 
                 <h4 class="mb-3">Dados Pessoais</h4>
 
-                <form class="validation" name="registrarFunc" action="<%=request.getContextPath()%>/CadastraFuncionario" method="post" novalidate>
+                <form class="validation" name="registrarFunc" action="<%=request.getContextPath()%>/CadastraFuncionario" method="post">
                     <div class="mb-3">
                         <label>Nome Completo:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="nome" placeholder="nome do funcion√°rio" required>
+                            <input type="text" class="form-control" name="nome" placeholder="nome do funcion·rio" required>
                             <div class="invalid-feedback" style="width: 100%;">
-                                O nome √© requirido.
+                                O nome È requirido.
                             </div>
                         </div>
                     </div>
@@ -82,9 +49,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">#</span>
                             </div>
-                            <input type="text" class="form-control" name="cpf" placeholder="CPF" maxlength="11" required>
+                            <input type="text" class="form-control" name="cpf" placeholder="CPF" maxlength="14" onkeypress="MascaraCPF(registrarFunc.cpf);" required>
                             <div class="invalid-feedback" style="width: 100%;">
-                                CPF √© requerido.
+                                CPF È requerido.
                             </div>
                         </div>
                     </div>
@@ -99,7 +66,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" name="nomeCodId" placeholder="Documento de Identidade" required>
                             <div class="invalid-feedback" style="width: 100%;">
-                                Documento de Identidade √© requerido.
+                                Documento de Identidade È requerido.
                             </div>
                         </div>
                     </div>
@@ -108,12 +75,12 @@
                         <label for="email">Email:</label>
                         <input type="email" class="form-control" name="email" placeholder="funcionario@espimalomeki.com">
                         <div class="invalid-feedback">
-                            Por favor insira um email v√°lido.
+                            Por favor insira um email v·lido.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label>Data de nasicmento : </label>
+                        <label>Data de nascimento: </label>
                         <input type="date" class="form-control" name="dataNascimento" placeholder="01/01/2000">
                     </div>
 
@@ -121,15 +88,15 @@
                         <label>Telefone:</label><br>
                         <input type="text" class="form-control" name="telefone" placeholder="(55) 99002-8922" onkeypress="$(this).mask('(00) 00000-0009')">
                         <div class="invalid-feedback">
-                            Por favor insira um telefone v√°lido.
+                            Por favor insira um telefone v·lido.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label>Conta banc√°ria:</label><br>
+                        <label>Conta banc·ria:</label><br>
                         <input type="text" class="form-control" name="contaBancaria" placeholder="Ag**** Conta*****">
                         <div class="invalid-feedback">
-                            Por favor insira uma conta banc√°ria.
+                            Por favor insira uma conta banc·ria.
                         </div>
                     </div>
 
@@ -147,14 +114,14 @@
                     </div>
 
                     <hr class="mb-4">
-                    <h4 class="mb-3">Endere√ßo do funcion√°rio</h4>
+                    <h4 class="mb-3">EndereÁo do funcion·rio</h4>
 
                     <div class="mb-3">
-                        <label>Endere√ßo:</label>
+                        <label>EndereÁo:</label>
                         <div class="input-group">
                             <input type="text" name="endereco" class="form-control" placeholder="Rua exemplo 111" required><br>
                             <div class="invalid-feedback" style="width: 100%;">
-                                O endere√ßo √© requirido.
+                                O endereÁo È requirido.
                             </div>
                         </div>
                     </div>
@@ -172,22 +139,35 @@
                     <h4 class="mb-3">Dados Profissionais</h4>
 
                     <div class="mb-3">
-                        <label>Data de admiss√£o:</label>
+                        <label>Data de admiss„o:</label>
                         <input type=date class="form-control" name="dataAdmissao" placeholder="10/01/2010" >
                     </div>
 
                     <div class="mb-3">
                         <label>Cargo:</label>
                         <select name="cargo" class="form-control" id="cargo">
-                            <option value="Engenheiro de Software Jr.">Engenheiro de Software Jr.</option>
-                            <option value="Engenheiro de Software Pl.">Engenheiro de Software Pl.</option>
-                            <option value="Engenheiro de Software Sr.">Engenheiro de Software Sr.</option>
-                            <option value="Analista de Software Jr.">Analista de Software Jr.</option>
-                            <option value="Analista de Software Pl.">Analista de Software Pl.</option>
-                            <option value="Analista de Software Sr.">Analista de Software Sr.</option>
+                            <option value="">-- Selecionar Cargo --</option>
+                            <option value="Analista de Marketing Digital Jr.">Analista de Marketing Digital Jr.</option>
+                            <option value="Analista de Marketing Digital Pl.">Analista de Marketing Digital Pl.</option>
+                            <option value="Analista de Marketing Digital Sr.">Analista de Marketing Digital Sr.</option>
+                            <option value="Analista de Negocios Jr.">Analista de NegÛcios Jr.</option>
+                            <option value="Analista de Negocios Pl.">Analista de NegÛcios Pl.</option>
+                            <option value="Analista de Negocios Sr.">Analista de NegÛcios Sr.</option>
                             <option value="Analista de Recursos Humanos Jr.">Analista de Recursos Humanos Jr.</option>
                             <option value="Analista de Recursos Humanos Pl.">Analista de Recursos Humanos Pl.</option>
                             <option value="Analista de Recursos Humanos Sr.">Analista de Recursos Humanos Sr.</option>
+                            <option value="Analista de Software Jr.">Analista de Software Jr.</option>
+                            <option value="Analista de Software Pl.">Analista de Software Pl.</option>
+                            <option value="Analista de Software Sr.">Analista de Software Sr.</option>
+                            <option value="Coordenador Jr.">Coordenador Jr.</option>
+                            <option value="Coordenador Pl.">Coordenador Pl.</option>
+                            <option value="Coordenador Sr.">Coordenador Sr.</option>
+                            <option value="Designer Jr.">Designer Jr.</option>
+                            <option value="Designer Pl.">Designer Pl.</option>
+                            <option value="Designer Sr.">Designer Sr.</option>
+                            <option value="Engenheiro de Software Jr.">Engenheiro de Software Jr.</option>
+                            <option value="Engenheiro de Software Pl.">Engenheiro de Software Pl.</option>
+                            <option value="Engenheiro de Software Sr.">Engenheiro de Software Sr.</option>
                             <option value="Gerente de Projetos Jr.">Gerente de projetos Jr.</option>
                             <option value="Gerente de Projetos Pl.">Gerente de projetos Pl.</option>
                             <option value="Gerente de Projetos Sr.">Gerente de projetos Sr.</option>
@@ -205,12 +185,12 @@
                                 for (int i = 0; i < sizeLista; i++) {
                             %>                           
                             <option value="<%=listaArray.get(i).getCodDepto()%>"><%=listaArray.get(i).getCodDepto()%> - <%=listaArray.get(i).getNomeDepto()%></option>
-                            <% } %>
+                            <% }%>
                         </select>                    
                     </div>
-                    
+
                     <div class="mb-3">
-                        <label>Carga Hor√°ria:</label>
+                        <label>Carga Hor·ria:</label>
                         <select name="cargaHoraria" class="form-control" id="cargaHoraria">
                             <option value="180">180 horas mensais</option>
                             <option value="220">220 horas mensais</option>
@@ -228,7 +208,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label>Perfil de Permiss√£o:</label>
+                        <label>Perfil de Permiss„o:</label>
                         <select name="permissao" class="form-control" id="permissao">
                             <option value="demais">Demais Funcionarios</option>
                             <option value="RH">RH</option>
@@ -238,7 +218,7 @@
 
                     <hr class="mb-4">
 
-                    <button class="btn btn-primary btn-lg" type="submit" name="enviar" value="Enviar">Cadastrar Funcion√°rio</button>
+                    <button class="btn btn-primary btn-lg" type="submit" name="enviar" value="Enviar">Cadastrar Funcion·rio</button>
 
                 </form>
             </div>
@@ -248,57 +228,57 @@
         </footer>
     </body>
     <script>
-        function mascara(i, t) {
 
-            var v = i.value;
-
-            if (isNaN(v[v.length - 1])) {
-                i.value = v.substring(0, v.length - 1);
-                return;
+        //adiciona mascara ao CPF
+        function MascaraCPF(cpf) {
+            if (mascaraInteiro(cpf) == false) {
+                event.returnValue = false;
             }
+            return formataCampo(cpf, '000.000.000-00', event);
+        }
 
-            if (t == "data") {
-                i.setAttribute("maxlength", "10");
-                if (v.length == 2 || v.length == 5)
-                    i.value += "/";
+        //valida numero inteiro com mascara
+        function mascaraInteiro() {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                event.returnValue = false;
+                return false;
             }
+            return true;
+        }
 
-            if (t == "cpf") {
-                i.setAttribute("maxlength", "14");
-                if (v.length == 3 || v.length == 7)
-                    i.value += ".";
-                if (v.length == 11)
-                    i.value += "-";
-            }
+        function formataCampo(campo, Mascara, evento) {
+            var boleanoMascara;
 
-            if (t == "cnpj") {
-                i.setAttribute("maxlength", "18");
-                if (v.length == 2 || v.length == 6)
-                    i.value += ".";
-                if (v.length == 10)
-                    i.value += "/";
-                if (v.length == 15)
-                    i.value += "-";
-            }
+            var Digitato = evento.keyCode;
+            exp = /\-|\.|\/|\(|\)| /g
+            campoSoNumeros = campo.value.toString().replace(exp, "");
 
-            if (t == "cep") {
-                i.setAttribute("maxlength", "9");
-                if (v.length == 5)
-                    i.value += "-";
-            }
+            var posicaoCampo = 0;
+            var NovoValorCampo = "";
+            var TamanhoMascara = campoSoNumeros.length;
+            ;
 
-            if (t == "tel") {
-                if (v[0] == 9) {
-                    i.setAttribute("maxlength", "10");
-                    if (v.length == 5)
-                        i.value += "-";
-                } else {
-                    i.setAttribute("maxlength", "9");
-                    if (v.length == 4)
-                        i.value += "-";
+            if (Digitato != 8) { // backspace 
+                for (i = 0; i <= TamanhoMascara; i++) {
+                    boleanoMascara = ((Mascara.charAt(i) == "-") || (Mascara.charAt(i) == ".")
+                            || (Mascara.charAt(i) == "/"))
+                    boleanoMascara = boleanoMascara || ((Mascara.charAt(i) == "(")
+                            || (Mascara.charAt(i) == ")") || (Mascara.charAt(i) == " "))
+                    if (boleanoMascara) {
+                        NovoValorCampo += Mascara.charAt(i);
+                        TamanhoMascara++;
+                    } else {
+                        NovoValorCampo += campoSoNumeros.charAt(posicaoCampo);
+                        posicaoCampo++;
+                    }
                 }
+                campo.value = NovoValorCampo;
+                return true;
+            } else {
+                return true;
             }
         }
+
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

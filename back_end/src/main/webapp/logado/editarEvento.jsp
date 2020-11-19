@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Calendário - Portal Espimalomeki</title>
+        <title>Editar Evento - Portal Espimalomeki</title>
         <link href='../resources/fullcalendar/lib/main.css' rel='stylesheet' />
         <script src='../resources/fullcalendar/lib/main.js'></script>
         <script src='../resources/fullcalendar/lib/locales-all.js'></script>
