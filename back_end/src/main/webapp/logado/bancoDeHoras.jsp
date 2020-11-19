@@ -15,7 +15,6 @@
         <meta charset="utf-8">
         <title>Pagina Inicial - Portal Espimalomeki</title>
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
@@ -23,8 +22,6 @@
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
-        <!-- Bootstrap core CSS -->
-        <!--        <script src="http://code.jquery.com/jquery-latest.js"></script>-->
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">

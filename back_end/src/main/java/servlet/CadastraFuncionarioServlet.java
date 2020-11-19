@@ -41,7 +41,7 @@ public class CadastraFuncionarioServlet extends HttpServlet {
         func.setCodDepto(Integer.parseInt(request.getParameter("departamento")));
 
         if (funcDao.incluirFuncionario(func)) {
-            response.sendRedirect("logado/listaFuncionariosDepartamento.jsp");
+            response.sendRedirect("logado/listaTodosFuncionarios.jsp");
         } else {
             response.sendRedirect("logado/cadastrarFuncionario.jsp");
         }

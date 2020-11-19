@@ -4,14 +4,14 @@
 <%@page import="model.DepartamentoModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.DepartamentoDao"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" %>
 <!DOCTYPE html>
 
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Editar Funcion√°rio - Portal Espimalomeki</title>
+        <title>Editar Funcion·rio - Portal Espimalomeki</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
 
@@ -22,6 +22,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
+        <link href="offcanvas.css" rel="stylesheet">
+        
         <style>
             .mt-100{ margin-top: 6rem!important }
         </style>
@@ -42,15 +44,15 @@
 
             <div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm mt-100">
                 <div class="lh-100">
-                    <h3>Editar Funcion√°rio </h3>
+                    <h3>Editar Funcion·rio </h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">
-                    <h5>Desligamento de Funcion√°rio</h5>  
+                    <h5>Desligamento de Funcion·rio</h5>  
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between">
-                            <button class="btn btn-danger btn-md" id="btnDesligar">Desligar Funcion√°rio</button>
+                            <button class="btn btn-danger btn-md" id="btnDesligar">Desligar Funcion·rio</button>
                         </li>
                     </ul>
                 </div>
@@ -60,7 +62,7 @@
 
                     <form class="validation" name="editaFunc" action="<%=request.getContextPath()%>/EditarFuncionario" method="post" novalidate>
                         <div class="mb-3">
-                            <label>N√∫mero de Matr√≠cula:</label>
+                            <label>N˙mero de MatrÌcula:</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="numMatricula" value="<%=func.getNumMatricula()%>" readonly>
                             </div>
@@ -71,7 +73,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="nome" value="<%=func.getNome()%>" required>
                                 <div class="invalid-feedback" style="width: 100%;">
-                                    O nome √© requerido.
+                                    O nome È requerido.
                                 </div>
                             </div>
                         </div>
@@ -84,7 +86,7 @@
                                 </div>
                                 <input type="text" class="form-control" name="cpf" value="<%=func.getCpf()%>" maxlength="11" readonly>
                                 <div class="invalid-feedback" style="width: 100%;">
-                                    CPF √© requerido.
+                                    CPF È requerido.
                                 </div>
                             </div>
                         </div>
@@ -98,7 +100,7 @@
                             <label for="email">Email:</label>
                             <input type="email" class="form-control" name="email" value="<%=func.getEmail()%>">
                             <div class="invalid-feedback">
-                                Por favor insira um email v√°lido.
+                                Por favor insira um email v·lido.
                             </div>
                         </div>
 
@@ -111,15 +113,15 @@
                             <label>Telefone:</label><br>
                             <input type="text" class="form-control" name="telefone" value="<%=func.getTelefone()%>" onkeypress="$(this).mask('(00) 00000-0009')">
                             <div class="invalid-feedback">
-                                Por favor insira um telefone v√°lido.
+                                Por favor insira um telefone v·lido.
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label>Conta banc√°ria:</label><br>
+                            <label>Conta banc·ria:</label><br>
                             <input type="text" class="form-control" name="contaBancaria" value="<%=func.getContaBancaria()%>">
                             <div class="invalid-feedback">
-                                Por favor insira uma conta banc√°ria.
+                                Por favor insira uma conta banc·ria.
                             </div>
                         </div>
 
@@ -137,14 +139,14 @@
                         </div>
 
                         <hr class="mb-4">
-                        <h4 class="mb-3">Endere√ßo do funcion√°rio</h4>
+                        <h4 class="mb-3">EndereÁo do funcion·rio</h4>
 
                         <div class="mb-3">
-                            <label>Endere√ßo:</label>
+                            <label>EndereÁo:</label>
                             <div class="input-group">
                                 <input type="text" name="endereco" class="form-control" value="<%=func.getEndereco()%>" required><br>
                                 <div class="invalid-feedback" style="width: 100%;">
-                                    O endere√ßo √© requirido.
+                                    O endereÁo È requirido.
                                 </div>
                             </div>
                         </div>
@@ -162,16 +164,19 @@
                         <h4 class="mb-3">Dados Profissionais</h4>
 
                         <div class="mb-3">
-                            <label>Data de admiss√£o:</label>
+                            <label>Data de admiss„o:</label>
                             <input type=date class="form-control" name="dataAdmissao" value="<%=func.getDataAdmissao()%>">
                         </div>
 
                         <div class="mb-3">
                             <label>Cargo:</label>
                             <select name="cargo" class="form-control" id="cargo" value="<%=func.getCargo()%>">
-                                <option value="Analista de Negocios Jr.">Analista de Neg√≥cios Jr.</option>
-                                <option value="Analista de Negocios Pl.">Analista de Neg√≥cios Pl.</option>
-                                <option value="Analista de Negocios Sr.">Analista de Neg√≥cios Sr.</option>
+                                <option value="Analista de Marketing Digital Jr.">Analista de Marketing Digital Jr.</option>
+                                <option value="Analista de Marketing Digital Pl.">Analista de Marketing Digital Pl.</option>
+                                <option value="Analista de Marketing Digital Sr.">Analista de Marketing Digital Sr.</option>
+                                <option value="Analista de Negocios Jr.">Analista de NegÛcios Jr.</option>
+                                <option value="Analista de Negocios Pl.">Analista de NegÛcios Pl.</option>
+                                <option value="Analista de Negocios Sr.">Analista de NegÛcios Sr.</option>
                                 <option value="Analista de Recursos Humanos Jr.">Analista de Recursos Humanos Jr.</option>
                                 <option value="Analista de Recursos Humanos Pl.">Analista de Recursos Humanos Pl.</option>
                                 <option value="Analista de Recursos Humanos Sr.">Analista de Recursos Humanos Sr.</option>
@@ -179,8 +184,8 @@
                                 <option value="Analista de Software Pl.">Analista de Software Pl.</option>
                                 <option value="Analista de Software Sr.">Analista de Software Sr.</option>
                                 <option value="Coordenador Jr.">Coordenador Jr.</option>
-                                <option value="Coordenador Pl.">Coordenador Jr.</option>
-                                <option value="Coordenador Sr.">Coordenador Jr.</option>
+                                <option value="Coordenador Pl.">Coordenador Pl.</option>
+                                <option value="Coordenador Sr.">Coordenador Sr.</option>
                                 <option value="Designer Jr.">Designer Jr.</option>
                                 <option value="Designer Pl.">Designer Pl.</option>
                                 <option value="Designer Sr.">Designer Sr.</option>
@@ -209,7 +214,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label>Carga Hor√°ria:</label>
+                            <label>Carga Hor·ria:</label>
                             <select name="cargaHoraria" class="form-control" id="cargaHoraria">
                                 <option value="<%=func.getCargaHoraria()%>"><%=func.getCargaHoraria()%> horas mensais</option>
                                 <option value="180">180 horas mensais</option>
@@ -228,7 +233,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label>Perfil de Permiss√£o:</label>
+                            <label>Perfil de Permiss„o:</label>
                             <select name="permissao" class="form-control" id="permissao">
                                 <option value="<%=func.getPermissao()%>"><%=func.getPermissao()%></option>
                                 <option value="demais">Demais Funcionarios</option>
@@ -239,7 +244,7 @@
 
                         <hr class="mb-4">
 
-                        <button class="btn btn-primary btn-lg" type="submit" name="enviar" value="Enviar">Editar Funcion√°rio</button>
+                        <button class="btn btn-primary btn-lg" type="submit" name="enviar" value="Enviar">Editar Funcion·rio</button>
 
                     </form>
                 </div>    
@@ -248,23 +253,23 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Desligamento de Funcion√°rio?</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Desligamento de Funcion·rio?</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p class="text-danger">Aten√ß√£o! O desligamento de funcion√°rio √© irrevers√≠vel. Para efetivar a a√ß√£o √© necess√°rio a utiliza√ß√£o da senha.</p>
+                            <p class="text-danger">AtenÁ„o! O desligamento de funcion·rio È irreversÌvel. Para efetivar a aÁ„o È necess·rio a utilizaÁ„o da senha.</p>
                             <p id="textModalDeslig"></p>
 
                             <p id="resposta"></p>
-                            
+
                             <form class="form-senha" name="form-senha" method="post" action="../DesligarFuncionario">
                                 <input type="text" class="form-control" name="numMatriculaFunc" id="numMatriculaFunc" readonly value="<%=func.getNumMatricula()%>"></input>
 
                                 <hr class="mb-2">
 
-                                <label>Para esta a√ß√£o, digite sua senha:</label> 
+                                <label>Para esta aÁ„o, digite sua senha:</label> 
                                 <input type="password" id="inputSenha" class="form-control" name="password" placeholder="Senha" required>
 
                                 <div class="modal-footer">
@@ -287,7 +292,7 @@
         document.getElementById('btnDesligar').onclick = function () {
             var nome = "<%=func.getNome()%>";
             document.getElementById("numMatriculaFunc").textContent = numMatriculaFunc;
-            document.getElementById("textModalDeslig").textContent = "Tem certeza que deseja desligar o funcion√°rio: " + nome + "?";
+            document.getElementById("textModalDeslig").textContent = "Tem certeza que deseja desligar o funcion·rio: " + nome + "?";
             document.getElementById("btnConfirmaDeslig").href = "<%=request.getContextPath()%>/DesligarFuncionario?id=";
             $('#modalConfirmaDeslig').modal('show');
         }
