@@ -102,14 +102,6 @@
                         </tr>
                     </thead>
                     <tbody id="lista">
-<!--                        <tr>
-                            <td>365</td>
-                            <td>Sistema de modulos Integrado Sistéc</td>
-                            <td>90H</td>
-                            <td class="text-warning">Em Andamento</td>                            
-                            <td class="">1500H</td>
-                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Inserir Hora</button></td>
-                        </tr>-->
                         
                     </tbody>
                 </table>
@@ -187,7 +179,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="validationTooltipUsernamePrepend">Cod Prj.</span>
+                                        <span class="input-group-text" id="validationTooltipUsernamePrepend">Cód. Projeto:</span>
                                     </div>
                                     <input id="codProj" value="`+codProj+`" type="text" class="form-control" id="validationTooltipUsername" placeholder="`+codProj+`" disabled="">
                                 </div>
@@ -195,7 +187,7 @@
                             <div class="col-6">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="validationTooltipUsernamePrepend">Descrição.</span>
+                                        <span class="input-group-text" id="validationTooltipUsernamePrepend">Descrição:</span>
                                     </div>
                                     <input type="text" class="form-control" id="validationTooltipUsername" placeholder="`+nomeProj+`" disabled="">
                                 </div>
@@ -204,7 +196,7 @@
                             <div class="col-4 mt-2">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="validationTooltipUsernamePrepend">Horas de Prj</span>
+                                        <span class="input-group-text" id="validationTooltipUsernamePrepend">Horas Projeto:</span>
                                     </div>
                                     <input id="horasAlocadas" type="time" class="form-control"  required="">
                                 </div>

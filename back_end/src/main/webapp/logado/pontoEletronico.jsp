@@ -110,12 +110,7 @@
                                     <input type="checkbox" name="homeOffice" value="true" class="form-check-input" id="homeOff">
                                     <label class="form-check-label" for="exampleCheck1">Está em Homeoffice?</label>
                                 </div>
-
                                 <button id="registraPonto" class="btn btn-primary" value=""> Registrar Ponto </button>
-                                <!--            <button class="btn btn-primary" onclick="inserePonto()"> Registrar batida de ponto</button>-->
-                                <!--            <a href="#" class="btn btn-primary">Registrar batida de ponto</a>-->
-                            
-
                         </div>
                     </div>
                 </div>
@@ -133,7 +128,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Total de horas trabalhadas hoje</h5>
-                            <h3 class="card-title">Breve</h3>
+                            <h3 class="card-title" id="horasHoje">
+                                
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -160,7 +157,6 @@
                             <th>Duração do intervalo</th>                                                      
                             <th><center>Saí­da</center></th>
                             <th>Homeoffice</th>
-                            <th>Motivo de Ajuste</th>
                         </tr>
                     </thead>
                     <tbody id="listaPontosEletronicos">
@@ -307,10 +303,13 @@
             let listaPontosEletronicos = document.getElementById("listaPontosEletronicos");
             let pontoHoje = document.getElementById("pontoHoje");
             let spinner = document.getElementById("spinner");
+            let horasHoje = document.getElementById("horasHoje");
             
             window.addEventListener("load",()=>{
                 var xhrLista = new XMLHttpRequest();
                 var xhrPontoHoje = new XMLHttpRequest();
+                var xhrHorasHoje = new XMLHttpRequest();
+                
                 xhrLista.open("GET", "../CarregaListaPontosEletronicosServlet", true);
                 xhrLista.onload = function (e) {
                     if (xhrLista.readyState === 4) {
@@ -342,6 +341,21 @@
                     console.error(xhr.statusText);
                 };
                 xhrPontoHoje.send(null);
+                
+                xhrHorasHoje.open("GET", "../HorasPontoDeHojeServlet", true);
+                xhrHorasHoje.onload = function (e) {
+                    if (xhrHorasHoje.readyState === 4) {
+                        if (xhrHorasHoje.status === 200) {      
+                            horasHoje.innerHTML = xhrHorasHoje.responseText;
+                        } else {
+                            horasHoje.innerHTML = xhrHorasHoje.responseText;
+                        }
+                    }
+                };
+                xhrHorasHoje.onerror = function (e) {
+                    console.error(xhr.statusText);
+                };
+                xhrHorasHoje.send(null);
                 
             });
             

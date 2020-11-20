@@ -44,7 +44,7 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
-            
+
             .loader {
                 border: 16px solid #f3f3f3; /* Light grey */
                 border-top: 16px solid #3498db; /* Blue */
@@ -53,6 +53,11 @@
                 width: 20px;
                 height: 20px;
                 animation: spin 2s linear infinite;
+            }
+
+            .linha{
+                width: 95%;
+                margin: 0 auto;
             }
             
             @keyframes spin {
@@ -85,7 +90,7 @@
         </header>
 
         <main role="main" class="">
-            <div class="row">
+            <div class="row linha">
                 <div class="col-6 pl-5">
                     <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-primary rounded shadow-sm">
                         <div class="lh-100">
@@ -93,10 +98,20 @@
                                 <span>Lista de Funcionários</span>
                                 <%
                                     int codDepto = Integer.parseInt(session.getAttribute("codDepto").toString());
-                                    
+
                                     FuncionarioDao listaFunc = new FuncionarioDao();
                                     ArrayList<FuncionarioModel> listaArray = listaFunc.listaFuncDepto(codDepto);
                                     int totalfunc = listaFunc.listaFuncDepto(codDepto).size();
+
+                                    String query = request.getParameter("queryText");
+                                    if (query != null) {
+                                        listaArray = listaFunc.listaFiltroDepto(query, codDepto);
+                                        totalfunc = listaFunc.listaFiltroDepto(query, codDepto).size();
+                                    } else {
+                                        listaArray = listaFunc.listaFuncDepto(codDepto);
+                                        totalfunc = listaFunc.listaFuncDepto(codDepto).size();
+                                    }
+
                                 %>
                                 <span class="badge badge-secondary badge-pill"><%= totalfunc%></span>
                             </h4>
@@ -104,9 +119,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 order-md-2 mb-4">
-                            <form class="card p-0">
+                            <form class="card p-0" method="POST" action="">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Pesquisar por nome">
+                                    <input type="text" class="form-control" name="queryText" placeholder="Pesquisar por nome..">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-secondary">Pesquisar</button>
                                     </div>
@@ -136,9 +151,9 @@
                                         resulString
                                                 += "<tr>"
                                                 + "<td>" + numM + "</td>"
-                                                + "<td id='nome"+numM+"' value='"+nome+"'>" + nome + "</td>"
+                                                + "<td id='nome" + numM + "' value='" + nome + "'>" + nome + "</td>"
                                                 + "<td>" + listaArray.get(i).getCargo() + "</td>"
-                                                + "<td><center><button class='btn btn-primary btn-banco' id='numM' value="+numM+" onclick='incluirFuncionario("+numM+")'>Incluir</button></center></td>"
+                                                + "<td><center><button class='btn btn-primary btn-banco' id='numM' value=" + numM + " onclick='incluirFuncionario(" + numM + ")'>Incluir</button></center></td>"
                                                 + "</tr>";
                                     }
                                     out.print(resulString);
@@ -188,7 +203,7 @@
             <script>
                 let selecionarProj = document.getElementById("selecionarProj");
                 let spinner = document.getElementById("spinner");
-                
+
                 window.addEventListener("load", () => {
                     var xhrLista = new XMLHttpRequest();
                     xhrLista.open("GET", "../ListaProjetosServlet", true);
@@ -197,29 +212,29 @@
                             if (xhrLista.status === 200) {
                                 spinner.style.display = "none";
                                 selecionarProj.innerHTML = xhrLista.responseText;
-                            } 
+                            }
                         }
                     };
                     xhrLista.send();
                 });
-                
-                
+
+
                 let listaFinal = {rgm: ""};
-                let rgms = []; 
-                
-                
-                selecionarProj.addEventListener("change",()=>{
+                let rgms = [];
+
+
+                selecionarProj.addEventListener("change", () => {
                     listaFinal["projeto"] = selecionarProj.value;
                     //alert(selecionarProj.value);
                 });
-                
-                                
-                function incluirFuncionario(numMatricula){
-                    if(rgms.indexOf(numMatricula) == -1){
-                        let nome = document.getElementById("nome"+numMatricula).textContent;
+
+
+                function incluirFuncionario(numMatricula) {
+                    if (rgms.indexOf(numMatricula) == -1) {
+                        let nome = document.getElementById("nome" + numMatricula).textContent;
                         let listaFuncProj = document.getElementById("listaFuncProj");
 
-                        listaFuncProj.innerHTML += "<li id='li"+numMatricula+"' class='list-group-item'>"+numMatricula+" - "+nome+"</li>";
+                        listaFuncProj.innerHTML += "<li id='li" + numMatricula + "' class='list-group-item'>" + numMatricula + " - " + nome + "</li>";
 
                         rgms.push(numMatricula);
 
@@ -227,25 +242,25 @@
                     }
                     console.log(listaFinal);
                 }
-                
-                function inserirDados(){
-                    var xhrIncluir = new XMLHttpRequest();
-                        xhrIncluir.open("POST", "../IncluirFuncEmProjetoServlet", true);
-                        xhrIncluir.onload = function (e) {
-                            if (xhrIncluir.readyState === 4) {
-                                if (xhrIncluir.status === 200) {
-                                    alert("Funcionario(S) Inseridos!");
-                                } 
-                            }
-                        };
 
-                        xhrIncluir.onerror = function (e) {
-                            console.error(xhrIncluir.statusText);
-                        };
-                        xhrIncluir.send(JSON.stringify(listaFinal));
+                function inserirDados() {
+                    var xhrIncluir = new XMLHttpRequest();
+                    xhrIncluir.open("POST", "../IncluirFuncEmProjetoServlet", true);
+                    xhrIncluir.onload = function (e) {
+                        if (xhrIncluir.readyState === 4) {
+                            if (xhrIncluir.status === 200) {
+                                alert("Funcionario(S) Inseridos!");
+                            }
+                        }
+                    };
+
+                    xhrIncluir.onerror = function (e) {
+                        console.error(xhrIncluir.statusText);
+                    };
+                    xhrIncluir.send(JSON.stringify(listaFinal));
                 }
-                
-                
+
+
             </script>
             <script type="text/javascript" src="scripts.js"></script>
             <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

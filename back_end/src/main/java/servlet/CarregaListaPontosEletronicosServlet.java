@@ -88,13 +88,7 @@ public class CarregaListaPontosEletronicosServlet extends HttpServlet {
                         + "<td id='hrIntervalo"+idPonto+"' class='pl-5'>"+listaArray.get(i).getTotalHrIntervalo()+"</td>"
                         + "<td id='hrSaida"+idPonto+"' ><center>"+listaArray.get(i).getHoraSaida()+"</center></td>"
                         + "<td id='hmOffice"+idPonto+"' class='pl-4'>"+listaArray.get(i).getHomeOffice()+"</td>"
-                        + "<td id='mt"+idPonto+"' ><small>"+listaArray.get(i).getMotivoAjuste()+"</small></td>";
-                if(funcao.equals("RH")){
-                    listaTr += "<td> <button class='btn btn-warning' id='btnEditar"+idPonto+"' onclick='modificarPonto("+idPonto+")'> Editar </button> </td>";
-                }
-                        
-                                
-                listaTr += "</tr>";
+                        + "</tr>";
             }
             response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
             response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
