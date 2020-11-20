@@ -74,7 +74,7 @@ public class PontoDeHojeServlet extends HttpServlet {
                     + "<p class='card-text'>Volta do intervalo: "+hrFimInt+"</p>"
                     + "<p class='card-text'>Saí­da: "+hrFim+"</p>";
         }else{
-            listaPontoAtual = "";
+            listaPontoAtual = "Não há batidas de ponto no dia de hoje!";
         }
         
         response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.

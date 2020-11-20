@@ -2,10 +2,13 @@ package servlet;
 
 import dao.BancoDeHorasDao;
 import dao.PontoEletronicoDao;
+import static dao.PontoEletronicoDao.completeToLeft;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -53,12 +56,56 @@ public class CarregaListaPontosBancoServlet extends HttpServlet {
 
             for (int i = 0; i < tamListaHr; i++) {
 
+                String res = "";
+                String horasPontoAtual = "";
+                String horasIntervaloAtual = "";
+                String hrFinal = "";
+                
+                SimpleDateFormat formatoHr = new SimpleDateFormat("HH:mm:ss");
+                
+                horasPontoAtual = listaHr.get(i).getQtdHorasTrabalhadas();
+                
+                String hrIniInt = (listaHr.get(i).getHoraInicioIntervalo() == null) ? "" : listaHr.get(i).getHoraInicioIntervalo();
+                String hrFimInt = (listaHr.get(i).getHoraFimIntervalo() == null) ? "" : listaHr.get(i).getHoraFimIntervalo();
+                
+            try {
+                horasIntervaloAtual = ptEletronico.calculaHoraIntervalo(hrIniInt, hrFimInt);
+                
+                Date hr1 = formatoHr.parse(horasPontoAtual);
+                Date hr2 = formatoHr.parse(horasIntervaloAtual);
+
+                long diff = hr1.getTime() - hr2.getTime();
+
+                String seconds = (diff / 1000 % 60) + "";
+                String minutes = (diff / (60 * 1000) % 60) + "";
+                String hours = (diff / (60 * 60 * 1000)) + "";
+
+                seconds = completeToLeft(seconds, '0', 2);
+                minutes = completeToLeft(minutes, '0', 2);
+                hours = completeToLeft(hours, '0', 2);
+
+                hrFinal = hours + ":" + minutes + ":" + seconds;
+
+                Date horasTrabalhadas = formatoHr.parse(hrFinal);
+                
+                long hrRes = horasTrabalhadas.getHours();
+
+                if (hrRes >= 8) {
+                    res = "<div style='color:green;'>" + hrFinal + "</div>";
+                } else {
+                    res = "<div style='color:red;'>" + hrFinal + "</div>";
+                }
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(CarregaListaPontosBancoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
                 listaResul += "<tr>"
                     + "<td>"+ listaHr.get(i).getHoraEntrada()+"</td>"
                     + "<td>"+ listaHr.get(i).getHoraInicioIntervalo()+"</td>"
                     + "<td>"+ listaHr.get(i).getHoraFimIntervalo()+"</td>"
                     + "<td>"+ listaHr.get(i).getHoraSaida() +"</td>"
-                    + "<td>"+ listaHr.get(i).getQtdHorasTrabalhadas() +"</td>"
+                    + "<td>"+ res +"</td>"
                 + "</tr>"; 
 
             }
@@ -89,13 +136,56 @@ public class CarregaListaPontosBancoServlet extends HttpServlet {
             String listaResul = "";
 
             for (int i = 0; i < tamListaHr; i++) {
+                String res = "";
+                String horasPontoAtual = "";
+                String horasIntervaloAtual = "";
+                String hrFinal = "";
+                
+                SimpleDateFormat formatoHr = new SimpleDateFormat("HH:mm:ss");
+                
+                horasPontoAtual = listaHr.get(i).getQtdHorasTrabalhadas();
+                
+                String hrIniInt = (listaHr.get(i).getHoraInicioIntervalo() == null) ? "" : listaHr.get(i).getHoraInicioIntervalo();
+                String hrFimInt = (listaHr.get(i).getHoraFimIntervalo() == null) ? "" : listaHr.get(i).getHoraFimIntervalo();
+                
+            try {
+                horasIntervaloAtual = ptEletronico.calculaHoraIntervalo(hrIniInt, hrFimInt);
+                
+                Date hr1 = formatoHr.parse(horasPontoAtual);
+                Date hr2 = formatoHr.parse(horasIntervaloAtual);
 
+                long diff = hr1.getTime() - hr2.getTime();
+
+                String seconds = (diff / 1000 % 60) + "";
+                String minutes = (diff / (60 * 1000) % 60) + "";
+                String hours = (diff / (60 * 60 * 1000)) + "";
+
+                seconds = completeToLeft(seconds, '0', 2);
+                minutes = completeToLeft(minutes, '0', 2);
+                hours = completeToLeft(hours, '0', 2);
+
+                hrFinal = hours + ":" + minutes + ":" + seconds;
+
+                Date horasTrabalhadas = formatoHr.parse(hrFinal);
+                
+                long hrRes = horasTrabalhadas.getHours();
+
+                if (hrRes >= 8) {
+                    res = "<div style='color:green;'>" + hrFinal + "</div>";
+                } else {
+                    res = "<div style='color:red;'>" + hrFinal + "</div>";
+                }
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(CarregaListaPontosBancoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
                 listaResul += "<tr>"
                     + "<td>"+ listaHr.get(i).getHoraEntrada()+"</td>"
                     + "<td>"+ listaHr.get(i).getHoraInicioIntervalo()+"</td>"
                     + "<td>"+ listaHr.get(i).getHoraFimIntervalo()+"</td>"
                     + "<td>"+ listaHr.get(i).getHoraSaida() +"</td>"
-                    + "<td>"+ listaHr.get(i).getQtdHorasTrabalhadas() +"</td>"
+                    + "<td>"+ res +"</td>"
                 + "</tr>"; 
 
             }

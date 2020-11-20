@@ -188,19 +188,6 @@
             
             let pontoHoje = document.getElementById("pontoHoje");
             let spinner = document.getElementById("spinner");
-            
-//            if(myParam != false){
-//                if('${sessionScope.perfil}' != "RH" || '${sessionScope.perfil}' != "gestor"){
-//                    setTimeout(function(){ 
-//                        window.location.href = "../index.jsp"
-//                        
-//                    }, 5000);
-//                    document.body.innerHTML = "<h1> Ce é folgado hein mano</h1>";
-//                    //document.body.innerHTML = "carai"
-//                }
-//            }
-            
-            
 
             window.addEventListener("load", () => {
                 if(myParam != false){
@@ -321,10 +308,6 @@
                 document.body.removeChild(element);
             }
             
-            // Start file download.
-            //download("hello.txt", "This is the content of my file :)");
-
-
             btnGeraRelatorio.addEventListener('click', () => {
 
                 var xhrGeraRelatorio = new XMLHttpRequest();

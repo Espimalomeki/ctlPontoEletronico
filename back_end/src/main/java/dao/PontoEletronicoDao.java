@@ -745,19 +745,7 @@ public class PontoEletronicoDao {
 
             String totalHoras = hours + ":" + minutes + ":" + seconds;
 
-            Date horasTrabalhadas = formatoHr.parse(totalHoras);
-
-            long hrRes = horasTrabalhadas.getHours();
-
-            String res = "";
-
-            if (hrRes >= 8) {
-                res = "<div style='color:green;'>" + totalHoras + "</div>";
-            } else {
-                res = "<div style='color:red;'>" + totalHoras + "</div>";
-            }
-
-            return res;
+            return totalHoras;
         } else {
             return " ";
         }
